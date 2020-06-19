@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework.boot:spring-boot-actuator-autoconfigure:2.2.2.RELEASE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-actuator-autoconfigure/2.2.2.RELEASE/eaabf82f2033353fc97804792195eb42d82b56e3/spring-boot-actuator-autoconfigure-2.2.2.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-actuator-autoconfigure/2.2.2.RELEASE/5c0ff34bbbc882727a77ef7c563bd37a0f78813b/spring-boot-actuator-autoconfigure-2.2.2.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

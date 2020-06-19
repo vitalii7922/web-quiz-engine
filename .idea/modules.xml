@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Web_Quiz_Engine.iml" filepath="$PROJECT_DIR$/.idea/modules/Web_Quiz_Engine.iml" group="Web_Quiz_Engine" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Web Quiz Engine/task/Web_Quiz_Engine-task.iml" filepath="$PROJECT_DIR$/.idea/modules/Web Quiz Engine/task/Web_Quiz_Engine-task.iml" group="Web_Quiz_Engine/Web_Quiz_Engine-task" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Web Quiz Engine/task/Web_Quiz_Engine-task_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Web Quiz Engine/task/Web_Quiz_Engine-task_main.iml" group="Web_Quiz_Engine/Web_Quiz_Engine-task" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Web Quiz Engine/task/Web_Quiz_Engine-task_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Web Quiz Engine/task/Web_Quiz_Engine-task_test.iml" group="Web_Quiz_Engine/Web_Quiz_Engine-task" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,444 @@
+type: edu
+custom_name: stage1
+files:
+- name: build.gradle
+  visible: true
+  text: |
+    plugins {
+        id 'org.springframework.boot' version '2.2.2.RELEASE'
+        id 'java'
+    }
+
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = '11'
+
+    repositories {
+        mavenCentral()
+    }
+
+    sourceSets.main.resources.srcDirs = ["src/resources"]
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        compile("org.springframework.boot:spring-boot-starter-web")
+    }
+  learner_created: false
+- name: src/engine/WebQuizEngine.java
+  visible: true
+  text: |
+    package engine;
+
+    import org.springframework.boot.SpringApplication;
+    import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+    @SpringBootApplication
+    public class WebQuizEngine {
+
+        public static void main(String[] args) {
+            SpringApplication.run(WebQuizEngine.class, args);
+        }
+
+    }
+  learner_created: false
+- name: src/resources/application.properties
+  visible: true
+  text: |
+    server.port=8889
+    management.endpoints.web.exposure.include=*
+    management.endpoint.shutdown.enabled=true
+  learner_created: false
+- name: test/tests/WebQuizEngineTest.java
+  visible: false
+  text: |
+    package tests;
+
+    import com.google.gson.JsonArray;
+    import com.google.gson.JsonElement;
+    import com.google.gson.JsonObject;
+    import engine.WebQuizEngine;
+    import org.hyperskill.hstest.dynamic.input.DynamicTesting;
+    import org.hyperskill.hstest.dynamic.input.DynamicTestingMethod;
+    import org.hyperskill.hstest.mocks.web.request.HttpRequest;
+    import org.hyperskill.hstest.stage.SpringTest;
+    import org.hyperskill.hstest.testcase.CheckResult;
+
+    import java.util.Map;
+
+    import static tests.ApiTester.checkArrayLength;
+    import static tests.ApiTester.checkBooleanValue;
+    import static tests.ApiTester.checkIsArray;
+    import static tests.ApiTester.checkIsBoolean;
+    import static tests.ApiTester.checkIsObject;
+    import static tests.ApiTester.checkIsString;
+    import static tests.ApiTester.checkObjectKey;
+    import static tests.TestHelper.checkStatusCode;
+    import static tests.TestHelper.getJson;
+
+    public class WebQuizEngineTest extends SpringTest {
+        public WebQuizEngineTest() {
+            super(WebQuizEngine.class, 8889);
+        }
+
+        @DynamicTestingMethod
+        DynamicTesting[] dt = new DynamicTesting[] {
+            this::checkQuizReceived,
+            () -> checkQuizSuccess("2", true),
+            () -> checkQuizSuccess("1", false)
+        };
+
+        private CheckResult checkQuizReceived() {
+            String url = "/api/quiz";
+            HttpResp resp = new HttpResp(get(url).send(), url, "GET");
+
+            checkStatusCode(resp, 200);
+            JsonElement json = getJson(resp);
+
+            checkIsObject(resp, json);
+            checkObjectKey(resp, json, "title");
+            checkObjectKey(resp, json, "text");
+            checkObjectKey(resp, json, "options");
+
+            JsonObject obj = json.getAsJsonObject();
+
+            checkIsString(resp, obj.get("title"), "title");
+            checkIsString(resp, obj.get("text"), "text");
+            checkIsArray(resp, obj.get("options"), "options");
+
+            JsonArray arr = obj.get("options").getAsJsonArray();
+            checkArrayLength(resp, arr, 4, "options");
+
+            checkIsString(resp, arr.get(0), "options[0]");
+            checkIsString(resp, arr.get(1), "options[1]");
+            checkIsString(resp, arr.get(2), "options[2]");
+            checkIsString(resp, arr.get(3), "options[3]");
+
+            return CheckResult.correct();
+        }
+
+        private CheckResult checkQuizSuccess(String answerSent, boolean shouldResponse) {
+            String url = "/api/quiz";
+
+            HttpRequest req = post(url, Map.of("answer", answerSent));
+            HttpResp resp = new HttpResp(req.send(), url, "POST");
+
+            checkStatusCode(resp, 200);
+            JsonElement json = getJson(resp);
+
+            checkIsObject(resp, json);
+            checkObjectKey(resp, json, "success");
+            checkObjectKey(resp, json, "feedback");
+
+            JsonObject obj = json.getAsJsonObject();
+
+            checkIsBoolean(resp, obj.get("success"), "success");
+            checkIsString(resp, obj.get("feedback"), "feedback");
+
+            checkBooleanValue(resp, obj.get("success"), shouldResponse, "success");
+
+            return CheckResult.correct();
+        }
+    }
+  learner_created: false
+- name: test/tests/ApiTester.java
+  visible: false
+  text: |
+    package tests;
+
+    import com.google.gson.Gson;
+    import com.google.gson.GsonBuilder;
+    import com.google.gson.JsonElement;
+    import org.hyperskill.hstest.exception.outcomes.WrongAnswer;
+
+    import static java.lang.Math.abs;
+
+    public class ApiTester {
+
+        private static void checkJson(
+            boolean passed,
+            HttpResp resp,
+            JsonElement json,
+            String path,
+            String should) {
+
+            if (!passed) {
+                if (path.length() != 0) {
+                    path = " in the JSON in path \"" + path + "\"";
+                }
+                throw new WrongAnswer(
+                    resp.getRequest() + " should " + should + path +
+                        ".\nFound: \n\n" + getPrettyJson(json)
+                );
+            }
+        }
+
+        static String getPrettyJson(JsonElement json) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            return gson.toJson(json);
+        }
+
+
+        // ========== Object
+
+        static void checkIsObject(HttpResp resp, JsonElement json) {
+            checkIsObject(resp, json, "");
+        }
+
+        static void checkIsObject(HttpResp resp, JsonElement json, String path) {
+            checkJson(json.isJsonObject(), resp, json, path, "contain a JSON object");
+        }
+
+
+        // ========== Array
+
+        static void checkIsArray(HttpResp resp, JsonElement json) {
+            checkIsArray(resp, json, "");
+        }
+
+        static void checkIsArray(HttpResp resp, JsonElement json, String path) {
+            checkJson(json.isJsonArray(), resp, json, path, "contain a JSON array");
+        }
+
+
+        // ========== Null
+
+        static void checkIsNull(HttpResp resp, JsonElement json) {
+            checkIsNull(resp, json, "");
+        }
+
+        static void checkIsNull(HttpResp resp, JsonElement json, String path) {
+            checkJson(json.isJsonNull(), resp, json, path, "be equal to a null");
+        }
+
+
+        // ========== String
+
+        static void checkIsString(HttpResp resp, JsonElement json) {
+            checkIsString(resp, json, "");
+        }
+
+        static void checkIsString(HttpResp resp, JsonElement json, String path) {
+            checkJson(json.isJsonPrimitive() && json.getAsJsonPrimitive().isString(),
+                resp, json, path, "contain a string");
+        }
+
+        static void checkStringValue(HttpResp resp, JsonElement json, String value, String path) {
+            checkIsString(resp, json, path);
+            checkJson(json.getAsString().equals(value), resp, json, path, "be equal to \"" + value + "\"");
+        }
+
+
+        // ========== Boolean
+
+        static void checkIsBoolean(HttpResp resp, JsonElement json) {
+            checkIsBoolean(resp, json, "");
+        }
+
+        static void checkIsBoolean(HttpResp resp, JsonElement json, String path) {
+            checkJson(json.isJsonPrimitive() && json.getAsJsonPrimitive().isBoolean(),
+                resp, json, path, "contain a boolean");
+        }
+
+        static void checkBooleanValue(HttpResp resp, JsonElement json, boolean value, String path) {
+            checkIsBoolean(resp, json, path);
+            checkJson(json.getAsBoolean() == value, resp, json, path, "be equal to " + value);
+        }
+
+
+        // ========== Int
+
+        static void checkIsInt(HttpResp resp, JsonElement json) {
+            checkIsInt(resp, json, "");
+        }
+
+        static void checkIsInt(HttpResp resp, JsonElement json, String path) {
+            try {
+                json.getAsInt();
+            } catch (NumberFormatException ex) {
+                checkJson(false, resp, json, path,"contain a number");
+            }
+        }
+
+        static void checkIntValue(HttpResp resp, JsonElement json, int value, String path) {
+            checkIsInt(resp, json, path);
+            checkJson(json.getAsInt() == value, resp, json, path, "be equal to " + value);
+        }
+
+
+        // ========= Double
+
+        static void checkIsDouble(HttpResp resp, JsonElement json) {
+            checkIsDouble(resp, json, "");
+        }
+
+        static void checkIsDouble(HttpResp resp, JsonElement json, String path) {
+            try {
+                json.getAsDouble();
+            } catch (NumberFormatException ex) {
+                checkJson(false, resp, json, path,"contain a floating-point number");
+            }
+        }
+
+        static void checkDoubleValue(HttpResp resp, JsonElement json, double value, String path) {
+            checkIsDouble(resp, json, path);
+            checkJson(abs(json.getAsDouble() - value) < 1e-6, resp, json, path, "be equal to " + value);
+        }
+
+
+        // ========== ObjectKey
+
+        static void checkObjectKey(HttpResp resp, JsonElement json, String key) {
+            checkObjectKey(resp, json, key, "");
+        }
+
+        static void checkObjectKey(HttpResp resp, JsonElement json, String key, String path) {
+            checkIsObject(resp, json, path);
+            checkJson(json.getAsJsonObject().has(key),
+                resp, json, path, "contain a key \"" + key + "\" in object");
+        }
+
+
+        // ========== ArrayLength
+
+        static void checkArrayLength(HttpResp resp, JsonElement json, int length) {
+            checkArrayLength(resp, json, length, "");
+        }
+
+        static void checkArrayLength(HttpResp resp, JsonElement json, int length, String path) {
+            checkIsArray(resp, json, path);
+            checkJson(json.getAsJsonArray().size() == length,
+                resp, json, path, "contain a JSON array with length " + length);
+        }
+
+    }
+  learner_created: false
+- name: test/tests/TestHelper.java
+  visible: false
+  text: |
+    package tests;
+
+    import com.google.gson.JsonElement;
+    import org.apache.http.HttpHeaders;
+    import org.apache.http.entity.ContentType;
+    import org.hyperskill.hstest.exception.outcomes.WrongAnswer;
+    import org.hyperskill.hstest.mocks.web.request.HttpRequest;
+    import org.hyperskill.hstest.mocks.web.response.HttpResponse;
+
+    import java.util.Base64;
+    import java.util.Map;
+
+    class HttpResp {
+        private String url;
+        private String method;
+        private HttpResponse resp;
+
+        HttpResp(HttpResponse resp, String url, String method) {
+            this.url = url;
+            this.resp = resp;
+            this.method = method;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public String getMethod() {
+            return method;
+        }
+
+        public String getRequest() {
+            return getMethod() + " " + getUrl();
+        }
+
+        public int getStatusCode() {
+            return resp.getStatusCode();
+        }
+
+        public Map<String, String> getHeaders() {
+            return resp.getHeaders();
+        }
+
+        public byte[] getRawContent() {
+            return resp.getRawContent();
+        }
+
+        public String getContent() {
+            return resp.getContent();
+        }
+
+        public JsonElement getJson() {
+            return resp.getJson();
+        }
+    }
+
+    public class TestHelper {
+        static void checkStatusCode(HttpResp resp, int status) {
+            if (resp.getStatusCode() != status) {
+                throw new WrongAnswer(
+                        resp.getRequest() +
+                        " should respond with status code " + status + ", " +
+                        "responded: " + resp.getStatusCode() + "\n\n" +
+                        "Response body:\n\n" + resp.getContent()
+                );
+            }
+        }
+
+        static void checkHeader(HttpResp resp, String header, String value) {
+            Map<String, String> headers = resp.getHeaders();
+            if (!headers.containsKey(header)) {
+                throw new WrongAnswer(
+                    resp.getRequest() +
+                        " should respond with header \"Content-Type\", " +
+                        "but this header is not found in the response."
+                );
+            }
+            String actualValue = headers.get(header);
+            if (!actualValue.equals(value)) {
+                throw new WrongAnswer(
+                    resp.getRequest() +
+                        " should respond with header \"Content-Type\" being " +
+                        "equal to " + value + " but in the response header " +
+                        "\"Content-Type\" is equal to " + actualValue + "."
+                );
+            }
+        }
+
+        static JsonElement getJson(HttpResp resp) {
+            checkHeader(resp,
+                HttpHeaders.CONTENT_TYPE,
+                ContentType.APPLICATION_JSON.getMimeType()
+            );
+            try {
+                return resp.getJson();
+            } catch (Exception ex) {
+                throw new WrongAnswer(
+                    resp.getRequest() + " should return a valid JSON"
+                );
+            }
+        }
+
+        static HttpRequest auth(HttpRequest req, String login, String pass) {
+            String headerKey = "Authorization";
+            String beforeEncoding = login + ":" + pass;
+            String afterEncoding = new String(
+                Base64.getEncoder().encode(beforeEncoding.getBytes())
+            );
+            String headerValue = "Basic " + afterEncoding;
+            req.addHeader(headerKey, headerValue);
+            return req;
+        }
+    }
+  learner_created: false
+- name: src/engine/model/Quiz.java
+  visible: true
+  learner_created: true
+- name: src/engine/controller/QuizController.java
+  visible: true
+  learner_created: true
+- name: src/engine/model/Answer.java
+  visible: true
+  learner_created: true
+feedback_link: https://hyperskill.org/projects/91/stages/504/implement
+status: Solved
+record: 1

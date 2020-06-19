@@ -504,6 +504,117 @@ files:
         }
     }
   learner_created: false
+- name: src/resources/application.properties
+  visible: true
+  text: |
+    server.port=8889
+    management.endpoints.web.exposure.include=*
+    management.endpoint.shutdown.enabled=true
+  learner_created: true
+- name: src/engine/WebQuizEngine.java
+  visible: true
+  text: |
+    package engine;
+
+    import org.springframework.boot.SpringApplication;
+    import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+    @SpringBootApplication
+    public class WebQuizEngine {
+
+        public static void main(String[] args) {
+            SpringApplication.run(WebQuizEngine.class, args);
+        }
+
+    }
+  learner_created: true
+- name: build.gradle
+  visible: true
+  text: |
+    plugins {
+        id 'org.springframework.boot' version '2.2.2.RELEASE'
+        id 'java'
+    }
+
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = '11'
+
+    repositories {
+        mavenCentral()
+    }
+
+    sourceSets.main.resources.srcDirs = ["src/resources"]
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok:1.18.12'
+        annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+        testCompileOnly 'org.projectlombok:lombok:1.18.12'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        compile("org.springframework.boot:spring-boot-starter-web")
+    }
+  learner_created: true
+- name: src/engine/model/Quiz.java
+  visible: true
+  text: |
+    package engine.model;
+
+    import lombok.Builder;
+    import lombok.Getter;
+    import lombok.Setter;
+
+    import java.util.List;
+
+    @Getter
+    @Setter
+    @Builder
+    public class Quiz {
+        private String title;
+        private String text;
+        private List<String> options;
+    }
+  learner_created: true
+- name: src/engine/controller/QuizController.java
+  visible: true
+  text: |
+    package engine.controller;
+
+    import engine.model.Answer;
+    import engine.model.Quiz;
+    import org.springframework.web.bind.annotation.*;
+    import java.util.Arrays;
+
+    @RestController
+    public class QuizController {
+
+        @GetMapping(path = "/api/quiz")
+        public Quiz getQuiz() {
+            return Quiz.builder()
+                    .title("The Java logo")
+                    .text("What is depicted on the Java logo?")
+                    .options(Arrays.asList("Robot", "Tea leaf", "Cup of coffee", "Bug"))
+                    .build();
+        }
+
+        @PostMapping(path = "/api/quiz")
+        public Answer solveQuiz(@RequestParam int answer) {
+            if (answer == 2) {
+                return Answer.builder()
+                        .success(true)
+                        .feedback("Congratulations, you're right!")
+                        .build();
+            }
+            return Answer.builder()
+                    .success(false)
+                    .feedback("Wrong answer! Please, try again.")
+                    .build();
+        }
+    }
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/91/stages/505/implement
-status: Unchecked
-record: -1
+status: Failed
+record: 2

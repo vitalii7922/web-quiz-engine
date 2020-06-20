@@ -615,6 +615,15 @@ files:
         }
     }
   learner_created: true
+- name: src/engine/exceprion/QuizNotFoundException.java
+  visible: true
+  learner_created: true
+- name: src/engine/exception/QuizNotFoundException.java
+  visible: true
+  learner_created: true
+- name: src/engine/model/Answer.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/91/stages/505/implement
-status: Failed
+status: Solved
 record: 2

@@ -1,14 +1,17 @@
 package tests;
 
-import com.google.gson.JsonElement;
+import com.google.gson.*;
 import org.apache.http.HttpHeaders;
 import org.apache.http.entity.ContentType;
 import org.hyperskill.hstest.exception.outcomes.WrongAnswer;
 import org.hyperskill.hstest.mocks.web.request.HttpRequest;
 import org.hyperskill.hstest.mocks.web.response.HttpResponse;
+import org.hyperskill.hstest.testcase.CheckResult;
 
-import java.util.Base64;
 import java.util.Map;
+import java.util.function.BiFunction;
+
+import static org.hyperskill.hstest.mocks.web.request.HttpRequestExecutor.packUrlParams;
 
 class HttpResp {
     private String url;
@@ -100,14 +103,28 @@ public class TestHelper {
         }
     }
 
-    static HttpRequest auth(HttpRequest req, String login, String pass) {
-        String headerKey = "Authorization";
-        String beforeEncoding = login + ":" + pass;
-        String afterEncoding = new String(
-            Base64.getEncoder().encode(beforeEncoding.getBytes())
-        );
-        String headerValue = "Basic " + afterEncoding;
-        req.addHeader(headerKey, headerValue);
-        return req;
+    static JsonElement getJson(String json) {
+        return new JsonParser().parse(json);
+    }
+
+    static private String constructUrl(String address) {
+        if (!address.startsWith("/")) {
+            address = "/" + address;
+        }
+        return "http://localhost:8889" + address;
+    }
+
+    static public HttpRequest post(String address, Map<String, String> params) {
+        return new HttpRequest("POST")
+            .setUri(constructUrl(address))
+            .setContent(packUrlParams(params))
+            .setContentType(ContentType.APPLICATION_FORM_URLENCODED);
+    }
+
+    static public HttpRequest put(String address, Map<String, String> params) {
+        return new HttpRequest("PUT")
+            .setUri(constructUrl(address))
+            .setContent(packUrlParams(params))
+            .setContentType(ContentType.APPLICATION_FORM_URLENCODED);
     }
 }

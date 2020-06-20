@@ -5,9 +5,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
-@AllArgsConstructor
 public class Answer {
-    Boolean success;
-    String feedback;
+    private final boolean success;
+    private String feedback;
+
+    public Answer(boolean success) {
+        this.success = success;
+        setFeedback();
+    }
+
+    private void setFeedback() {
+        feedback = success ? "Congratulations, you're right!"
+                : "Wrong answer! Please, try again.";
+    }
 }

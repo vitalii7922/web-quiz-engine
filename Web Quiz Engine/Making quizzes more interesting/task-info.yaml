@@ -712,6 +712,159 @@ files:
         }
     }
   learner_created: false
+- name: src/engine/model/Answer.java
+  visible: true
+  text: |
+    package engine.model;
+
+    import lombok.AllArgsConstructor;
+    import lombok.Getter;
+    import lombok.Setter;
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public class Answer {
+        Boolean success;
+        String feedback;
+    }
+  learner_created: true
+- name: src/resources/application.properties
+  visible: true
+  text: |
+    server.port=8889
+    management.endpoints.web.exposure.include=*
+    management.endpoint.shutdown.enabled=true
+  learner_created: true
+- name: src/engine/WebQuizEngine.java
+  visible: true
+  text: |
+    package engine;
+
+    import org.springframework.boot.SpringApplication;
+    import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+    @SpringBootApplication
+    public class WebQuizEngine {
+
+        public static void main(String[] args) {
+            SpringApplication.run(WebQuizEngine.class, args);
+        }
+
+    }
+  learner_created: true
+- name: build.gradle
+  visible: true
+  text: |
+    plugins {
+        id 'org.springframework.boot' version '2.2.2.RELEASE'
+        id 'java'
+    }
+
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = '11'
+
+    repositories {
+        mavenCentral()
+    }
+
+    sourceSets.main.resources.srcDirs = ["src/resources"]
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok:1.18.12'
+        annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+        testCompileOnly 'org.projectlombok:lombok:1.18.12'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        compile("org.springframework.boot:spring-boot-starter-web")
+    }
+  learner_created: true
+- name: src/engine/model/Quiz.java
+  visible: true
+  text: |
+    package engine.model;
+
+    import com.fasterxml.jackson.annotation.JsonIgnore;
+    import com.fasterxml.jackson.annotation.JsonProperty;
+    import lombok.*;
+
+    import java.util.List;
+
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public class Quiz {
+        long id;
+        private String title;
+        private String text;
+        private List<String> options;
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+        private int answer;
+    }
+  learner_created: true
+- name: src/engine/exception/QuizNotFoundException.java
+  visible: true
+  text: |
+    package engine.exception;
+
+    import org.springframework.http.HttpStatus;
+    import org.springframework.web.bind.annotation.ResponseStatus;
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public class QuizNotFoundException {
+    }
+  learner_created: true
+- name: src/engine/controller/QuizController.java
+  visible: true
+  text: |
+    package engine.controller;
+    import engine.model.Answer;
+    import engine.model.Quiz;
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.web.bind.annotation.*;
+
+    import java.util.*;
+
+    @RestController
+    public class QuizController {
+
+        private final Map<Long, Quiz> quizzes = new LinkedHashMap<>();
+
+        @GetMapping(path = "/api/quizzes")
+        public Collection<Quiz> getQuiz() {
+            return quizzes.values();
+        }
+
+        @GetMapping(path = "/api/quizzes/{id}")
+        public ResponseEntity<Quiz> getQuizById(@PathVariable long id) {
+            return Optional.ofNullable(quizzes.get(id))
+                    .map(quiz -> ResponseEntity.ok().body(quiz))
+                    .orElseGet(() -> ResponseEntity.notFound().build());
+        }
+
+        @PostMapping(path = "/api/quizzes")
+        public Quiz addQuiz(@RequestBody Quiz quiz) {
+            quiz.setId(quizzes.size() + 1L);
+            quiz.setAnswer(quiz.getAnswer());
+            quizzes.put(quiz.getId(), quiz);
+            return quiz;
+        }
+
+        @PostMapping(path = "/api/quizzes/{id}/solve")
+        public ResponseEntity<Answer> solveQuiz(@RequestParam(required = false) int answer, @PathVariable long id) {
+            return Optional.ofNullable(quizzes.get(id)).map(quiz -> answer == quiz.getAnswer() ?
+                    ResponseEntity.ok().body(new Answer(true, "Congratulations, you're right!"))
+                    : ResponseEntity.ok().body(new Answer(false, "Wrong answer! Please, try again.")))
+                    .orElseGet(() -> ResponseEntity.notFound().build());
+        }
+    }
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/91/stages/506/implement
-status: Unchecked
-record: -1
+status: Solved
+record: 3

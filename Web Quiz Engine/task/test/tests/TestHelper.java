@@ -58,6 +58,20 @@ class HttpResp {
 }
 
 public class TestHelper {
+    // Function just to be able to throw WrongAnswer
+    // as the way to fail the test
+    static <T> BiFunction<String, T, CheckResult> wrap(
+        BiFunction<String, T, CheckResult> original) {
+
+        return (r, a) -> {
+            try {
+                return original.apply(r, a);
+            } catch (WrongAnswer ex) {
+                return CheckResult.wrong(ex.getMessage());
+            }
+        };
+    }
+
     static void checkStatusCode(HttpResp resp, int status) {
         if (resp.getStatusCode() != status) {
             throw new WrongAnswer(
@@ -107,21 +121,21 @@ public class TestHelper {
         return new JsonParser().parse(json);
     }
 
-    static private String constructUrl(String address) {
+    private static String constructUrl(String address) {
         if (!address.startsWith("/")) {
             address = "/" + address;
         }
         return "http://localhost:8889" + address;
     }
 
-    static public HttpRequest post(String address, Map<String, String> params) {
+    static HttpRequest post(String address, Map<String, String> params) {
         return new HttpRequest("POST")
             .setUri(constructUrl(address))
             .setContent(packUrlParams(params))
             .setContentType(ContentType.APPLICATION_FORM_URLENCODED);
     }
 
-    static public HttpRequest put(String address, Map<String, String> params) {
+    static HttpRequest put(String address, Map<String, String> params) {
         return new HttpRequest("PUT")
             .setUri(constructUrl(address))
             .setContent(packUrlParams(params))

@@ -1,24 +1,26 @@
 package engine.model;
-
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
-public class Result {
-    private boolean success;
+public final class Result {
+    private Boolean success;
     private String feedback;
 
-    public static final Result SUCCESS_RESULT = new Result(true);
-    public static final Result FAILURE_RESULT = new Result(false);
-
-    public Result(boolean success) {
+    private Result(Boolean success) {
         this.success = success;
-        setFeedback(success);
+        setFeedBack(success);
     }
 
-    private void setFeedback(boolean success) {
-        feedback = success ? "Congratulations, you're right!"
+    public static Result fail() {
+        return new Result(false);
+    }
+
+    public static Result success() {
+        return new Result(true);
+    }
+
+    private void setFeedBack(boolean success) {
+        feedback = success ?  "Congratulations, you're right!"
                 : "Wrong answer! Please, try again.";
     }
 }

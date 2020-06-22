@@ -23,4 +23,5 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.3.0.RELEASE'
 }

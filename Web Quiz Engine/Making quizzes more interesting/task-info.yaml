@@ -808,18 +808,6 @@ files:
         private int answer;
     }
   learner_created: true
-- name: src/engine/exception/QuizNotFoundException.java
-  visible: true
-  text: |
-    package engine.exception;
-
-    import org.springframework.http.HttpStatus;
-    import org.springframework.web.bind.annotation.ResponseStatus;
-
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public class QuizNotFoundException {
-    }
-  learner_created: true
 - name: src/engine/controller/QuizController.java
   visible: true
   text: |

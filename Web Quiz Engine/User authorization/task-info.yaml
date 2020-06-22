@@ -894,6 +894,202 @@ files:
         }
     }
   learner_created: false
+- name: src/engine/model/Answer.java
+  visible: true
+  text: |
+    package engine.model;
+
+    import com.fasterxml.jackson.annotation.JsonCreator;
+    import lombok.Getter;
+    import lombok.Setter;
+
+    import javax.persistence.Entity;
+    import java.util.ArrayList;
+    import java.util.List;
+
+    @Getter
+    @Setter
+    public class Answer {
+        private List<Integer> answer;
+    }
+  learner_created: true
+- name: src/resources/application.properties
+  visible: true
+  text: |-
+    server.port=8889
+    management.endpoints.web.exposure.include=*
+    management.endpoint.shutdown.enabled=true
+    spring.datasource.url=jdbc:h2:file:../quizdb
+    spring.datasource.driverClassName=org.h2.Driver
+    spring.datasource.username=sa
+    spring.datasource.password=password
+
+    spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+    spring.jpa.hibernate.ddl-auto=update
+
+    spring.h2.console.enabled=true
+    spring.h2.console.settings.trace=false
+    spring.h2.console.settings.web-allow-others=false
+    spring.jpa.show-sql=true
+  learner_created: true
+- name: src/engine/WebQuizEngine.java
+  visible: true
+  text: |
+    package engine;
+
+    import org.springframework.boot.SpringApplication;
+    import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+    @SpringBootApplication
+    public class WebQuizEngine {
+        public static void main(String[] args) {
+            SpringApplication.run(WebQuizEngine.class, args);
+        }
+    }
+  learner_created: true
+- name: build.gradle
+  visible: true
+  text: |
+    plugins {
+        id 'org.springframework.boot' version '2.2.2.RELEASE'
+        id 'java'
+    }
+
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = '11'
+
+    repositories {
+        mavenCentral()
+    }
+
+    sourceSets.main.resources.srcDirs = ["src/resources"]
+
+    dependencies {
+        runtimeOnly 'com.h2database:h2'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        compileOnly 'org.projectlombok:lombok:1.18.12'
+        annotationProcessor 'org.projectlombok:lombok:1.18.12'
+        testCompileOnly 'org.projectlombok:lombok:1.18.12'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        compile("org.springframework.boot:spring-boot-starter-web")
+    }
+  learner_created: true
+- name: src/engine/model/Quiz.java
+  visible: true
+  text: |
+    package engine.model;
+    import com.fasterxml.jackson.annotation.JsonCreator;
+    import com.fasterxml.jackson.annotation.JsonProperty;
+    import lombok.*;
+    import javax.persistence.*;
+    import javax.validation.constraints.NotBlank;
+    import javax.validation.constraints.NotNull;
+    import javax.validation.constraints.Size;
+    import java.util.ArrayList;
+    import java.util.List;
+
+    @Getter
+    @Setter
+    @Entity
+    @NoArgsConstructor
+    public class Quiz {
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        long id;
+
+        @NotBlank
+        private String title;
+
+        @NotBlank
+        private String text;
+
+        @Size(min = 2)
+        @NotNull
+        @ElementCollection
+        private List<String> options;
+
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+        @ElementCollection
+        private List<Integer> answer;
+
+        @JsonCreator
+        public Quiz(long id, @NotBlank String title, @NotBlank String text, @Size(min = 2) @NotNull List<String> options,
+                    List<Integer> answer) {
+            this.id = id;
+            this.title = title;
+            this.text = text;
+            this.options = options;
+            this.answer = answer == null ? new ArrayList<>() : answer;
+        }
+    }
+  learner_created: true
+- name: src/engine/controller/QuizController.java
+  visible: true
+  text: |
+    package engine.controller;
+    import engine.model.Answer;
+    import engine.model.Quiz;
+    import engine.model.Result;
+    import engine.service.QuizService;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.web.bind.annotation.*;
+    import org.springframework.web.server.ResponseStatusException;
+    import javax.validation.Valid;
+    import java.util.*;
+
+    @RestController
+    @RequestMapping("/api/quizzes")
+    public class QuizController {
+
+        private final QuizService quizService;
+
+        private static final String SERVICE_WARNING_MESSAGE = "QUIZ DOESN'T EXIST WITH ID %d";
+
+        public QuizController(QuizService quizService) {
+            this.quizService = quizService;
+        }
+
+        @GetMapping
+        public List<Quiz> getQuiz() {
+            return quizService.getQuizList();
+        }
+
+        @GetMapping(path = "/{id}")
+        public ResponseEntity<Quiz> getQuizById(@PathVariable long id) {
+            return Optional.ofNullable(quizService.getQuizById(id))
+                    .map(quiz -> ResponseEntity.ok().body(quiz))
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                            String.format(SERVICE_WARNING_MESSAGE, id)));
+        }
+
+        @PostMapping
+        public Quiz addQuiz(@Valid @RequestBody Quiz quiz) {
+            return quizService.addQuiz(quiz);
+        }
+
+        @PostMapping(path = "/{id}/solve")
+        public ResponseEntity<Result> solveQuiz(@RequestBody Answer answer, @PathVariable long id) {
+            return Optional.ofNullable(quizService.getQuizById(id)).map(quiz -> quizService.answerIsCorrect(answer, quiz)
+                    ? ResponseEntity.ok().body(Result.success())
+                    : ResponseEntity.ok().body(Result.fail()))
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                            String.format(SERVICE_WARNING_MESSAGE, id)));
+        }
+    }
+  learner_created: true
+- name: src/engine/repository/QuizRepository.java
+  visible: true
+  learner_created: true
+- name: src/engine/model/Result.java
+  visible: true
+  learner_created: true
+- name: src/engine/service/QuizService.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/91/stages/508/implement
 status: Unchecked
-record: -1
+record: 5

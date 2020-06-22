@@ -910,6 +910,15 @@ files:
         }
     }
   learner_created: true
+- name: src/engine/service/QuizService.java
+  visible: true
+  learner_created: true
+- name: src/engine/repository/QuizRepository.java
+  visible: true
+  learner_created: true
+- name: src/engine/model/Result.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/91/stages/507/implement
-status: Failed
-record: -1
+status: Solved
+record: 4

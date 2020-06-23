@@ -1099,16 +1099,13 @@ files:
 - name: src/engine/repository/UserRepository.java
   visible: true
   learner_created: true
-- name: src/engine/service/UserService.java
-  visible: true
-  learner_created: true
 - name: src/engine/controller/UserController.java
   visible: true
   learner_created: true
-- name: src/engine/service/UserDetailsServiceImpl.java
+- name: src/engine/model/UserImpl.java
   visible: true
   learner_created: true
-- name: src/engine/model/UserDetailImpl.java
+- name: src/engine/service/UserService.java
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/projects/91/stages/508/implement

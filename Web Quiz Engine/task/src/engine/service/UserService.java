@@ -1,13 +1,17 @@
 package engine.service;
 import engine.model.User;
+import engine.model.UserImpl;
 import engine.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
+
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -18,12 +22,17 @@ public class UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String userEmail) {
+        Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmail(userEmail));
+        return userOptional.map(UserImpl::new)
+                .orElseThrow(() -> new UsernameNotFoundException("Not found: " + userEmail));
+    }
+
     public User authorizeUser(User user) {
-        System.out.println("UserService");
         Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmail(user.getEmail()));
         if (userOptional.isEmpty()) {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            user.setRole("ROLE_USER");
             return userRepository.save(user);
         }
         return null;

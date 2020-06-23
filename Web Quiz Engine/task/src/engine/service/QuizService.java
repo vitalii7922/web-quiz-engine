@@ -1,9 +1,11 @@
 package engine.service;
 import engine.model.Answer;
 import engine.model.Quiz;
+import engine.model.UserImpl;
 import engine.repository.QuizRepository;
+import engine.repository.UserRepository;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +14,11 @@ public class QuizService {
 
     private final QuizRepository quizRepository;
 
-    public QuizService(QuizRepository quizRepository) {
+    private final UserRepository userRepository;
+
+    public QuizService(QuizRepository quizRepository, UserRepository userRepository) {
         this.quizRepository = quizRepository;
+        this.userRepository = userRepository;
     }
 
     public Quiz getQuizById(final long id) {

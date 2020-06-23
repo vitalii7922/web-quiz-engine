@@ -1,6 +1,6 @@
 package engine.config;
 
-import engine.service.UserDetailsServiceImpl;
+import engine.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,21 +13,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @Configuration
 class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
-    UserDetailsServiceImpl userDetailsServiceImpl;
+    UserService userService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/api/quizzes/**").hasAuthority("USER")
-                /*.antMatchers("/h2-console/**").permitAll()
-                .antMatchers("/api/register").permitAll()
-                .antMatchers("/actuator/shutdown").permitAll()*/
                 .antMatchers("/**").permitAll()
                 .and().httpBasic().and().headers().frameOptions().disable();
     }
@@ -36,4 +34,9 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    /*@Bean
+    public UserImpl principalData() {
+        return (UserImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }*/
 }

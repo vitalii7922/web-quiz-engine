@@ -15,19 +15,19 @@ import java.util.Optional;
 @RequestMapping("/api/register")
 public class UserController {
 
-    private final UserService userService;
+    private final UserService userDetailsService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
     @PostMapping
     public ResponseEntity<User> authorizeUser(@Valid @RequestBody final User user) {
-        Optional<User> userOptional = Optional.ofNullable(userService.authorizeUser(user));
+        Optional<User> userOptional = Optional.ofNullable(userDetailsService.authorizeUser(user));
         if (userOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Account with email %s exists",
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Account with email %s already exists",
                 user.getEmail()));
     }
 }

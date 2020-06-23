@@ -3,6 +3,8 @@ import engine.model.Answer;
 import engine.model.Quiz;
 import engine.repository.QuizRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,6 +21,9 @@ public class QuizService {
     }
 
     public Quiz addQuiz(Quiz quiz) {
+        if (quiz.getAnswer() == null) {
+            quiz.setAnswer(new ArrayList<>());
+        }
         return quizRepository.save(quiz);
     }
 

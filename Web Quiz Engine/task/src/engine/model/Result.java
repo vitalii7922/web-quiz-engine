@@ -1,7 +1,5 @@
 package engine.model;
-
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public final class Result {

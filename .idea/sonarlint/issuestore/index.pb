@@ -101,3 +101,15 @@ h
 8Web Quiz Engine/task/src/engine/service/QuizService.java,f\d\fd5c73f5e1f6dc755548aee84d1351a725b00e5b
 _
 /Web Quiz Engine/task/src/engine/model/Quiz.java,1\a\1abb9649fde66ac70a1c121952adb630c18ac836
+n
+>Web Quiz Engine/task/src/engine/repository/UserRepository.java,e\0\e092df0957cbac276f6fe943c305b2d0556d122a
+h
+8Web Quiz Engine/task/src/engine/service/UserService.java,6\0\60c85ede31683927b3d8885d9a7bd20fb164f46e
+n
+>Web Quiz Engine/task/src/engine/controller/UserController.java,1\c\1c5acf2048ed20a09a369890bf4d8f04c59ee5a8
+_
+/Web Quiz Engine/task/src/engine/model/User.java,9\9\997ee695883bba97ff82f9ceefd9b90de2ece5cd
+c
+3Web Quiz Engine/task/src/engine/model/UserImpl.java,b\e\befa981fea36cf1f8b3bcd9d8733dbb74c2d5bd5
+q
+AWeb Quiz Engine/task/src/engine/config/SecurityConfiguration.java,3\7\37ed4c7f4694b82b934dd78b24d04883b4aede1a

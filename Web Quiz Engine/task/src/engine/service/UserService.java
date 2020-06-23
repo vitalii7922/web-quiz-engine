@@ -2,6 +2,7 @@ package engine.service;
 import engine.model.User;
 import engine.model.UserImpl;
 import engine.repository.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,7 +30,7 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Not found: " + userEmail));
     }
 
-    public User authorizeUser(User user) {
+    public User registerUser(User user) {
         Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmail(user.getEmail()));
         if (userOptional.isEmpty()) {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -37,4 +38,10 @@ public class UserService implements UserDetailsService {
         }
         return null;
     }
+
+    public UserImpl getUserImpl() {
+        return (UserImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+
 }

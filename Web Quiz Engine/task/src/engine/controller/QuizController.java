@@ -42,6 +42,11 @@ public class QuizController {
         return new ResponseEntity<>(quizService.addQuiz(quiz), HttpStatus.OK);
     }
 
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Quiz> deleteQuiz(@PathVariable("id") final long id) {
+        return new ResponseEntity<>(quizService.deleteQuizById(id));
+    }
+
     @PostMapping(path = "/{id}/solve")
     public ResponseEntity<Result> solveQuiz(@RequestBody final Answer answer, @PathVariable final long id) {
         return Optional.ofNullable(quizService.getQuizById(id)).map(quiz -> quizService.answerIsCorrect(answer, quiz)

@@ -1,5 +1,4 @@
 package engine.config;
-
 import engine.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +25,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/api/quizzes/**").hasAuthority("USER")
+                .antMatchers("/actuator/shutdown").permitAll()
                 .antMatchers("/**").permitAll()
                 .and().httpBasic().and().headers().frameOptions().disable();
     }
@@ -34,9 +34,4 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    /*@Bean
-    public UserImpl principalData() {
-        return (UserImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }*/
 }

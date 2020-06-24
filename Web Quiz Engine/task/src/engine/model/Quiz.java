@@ -37,8 +37,4 @@ public class Quiz {
     @ManyToOne
     @JsonIgnore
     private User user;
-
-   /* @OneToMany(mappedBy = "quiz", cascade = CascadeType.REMOVE)
-    @JsonIgnore
-    private List<CompletedQuiz> completedQuizzes;*/
 }

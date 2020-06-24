@@ -1,5 +1,4 @@
 package engine.controller;
-
 import engine.model.Answer;
 import engine.model.CompletedQuiz;
 import engine.model.Quiz;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
 import javax.validation.Valid;
 import java.util.*;
 
@@ -40,7 +38,6 @@ public class QuizController {
     }
 
     @GetMapping(path = "/completed")
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Page<CompletedQuiz>> getCompletedQuizzes(@RequestParam(value = "page") final Integer pageNumber) {
         return new ResponseEntity<>(quizService.getCompletedQuizzes(pageNumber), HttpStatus.OK);
     }

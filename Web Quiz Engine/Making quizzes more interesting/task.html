@@ -4,7 +4,7 @@
 
 <p>At this stage, you should fix this so that the service does not accept incorrect quizzes. Another task is to make quizzes more interesting by supporting the arbitrary number of correct options (from zero to all). It means that to solve a quiz, the client needs to send all correct options at once, or zero if all options are wrong.</p>
 
-<p>Here is a few resources where you can read how to validate data in the API:</p>
+<p>Here is a few resources where you can read how to validate data in the API:</p>
 
 <ul>
 	<li><a target="_blank" href="https://reflectoring.io/bean-validation-with-spring-boot/" rel="noopener noreferrer nofollow">Bean validation with Spring Boot</a></li>
@@ -20,7 +20,7 @@
 <ul>
 	<li><code class="language-json">title</code>: a string, <strong>required</strong>;</li>
 	<li><code class="language-json">text</code>: a string, <strong>required</strong>;</li>
-	<li><code class="language-json">options</code>: an array of strings, required, should contain at least 2 items;</li>
+	<li><code class="language-json">options</code>: an array of strings, required, should contain at least 2 items;</li>
 	<li><code class="language-json">answer</code>: an array of indexes of correct options, optional, since all options can be wrong.</li>
 </ul>
 
@@ -33,7 +33,7 @@
   "answer": [0,2]
 }</code></pre>
 
-<p>The <code class="language-json">answer</code> equals <code class="language-json">[0,2]</code> corresponds to the first and the third item from the <code class="language-json">options</code> array (<code class="language-json">"Americano"</code> and <code class="language-json">"Cappuccino"</code>).</p>
+<p>The <code class="language-json">answer</code> equals <code class="language-json">[0,2]</code> corresponds to the first and the third item from the <code class="language-json">options</code> array (<code class="language-json">"Americano"</code> and <code class="language-json">"Cappuccino"</code>).</p>
 
 <p>The server response is a JSON with four fields: <code class="language-json">id</code>, <code class="language-json">title</code>, <code class="language-json">text</code> and <code class="language-json">options</code>. Here is an example:</p>
 
@@ -44,9 +44,9 @@
   "options": ["Americano","Tea","Cappuccino","Sprite"]
 }</code></pre>
 
-<p>The <code class="language-json">id</code> field is a generated unique integer identifier for the quiz. Also, the response may or may not include the <code class="language-json">answer</code> field depending on your wishes. This is not very important for this operation.</p>
+<p>The <code class="language-json">id</code> field is a generated unique integer identifier for the quiz. Also, the response may or may not include the <code class="language-json">answer</code> field depending on your wishes. This is not very important for this operation.</p>
 
-<p>If the request JSON does not contain <code class="language-json">title</code> or <code class="language-json">text</code>, or they are empty strings (<code class="language-json">""</code>), then the server should respond with the  <code class="language-json">400 (Bad request)</code> status code. If the number of options in the quiz is less than 2, the server returns the same status code.</p>
+<p>If the request JSON does not contain <code class="language-json">title</code> or <code class="language-json">text</code>, or they are empty strings (<code class="language-json">""</code>), then the server should respond with the  <code class="language-json">400 (Bad request)</code> status code. If the number of options in the quiz is less than 2, the server returns the same status code.</p>
 
 <h2>Solving a quiz</h2>
 

@@ -42,6 +42,4 @@ public class UserService implements UserDetailsService {
     public UserImpl getUserImpl() {
         return (UserImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
-
-
 }

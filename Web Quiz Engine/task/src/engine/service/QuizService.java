@@ -1,18 +1,19 @@
 package engine.service;
 
+import engine.controller.QuizController;
 import engine.model.Answer;
 import engine.model.Quiz;
 import engine.model.UserImpl;
 import engine.repository.QuizRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import engine.model.User;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
@@ -21,7 +22,6 @@ public class QuizService {
     private final QuizRepository quizRepository;
 
     private final UserService userService;
-    @Autowired
 
     public QuizService(QuizRepository quizRepository, UserService userService) {
         this.quizRepository = quizRepository;
@@ -47,8 +47,13 @@ public class QuizService {
         return quizRepository.save(quiz);
     }
 
-    public List<Quiz> getAllQuizzes() {
-        return quizRepository.findAll();
+    public Page<Quiz> getAllQuizzesByPageNumber(int pageNumber) {
+        List<Quiz> quizList = quizRepository.findAll();
+        if (!CollectionUtils.isEmpty(quizList)) {
+            PageRequest page = PageRequest.of(pageNumber, 10, Sort.by("id"));
+            return new PageImpl<>(quizRepository.findAll(page).getContent(), page, quizList.size());
+        }
+        return Page.empty();
     }
 
     public boolean answerIsCorrect(final Answer answer, final Quiz quiz) {
@@ -58,14 +63,17 @@ public class QuizService {
     public HttpStatus deleteQuizById(final long id) {
         Optional<Quiz> optionalQuiz = Optional.ofNullable(getQuizById(id));
         if (optionalQuiz.isPresent()) {
-            if (optionalQuiz.get().getUser() != null
-                    && optionalQuiz.get().getUser().getId() == userService.getUserImpl().getId()) {
+            User user = optionalQuiz.get().getUser();
+            if (user != null
+                    && user.getId() == userService.getUserImpl().getId()) {
                 quizRepository.delete(optionalQuiz.get());
                 return HttpStatus.NO_CONTENT;
             } else {
-                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                        String.format("You haven't created quiz with id %d", id));
             }
         }
-        return HttpStatus.BAD_REQUEST;
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                String.format(QuizController.QUIZ_NOT_FOUND, id));
     }
 }

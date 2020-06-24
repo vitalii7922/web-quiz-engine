@@ -1562,6 +1562,9 @@ files:
 - name: src/engine/model/CompletedQuiz.java
   visible: true
   learner_created: true
+- name: src/engine/repository/CompletedQuizRepository.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/91/stages/509/implement
-status: Unchecked
+status: Solved
 record: -1

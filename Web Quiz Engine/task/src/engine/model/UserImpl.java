@@ -1,6 +1,8 @@
 package engine.model;
+
 import lombok.Getter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import java.util.Collections;
 
 @Getter

@@ -1,4 +1,5 @@
 package engine.service;
+
 import engine.model.User;
 import engine.model.UserImpl;
 import engine.repository.UserRepository;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 
 
@@ -39,7 +41,12 @@ public class UserService implements UserDetailsService {
         return null;
     }
 
-    public UserImpl getUserImpl() {
-        return (UserImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public User getCurrentUser() {
+        UserImpl userImpl = (UserImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return User.builder()
+                .id(userImpl.getId())
+                .email(userImpl.getUsername())
+                .password(userImpl.getPassword())
+                .build();
     }
 }

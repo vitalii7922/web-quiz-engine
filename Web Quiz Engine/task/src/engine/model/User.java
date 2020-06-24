@@ -1,4 +1,5 @@
 package engine.model;
+
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,4 +25,6 @@ public class User {
     private String password;
     @OneToMany(mappedBy = "user")
     private List<Quiz> quizzes;
+    @OneToMany(mappedBy = "user")
+    private List<CompletedQuiz> completedQuizzes;
 }

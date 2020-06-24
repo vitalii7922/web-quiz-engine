@@ -1,6 +1,7 @@
 package engine.controller;
 
 import engine.model.Answer;
+import engine.model.CompletedQuiz;
 import engine.model.Quiz;
 import engine.model.Result;
 import engine.service.QuizService;
@@ -36,6 +37,12 @@ public class QuizController {
                 .map(quiz -> ResponseEntity.ok().body(quiz))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         String.format(QUIZ_NOT_FOUND, id)));
+    }
+
+    @GetMapping(path = "/completed")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Page<CompletedQuiz>> getCompletedQuizzes(@RequestParam(value = "page") final Integer pageNumber) {
+        return new ResponseEntity<>(quizService.getCompletedQuizzes(pageNumber), HttpStatus.OK);
     }
 
     @PostMapping

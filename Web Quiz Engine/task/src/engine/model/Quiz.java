@@ -38,5 +38,7 @@ public class Quiz {
     @JsonIgnore
     private User user;
 
-    private LocalDateTime completedAt;
+   /* @OneToMany(mappedBy = "quiz", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    private List<CompletedQuiz> completedQuizzes;*/
 }

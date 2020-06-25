@@ -22,7 +22,7 @@ public class CompletedQuiz {
     @Column(name = "quiz_id")
     private long id;
 
-    LocalDateTime completedAt;
+    private LocalDateTime completedAt;
 
     @ManyToOne
     @JsonIgnore

@@ -4,6 +4,7 @@ import engine.controller.QuizController;
 import engine.model.*;
 import engine.repository.CompletedQuizRepository;
 import engine.repository.QuizRepository;
+import org.hibernate.query.criteria.internal.compile.CriteriaQueryTypeQueryAdapter;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -49,7 +50,7 @@ public class QuizService {
     public Page<Quiz> getAllQuizzesByPageNumber(int pageNumber) {
         List<Quiz> quizList = quizRepository.findAll();
         if (!CollectionUtils.isEmpty(quizList)) {
-            PageRequest page = PageRequest.of(pageNumber, NUMBER_OF_ELEMENTS, Sort.by("id"));
+            PageRequest page = PageRequest.of(--pageNumber, NUMBER_OF_ELEMENTS, Sort.by("id"));
             return new PageImpl<>(quizRepository.findAll(page).getContent(), page, quizList.size());
         }
         return Page.empty();
@@ -90,8 +91,9 @@ public class QuizService {
         List<CompletedQuiz> completedQuizList =
                 completedQuizRepository.findAllByUserId(userId);
         if (!CollectionUtils.isEmpty(completedQuizList)) {
-            PageRequest page = PageRequest.of(pageNumber, NUMBER_OF_ELEMENTS, Sort.by("completedAt").descending());
-            return new PageImpl<>(completedQuizRepository.findAllByUserId(userId, page).getContent(), page,
+            PageRequest page = PageRequest.of(--pageNumber, NUMBER_OF_ELEMENTS, Sort.by("completedAt").descending());
+            List<CompletedQuiz> page1 = completedQuizRepository.findAllByUserId(userId, page).getContent();
+            return new PageImpl<>(page1, page,
                     completedQuizList.size());
         }
         return Page.empty();

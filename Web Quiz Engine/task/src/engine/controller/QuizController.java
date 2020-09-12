@@ -5,6 +5,7 @@ import engine.model.Quiz;
 import engine.model.Result;
 import engine.service.QuizService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,8 @@ public class QuizController {
 
     @GetMapping
     public ResponseEntity<Page<Quiz>> getAllQuizzes(@RequestParam("page") final Integer pageNumber) {
-        return new ResponseEntity<>(quizService.getAllQuizzesByPageNumber(pageNumber), HttpStatus.OK);
+        Page<Quiz> page = quizService.getAllQuizzesByPageNumber(pageNumber);
+        return new ResponseEntity<>(page, HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}")

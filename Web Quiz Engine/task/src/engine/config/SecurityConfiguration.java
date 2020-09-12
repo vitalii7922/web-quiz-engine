@@ -30,6 +30,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().httpBasic().and().headers().frameOptions().disable();
     }
 
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

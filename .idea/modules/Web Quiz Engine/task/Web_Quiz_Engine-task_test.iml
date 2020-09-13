@@ -3,6 +3,7 @@
   <component name="NewModuleRootManager">
     <output-test url="file://$MODULE_DIR$/../../../../Web Quiz Engine/task/out/test/classes" />
     <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../../Web Quiz Engine/task/build/generated/sources/annotationProcessor/java/test" />
     <content url="file://$MODULE_DIR$/../../../../Web Quiz Engine/task/src/test" />
     <content url="file://$MODULE_DIR$/../../../../Web Quiz Engine/task/test">
       <sourceFolder url="file://$MODULE_DIR$/../../../../Web Quiz Engine/task/test" isTestSource="true" />

@@ -4,7 +4,6 @@ import engine.controller.QuizController;
 import engine.model.*;
 import engine.repository.CompletedQuizRepository;
 import engine.repository.QuizRepository;
-import org.hibernate.query.criteria.internal.compile.CriteriaQueryTypeQueryAdapter;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -69,6 +68,23 @@ public class QuizService {
         return false;
     }
 
+    public Quiz updateQuizById(Quiz quiz, final long id) {
+        Optional<Quiz> optionalQuiz = Optional.ofNullable(getQuizById(id));
+        if (optionalQuiz.isPresent()) {
+            Quiz quizResult = optionalQuiz.get();
+            if (quizResult.getUser().getId() == userService.getCurrentUser().getId()) {
+                quizResult.setAnswer(quiz.getAnswer());
+                quizResult.setOptions(quiz.getOptions());
+                quizRepository.save(quizResult);
+                return quizResult;
+            } else {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                        String.format("You haven't created quiz with id %d", id));
+            }
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(QuizController.QUIZ_NOT_FOUND, id));
+    }
+
     public HttpStatus deleteQuizById(final long id) {
         Optional<Quiz> optionalQuiz = Optional.ofNullable(getQuizById(id));
         if (optionalQuiz.isPresent()) {
@@ -88,8 +104,7 @@ public class QuizService {
 
     public Page<CompletedQuiz> getCompletedQuizzes(int pageNumber) {
         long userId = userService.getCurrentUser().getId();
-        List<CompletedQuiz> completedQuizList =
-                completedQuizRepository.findAllByUserId(userId);
+        List<CompletedQuiz> completedQuizList = completedQuizRepository.findAllByUserId(userId);
         if (!CollectionUtils.isEmpty(completedQuizList)) {
             PageRequest page = PageRequest.of(--pageNumber, NUMBER_OF_ELEMENTS, Sort.by("completedAt").descending());
             List<CompletedQuiz> page1 = completedQuizRepository.findAllByUserId(userId, page).getContent();

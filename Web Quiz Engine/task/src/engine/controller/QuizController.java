@@ -5,7 +5,6 @@ import engine.model.Quiz;
 import engine.model.Result;
 import engine.service.QuizService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,6 +51,11 @@ public class QuizController {
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Quiz> deleteQuiz(@PathVariable("id") final long id) {
         return new ResponseEntity<>(quizService.deleteQuizById(id));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Quiz> updateQuiz(@Valid @RequestBody final Quiz quiz, @PathVariable("id") final long id) {
+        return new ResponseEntity<>(quizService.updateQuizById(quiz, id), HttpStatus.OK);
     }
 
     @PostMapping(path = "/{id}/solve")

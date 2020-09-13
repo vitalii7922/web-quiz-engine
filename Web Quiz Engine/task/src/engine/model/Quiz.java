@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -29,12 +30,24 @@ public class Quiz {
     @Size(min = 2)
     @NotNull
     @ElementCollection
-    private List<String> options;
+    private List<String> options = new ArrayList<>();
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ElementCollection
-    private List<Integer> answer;
+    private List<Integer> answer = new ArrayList<>();
     @ManyToOne
     @JsonIgnore
     private User user;
+
+    @Override
+    public String toString() {
+        return "Quiz{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", text='" + text + '\'' +
+                ", options=" + options +
+                ", answer=" + answer +
+                ", user=" + user +
+                '}';
+    }
 }

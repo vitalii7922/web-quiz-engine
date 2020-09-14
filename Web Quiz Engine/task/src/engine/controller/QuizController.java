@@ -69,9 +69,4 @@ public class QuizController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         String.format(QUIZ_NOT_FOUND, id)));
     }
-
-    /*@GetMapping("/")
-    public String homePage() {
-        return "home";
-    }*/
 }

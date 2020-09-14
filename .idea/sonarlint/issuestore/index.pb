@@ -81,10 +81,6 @@ f
 6Web Quiz Engine/task/test/tests/WebQuizEngineTest.java,7\3\73f33b36affde7b4abd9cd74f9f3e6920595c2f4
 b
 2Web Quiz Engine/task/src/engine/WebQuizEngine.java,e\f\efab8221d19c7d6ed98207c5fb469b3a3abb2c66
-p
-@.idea/modules/Web Quiz Engine/task/Web_Quiz_Engine-task_main.iml,d\a\da1a18c90bb26f5e9abd03b2788902dcbb9c4420
-p
-@.idea/modules/Web Quiz Engine/task/Web_Quiz_Engine-task_test.iml,f\e\fe64346ebf52f4708fdb5b726b2979bf54fc9399
 t
 DWeb Quiz Engine/task/out/production/resources/application.properties,f\5\f5ddeef06acff3e3f25d89ea63b4f0a619f55ef6
 a
@@ -113,3 +109,29 @@ c
 3Web Quiz Engine/task/src/engine/model/UserImpl.java,b\e\befa981fea36cf1f8b3bcd9d8733dbb74c2d5bd5
 q
 AWeb Quiz Engine/task/src/engine/config/SecurityConfiguration.java,3\7\37ed4c7f4694b82b934dd78b24d04883b4aede1a
+w
+GWeb Quiz Engine/task/src/engine/repository/CompletedQuizRepository.java,d\8\d8dd3c2939ee786a6aeecea8c370075c03e35a08
+h
+8Web Quiz Engine/task/src/engine/model/CompletedQuiz.java,4\d\4d7f99a9b7350be2dcab4af4e25509d73341b970
+`
+0Web Quiz Engine/task/src/engine/dto/UserDto.java,a\c\acff524142b4a4ab62ad286d12d2a988468f2bd1
+f
+6Web Quiz Engine/task/src/engine/mapper/QuizMapper.java,c\2\c217c072048e079ee377aebb0f2268d4bb2226f8
+f
+6Web Quiz Engine/task/src/engine/mapper/UserMapper.java,f\e\feb79d78dd35f0b2ef8dcdce540cb92cbcf51231
+`
+0Web Quiz Engine/task/src/engine/dto/QuizDto.java,6\0\60cca3a881af7c875678ced50054712e9b18f8c8
+<
+build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
+@
+course-info.yaml,8\1\81db7fbbb03b3e3f063d803783ac0942e85a4031
+7
+gradlew,5\b\5bbfa66edb4db3c7c33c5181f43510990d3307f9
+G
+course-remote-info.yaml,8\e\8ebfd624cee09c71902f5a4e0950d589f705f81d
+;
+gradlew.bat,2\a\2a45a911a8f1836b0b6c5b758962572012d8f8c3
+?
+settings.gradle,0\5\05efc8b1657769a27696d478ded1e95f38737233
+\
+,Web Quiz Engine/User authorization/task.html,c\a\ca6c1481ebd4120a8f416f5ce433bf27219b2efb

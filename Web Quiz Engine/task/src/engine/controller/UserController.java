@@ -1,5 +1,6 @@
 package engine.controller;
 
+import engine.dto.UserDto;
 import engine.service.UserService;
 import engine.model.User;
 import org.springframework.http.HttpStatus;
@@ -24,12 +25,12 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> authorizeUser(@Valid @RequestBody final User user) {
-        Optional<User> userOptional = Optional.ofNullable(userDetailsService.registerUser(user));
+    public ResponseEntity<User> authorizeUser(@Valid @RequestBody final UserDto userDto) {
+        Optional<User> userOptional = Optional.ofNullable(userDetailsService.registerUser(userDto));
         if (userOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Account with email %s already exists",
-                user.getEmail()));
+                userDto.getEmail()));
     }
 }

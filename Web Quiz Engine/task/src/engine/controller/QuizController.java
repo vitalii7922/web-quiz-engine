@@ -1,4 +1,6 @@
 package engine.controller;
+
+import engine.dto.QuizDto;
 import engine.model.Answer;
 import engine.model.CompletedQuiz;
 import engine.model.Quiz;
@@ -9,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
 import javax.validation.Valid;
 import java.util.*;
 
@@ -44,8 +47,8 @@ public class QuizController {
     }
 
     @PostMapping
-    public ResponseEntity<Quiz> addQuiz(@Valid @RequestBody final Quiz quiz) {
-        return new ResponseEntity<>(quizService.addQuiz(quiz), HttpStatus.OK);
+    public ResponseEntity<QuizDto> addQuiz(@Valid @RequestBody final QuizDto quizDto) {
+        return new ResponseEntity<>(quizService.addQuiz(quizDto), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -53,9 +56,9 @@ public class QuizController {
         return new ResponseEntity<>(quizService.deleteQuizById(id));
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<Quiz> updateQuiz(@Valid @RequestBody final Quiz quiz, @PathVariable("id") final long id) {
-        return new ResponseEntity<>(quizService.updateQuizById(quiz, id), HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<QuizDto> updateQuiz(@Valid @RequestBody final QuizDto quizDto, @PathVariable("id") final long id) {
+        return new ResponseEntity<>(quizService.updateQuizById(quizDto, id), HttpStatus.OK);
     }
 
     @PostMapping(path = "/{id}/solve")
@@ -66,4 +69,9 @@ public class QuizController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         String.format(QUIZ_NOT_FOUND, id)));
     }
+
+    /*@GetMapping("/")
+    public String homePage() {
+        return "home";
+    }*/
 }

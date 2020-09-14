@@ -1,5 +1,7 @@
 package engine.service;
 
+import engine.dto.UserDto;
+import engine.mapper.UserMapper;
 import engine.model.User;
 import engine.model.UserImpl;
 import engine.repository.UserRepository;
@@ -17,12 +19,13 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -32,16 +35,17 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Not found: " + userEmail));
     }
 
-    public User registerUser(User user) {
-        Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmail(user.getEmail()));
+    public User registerUser(UserDto userDto) {
+        Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmail(userDto.getEmail()));
         if (userOptional.isEmpty()) {
-            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+            User user = userMapper.toUser(userDto);
             return userRepository.save(user);
         }
         return null;
     }
 
-    public User getCurrentUser() {
+    User getCurrentUser() {
         UserImpl userImpl = (UserImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return User.builder()
                 .id(userImpl.getId())

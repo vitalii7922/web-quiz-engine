@@ -8,13 +8,14 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 @Getter
 @Setter
-@Entity
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Quiz {
     @Id
@@ -30,11 +31,11 @@ public class Quiz {
     @Size(min = 2)
     @NotNull
     @ElementCollection
-    private List<String> options = new ArrayList<>();
+    private List<String> options;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ElementCollection
-    private List<Integer> answer = new ArrayList<>();
+    private List<Integer> answer;
     @ManyToOne
     @JsonIgnore
     private User user;

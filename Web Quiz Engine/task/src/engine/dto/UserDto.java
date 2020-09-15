@@ -19,4 +19,12 @@ public class UserDto {
     @NotBlank
     @Size(min = 5, message = "Number of symbols has not to be less 5")
     private String password;
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

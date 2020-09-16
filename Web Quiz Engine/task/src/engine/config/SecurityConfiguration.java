@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity
 @Configuration
-class SecurityConfig extends WebSecurityConfigurerAdapter {
+class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserService userService;
@@ -27,6 +27,8 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/api/quizzes/**").hasAuthority("USER")
                 .antMatchers("/**").permitAll()
+                .and().formLogin().loginProcessingUrl("/logIn").usernameParameter("username").passwordParameter("password")
+                .permitAll()
                 .and().httpBasic().and().headers().frameOptions().disable();
     }
 

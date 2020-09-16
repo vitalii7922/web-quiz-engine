@@ -1,18 +1,17 @@
 package engine.service;
 
 import engine.controller.QuizController;
+import engine.dto.QuizDto;
+import engine.mapper.QuizMapper;
 import engine.model.*;
 import engine.repository.CompletedQuizRepository;
 import engine.repository.QuizRepository;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -25,25 +24,27 @@ public class QuizService {
 
     private final UserService userService;
 
+    private final QuizMapper quizMapper;
+
     private static final int NUMBER_OF_ELEMENTS = 10;
 
     public QuizService(QuizRepository quizRepository, CompletedQuizRepository completedQuizRepository,
-                       UserService userService) {
+                       UserService userService, QuizMapper quizMapper) {
         this.quizRepository = quizRepository;
         this.completedQuizRepository = completedQuizRepository;
         this.userService = userService;
+        this.quizMapper = quizMapper;
     }
 
     public Quiz getQuizById(final long id) {
         return quizRepository.findById(id);
     }
 
-    public Quiz addQuiz(Quiz quiz) {
+    public QuizDto addQuiz(QuizDto quizDto) {
+        Quiz quiz = quizMapper.toQuiz(quizDto);
         quiz.setUser(userService.getCurrentUser());
-        if (quiz.getAnswer() == null) {
-            quiz.setAnswer(new ArrayList<>());
-        }
-        return quizRepository.save(quiz);
+        quizRepository.save(quiz);
+        return quizDto;
     }
 
     public Page<Quiz> getAllQuizzesByPageNumber(int pageNumber) {
@@ -68,15 +69,15 @@ public class QuizService {
         return false;
     }
 
-    public Quiz updateQuizById(Quiz quiz, final long id) {
+    public QuizDto updateQuizById(QuizDto quizDto, final long id) {
         Optional<Quiz> optionalQuiz = Optional.ofNullable(getQuizById(id));
         if (optionalQuiz.isPresent()) {
             Quiz quizResult = optionalQuiz.get();
             if (quizResult.getUser().getId() == userService.getCurrentUser().getId()) {
-                quizResult.setAnswer(quiz.getAnswer());
-                quizResult.setOptions(quiz.getOptions());
+                quizResult.setAnswer(quizDto.getAnswer());
+                quizResult.setOptions(quizDto.getOptions());
                 quizRepository.save(quizResult);
-                return quizResult;
+                return quizMapper.toQuizDto(quizResult);
             } else {
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN,
                         String.format("You haven't created quiz with id %d", id));

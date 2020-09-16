@@ -1,5 +1,4 @@
 package engine.config;
-
 import engine.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,9 +26,10 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/api/quizzes/**").hasAuthority("USER")
                 .antMatchers("/**").permitAll()
-                .and().formLogin().loginProcessingUrl("/logIn").usernameParameter("username").passwordParameter("password")
-                .permitAll()
-                .and().httpBasic().and().headers().frameOptions().disable();
+                .and()
+                .formLogin().loginProcessingUrl("/login").usernameParameter("email").passwordParameter("password").permitAll()
+                .successForwardUrl("/postLogin").and()
+                .httpBasic().and().headers().frameOptions().disable();
     }
 
 

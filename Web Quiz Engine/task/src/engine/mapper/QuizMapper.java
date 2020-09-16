@@ -19,6 +19,7 @@ public class QuizMapper {
                 .answer(quizDto.getAnswer())
                 .build();
     }
+
     public QuizDto toQuizDto(Quiz quiz) {
         return QuizDto.builder()
                 .title(quiz.getTitle())

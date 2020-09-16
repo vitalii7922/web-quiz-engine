@@ -1,29 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="4">
-  <component name="ExternalSystem" externalSystem="GRADLE" externalSystemModuleGroup="Web_Quiz_Engine" externalSystemModuleType="sourceSet" externalSystemModuleVersion="unspecified" linkedProjectId=":Web_Quiz_Engine-task:main" linkedProjectPath="$MODULE_DIR$/../../../../Web Quiz Engine/task" rootProjectPath="$MODULE_DIR$/../../../.." />
-  <component name="FacetManager">
-    <facet type="jpa" name="JPA">
-      <configuration>
-        <setting name="validation-enabled" value="true" />
-        <setting name="provider-name" value="Hibernate" />
-        <datasource-mapping>
-          <factory-entry name="Web_Quiz_Engine.Web_Quiz_Engine-task.main" />
-        </datasource-mapping>
-        <naming-strategy-map />
-      </configuration>
-    </facet>
-    <facet type="Spring" name="Spring">
-      <configuration />
-    </facet>
-    <facet type="web" name="Web">
-      <configuration>
-        <webroots />
-        <sourceRoots>
-          <root url="file://$MODULE_DIR$/../../../../Web Quiz Engine/task/src/resources" />
-        </sourceRoots>
-      </configuration>
-    </facet>
-  </component>
   <component name="sonarModuleSettings">
     <option name="localAnalysisScripName" value="&lt;PROJECT&gt;" />
     <option name="serverName" value="&lt;PROJECT&gt;" />

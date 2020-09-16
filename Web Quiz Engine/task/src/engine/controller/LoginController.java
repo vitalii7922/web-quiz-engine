@@ -10,6 +10,12 @@ public class LoginController {
     public String getIndex() {
         return "login";
     }
+
+    @GetMapping("/signUp")
+    public String signUp() {
+        return "signup";
+    }
+
     @PostMapping("/postLogin")
     public String successLogIn() {
         System.out.println("you are here");

@@ -18,8 +18,13 @@ public class LoginController {
 
     @PostMapping("/postLogin")
     public String successLogIn() {
-        System.out.println("you are here");
+        System.out.println("redirect opening page");
         return "redirect:/opening-page";
+    }
+
+    @GetMapping("/open")
+    public String open() {
+        return "page";
     }
 
     @GetMapping("/opening-page")

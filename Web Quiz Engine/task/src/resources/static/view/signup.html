@@ -16,7 +16,7 @@
     </style>
 </head>
 <body>
-<form>
+<form name="form">
     <div class="container">
         <div class="col-sm-4 offset-4">
             <h1 class="h3 mb-3 font-weight-normal text-center">Please sign up</h1>
@@ -25,17 +25,19 @@
             <div class="form-group">
                 <label for="inputEmail1">Enter email address</label>
                 <input type="email" class="form-control" placeholder="email" id="inputEmail1"
-                       aria-describedby="emailHelp">
+                       aria-describedby="emailHelp" required>
             </div>
             <div class="form-group">
                 <label for="inputPassword1">Enter password</label>
-                <input type="password" class="form-control" placeholder="password" id="inputPassword1">
+                <input type="password" required minlength="5" class="form-control" placeholder="password"
+                       id="inputPassword1">
             </div>
             <div class="form-group">
                 <label for="inputPassword2">Confirm password</label>
-                <input type="password" placeholder="password" class="form-control" id="inputPassword2">
+                <input type="password" required minlength="5" placeholder="password" class="form-control"
+                       id="inputPassword2">
             </div>
-            <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+            <input type="submit" id="button" class="btn btn-primary" value="Submit">
         </div>
     </div>
 </form>
@@ -52,10 +54,11 @@
     const message = document.getElementById("message");
     message.hidden = true;
     const url = 'http://localhost:8889/api/register';
+    const redirectUrl = 'http://localhost:8889/login';
     const password = document.getElementById("inputPassword1");
     const email = document.getElementById("inputEmail1");
     const confirmPassword = document.getElementById("inputPassword2");
-    const submit = document.getElementById("submit");
+    const submit = document.getElementById("button");
 
     const register = async () => {
         const data = JSON.stringify({
@@ -71,12 +74,11 @@
                 }
             })
             if (response.ok) {
-                console.log('work')
+                window.location.replace("http://localhost:8889");
+                alert('You have been registered')
             } else {
                 response.json().then(data => {
-                    message.innerHTML = data.errors[0].defaultMessage;
-                    message.hidden = false;
-                    // console.log(data.errors[0].defaultMessage)
+                    renderMessage(data.message)
                 });
             }
         } catch (error) {
@@ -86,14 +88,40 @@
 
     submit.addEventListener('click', (event) => {
         event.preventDefault();
-        if (password.value !== confirmPassword.value) {
-            message.innerHTML = 'Password and confirmation are unequal'
-            message.hidden = false;
-            console.log('button');
-        } else {
+        console.log('work')
+        if (validateEmail() && validatePassword()) {
             register();
         }
-    })
+    });
+
+
+
+    const validateEmail = () => {
+        const mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        const emailValue = email.value;
+        if (!emailValue.match(mailformat)) {
+            renderMessage(`Incorrect email format ${emailValue}`);
+            return false;
+        }
+        return true;
+    }
+
+    const validatePassword = () => {
+        if (password.value.length < 5 || confirmPassword.value.length < 5) {
+            renderMessage('Number of symbols of the password has not to be less 5');
+            return false;
+        }
+        if (password.value !== confirmPassword.value) {
+            renderMessage('Password and confirmation are unequal');
+            return false;
+        }
+        return true;
+    }
+
+    const renderMessage = (mes) => {
+        message.innerHTML = mes;
+        message.hidden = false;
+    }
 </script>
 </body>
 </html>

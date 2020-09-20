@@ -9,11 +9,9 @@ import engine.repository.QuizRepository;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.server.ResponseStatusException;
 

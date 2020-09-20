@@ -89,8 +89,6 @@ Q
 !.idea/modules/Web_Quiz_Engine.iml,6\f\6f3b9084341df75b7338b87b9ad1896be49b2d38
 X
 (gradle/wrapper/gradle-wrapper.properties,f\b\fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
-k
-;Web Quiz Engine/task/build/resources/main/static/index.html,8\7\877036436eb9b8fd058ea6627d87b4acdac7f6a8
 p
 @Web Quiz Engine/task/build/reports/tests/test/css/base-style.css,4\4\44d8198f7a2be0360ccdd719d71ba038df609e6c
 k

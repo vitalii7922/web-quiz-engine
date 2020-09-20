@@ -95,7 +95,6 @@
     });
 
 
-
     const validateEmail = () => {
         const mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         const emailValue = email.value;
@@ -121,6 +120,7 @@
     const renderMessage = (mes) => {
         message.innerHTML = mes;
         message.hidden = false;
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

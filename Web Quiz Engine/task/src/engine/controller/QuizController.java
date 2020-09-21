@@ -1,6 +1,7 @@
 package engine.controller;
 
 import engine.dto.QuizDto;
+import engine.error.ApiError;
 import engine.model.Answer;
 import engine.model.CompletedQuiz;
 import engine.model.Quiz;
@@ -9,6 +10,8 @@ import engine.service.QuizService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -68,5 +71,15 @@ public class QuizController {
                 : ResponseEntity.ok().body(Result.FAILURE_RESULT))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         String.format(QUIZ_NOT_FOUND, id)));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiError> handleException(MethodArgumentNotValidException ex) {
+        List<String> errors = new ArrayList<>();
+        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
+            errors.add(error.getDefaultMessage());
+        }
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, errors);
+        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
 }

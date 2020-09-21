@@ -24,14 +24,14 @@
     <div class="alert alert-danger" role="alert" id="message">
     </div>
     <div class="form-group">
-        <label for="exampleFormControlInput1">Title</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" required>
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" required>
     </div>
     <div class="form-group">
-        <label for="exampleFormControlTextarea1">Description</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" required></textarea>
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" rows="2" required></textarea>
     </div>
-    <p>Add options and pick correct ones for the quiz. There must be 2 correct options at least</p>
+    <p>Add options and pick correct ones for the quiz</p>
     <div id="options">
         <div class="input-group mb-3" id="1">
             <div class="input-group-prepend">
@@ -42,14 +42,6 @@
             <input type="text" class="form-control" aria-label="Text input with checkbox">
         </div>
         <div class="input-group mb-3" id="2">
-            <div class="input-group-prepend">
-                <div class="input-group-text">
-                    <input type="checkbox" aria-label="Checkbox for following text input">
-                </div>
-            </div>
-            <input type="text" class="form-control" aria-label="Text input with checkbox">
-        </div>
-        <div class="input-group mb-3" id="3">
             <div class="input-group-prepend">
                 <div class="input-group-text">
                     <input type="checkbox" aria-label="Checkbox for following text input">
@@ -81,17 +73,21 @@
     // import renderMessage from './signup.html';
     const message = document.getElementById("message");
     message.hidden = true;
+    const url = 'http://localhost:8889/api/quizzes';
     const addCheckbox = document.getElementById("addCheckbox");
+    const title = document.getElementById("title");
+    const description = document.getElementById("description");
     const deleteCheckBox = document.getElementById("deleteCheckBox");
     const submitQuiz = document.getElementById('addQuiz');
     let divOptions = document.getElementById("options");
-    let amount = 3;
+    let checkboxesNumber = 3;
+
     addCheckbox.addEventListener('click', (event) => {
         event.preventDefault();
-        if (amount < 10) {
+        if (checkboxesNumber < 10) {
             let divElement = document.createElement("div");
             divElement.setAttribute("class", "input-group mb-3");
-            divElement.setAttribute("id", `${++amount}`);
+            divElement.setAttribute("id", `${++checkboxesNumber}`);
             divElement.innerHTML += ' <div class="input-group-prepend">\n' +
                 '                <div class="input-group-text">\n' +
                 '                    <input type="checkbox" aria-label="Checkbox for following text input">\n' +
@@ -100,17 +96,17 @@
                 '            <input type="text" class="form-control" aria-label="Text input with checkbox">';
             divOptions.appendChild(divElement);
         } else {
-            renderMessage('You cannot add add over ten options');
+            renderMessage('You cannot add over ten options');
         }
     });
 
     deleteCheckBox.addEventListener('click', (event) => {
         event.preventDefault();
-        if (amount > 3) {
-            const checkBoxDiv = document.getElementById(`${amount--}`);
+        if (checkboxesNumber > 2) {
+            const checkBoxDiv = document.getElementById(`${checkboxesNumber--}`);
             checkBoxDiv.remove();
         } else {
-            renderMessage('You cannot left less than three options');
+            renderMessage('You cannot leave less than two options');
         }
     });
 
@@ -123,8 +119,56 @@
                 answers.push(i);
             }
         }
-        divOptions.querySelectorAll('input[type=text]').forEach(x => x.value);
+        const array = divOptions.querySelectorAll('input[type=text]');
+        const optionsArray = [];
+        let isBadRequest = false;
+        for (let i = 0; i < array.length; i++) {
+            if (array[i].value.trim().length !== 0) {
+                optionsArray[i] = array[i].value;
+            }else {
+                isBadRequest = true;
+                renderMessage("Fill in options");
+                break;
+            }
+        }
+        if (optionsArray.length <= answers.length) {
+            renderMessage('Amount of correct answers cannot be equal or more than options');
+        }
+        optionsArray.forEach(x => console.log(x));
+        if (!isBadRequest) {
+            sendQuiz(optionsArray, answers);
+        }
     });
+
+    const sendQuiz = async (optionsArray, answers) => {
+        const data = JSON.stringify({
+            title: title.value,
+            text: description.value,
+            options: optionsArray,
+            answer: answers
+        });
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                body: data,
+                headers: {
+                    "Content-type": "application/json",
+                }
+            })
+            if (response.ok) {
+                response.json().then(data => {
+                    console.log(data);
+                })
+            } else {
+                response.json().then(data => {
+                    renderMessage(data.message.join("\n"));
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const renderMessage = (mes) => {
         message.innerHTML = mes;
         message.hidden = false;

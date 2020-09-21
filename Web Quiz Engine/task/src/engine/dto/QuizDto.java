@@ -16,15 +16,16 @@ import java.util.List;
 @Builder
 public class QuizDto {
 
-    @NotBlank
+    @NotBlank(message = "Title cannot be empty")
     private String title;
-    @NotBlank
+    @NotBlank(message = "Description cannot be empty")
     private String text;
 
-    @Size(min = 2)
-    @NotNull
+    @Size(min = 2, message = "There must be 2 options at least")
+    @Size(max = 10, message = "You cannot add more than ten options")
     private List<String> options = new ArrayList<>();
 
+    @Size(min = 1, message = "There must be 1 correct answer at least")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Integer> answer = new ArrayList<>();
 }

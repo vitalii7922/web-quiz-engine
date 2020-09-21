@@ -1,5 +1,6 @@
 package engine.controller;
 
+import engine.dto.CompletedQuizDto;
 import engine.dto.QuizDto;
 import engine.error.ApiError;
 import engine.model.Answer;
@@ -31,8 +32,8 @@ public class QuizController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Quiz>> getAllQuizzes(@RequestParam("page") final Integer pageNumber) {
-        Page<Quiz> page = quizService.getAllQuizzesByPageNumber(pageNumber);
+    public ResponseEntity<Page<QuizDto>> getAllQuizzes(@RequestParam("page") final Integer pageNumber) {
+        Page<QuizDto> page = quizService.getAllQuizzesByPageNumber(pageNumber);
         return new ResponseEntity<>(page, HttpStatus.OK);
     }
 
@@ -45,7 +46,7 @@ public class QuizController {
     }
 
     @GetMapping(path = "/completed")
-    public ResponseEntity<Page<CompletedQuiz>> getCompletedQuizzes(@RequestParam(value = "page") final Integer pageNumber) {
+    public ResponseEntity<Page<CompletedQuizDto>> getCompletedQuizzes(@RequestParam(value = "page") final Integer pageNumber) {
         return new ResponseEntity<>(quizService.getCompletedQuizzes(pageNumber), HttpStatus.OK);
     }
 

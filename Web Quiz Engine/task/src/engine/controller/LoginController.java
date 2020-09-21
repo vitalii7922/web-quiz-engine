@@ -18,7 +18,6 @@ public class LoginController {
 
     @PostMapping("/postLogin")
     public String successLogIn() {
-        System.out.println("redirect opening page");
         return "redirect:/opening-page";
     }
 
@@ -27,8 +26,13 @@ public class LoginController {
         return "page";
     }
 
+    @GetMapping("/openQuizList")
+    public String openQuizList() {
+        return "quizList";
+    }
+
     @GetMapping("/opening-page")
     public String something() {
-        return "hello";
+        return "addQuiz";
     }
 }

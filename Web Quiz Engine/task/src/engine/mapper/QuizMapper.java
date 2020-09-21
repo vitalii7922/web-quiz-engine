@@ -1,6 +1,8 @@
 package engine.mapper;
 
+import engine.dto.CompletedQuizDto;
 import engine.dto.QuizDto;
+import engine.model.CompletedQuiz;
 import engine.model.Quiz;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +27,13 @@ public class QuizMapper {
                 .title(quiz.getTitle())
                 .text(quiz.getText())
                 .options(quiz.getOptions())
+                .build();
+    }
+
+    public CompletedQuizDto toCompletedQuizDto(CompletedQuiz completedQuiz) {
+        return CompletedQuizDto.builder()
+                .id(completedQuiz.getId())
+                .completedAt(completedQuiz.getCompletedAt())
                 .build();
     }
 }

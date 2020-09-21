@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface CompletedQuizRepository extends PagingAndSortingRepository<CompletedQuiz, Long> {
     List<CompletedQuiz> findAllByUserId(long id);
+    long countAllByUserId(long id);
 
     Page<CompletedQuiz> findAllByUserId(long userId, Pageable pageable);
 }

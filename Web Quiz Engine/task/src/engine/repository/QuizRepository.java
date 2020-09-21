@@ -18,6 +18,9 @@ public interface QuizRepository extends PagingAndSortingRepository<Quiz, Long> {
 
     List<Quiz> findAll();
 
+    @Query("SELECT COUNT(q) FROM Quiz q")
+    long countAll();
+
     Page<Quiz> findAll(Pageable pageable);
 
     @Modifying

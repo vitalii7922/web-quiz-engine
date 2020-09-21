@@ -1,6 +1,7 @@
 package engine.service;
 
 import engine.controller.QuizController;
+import engine.dto.CompletedQuizDto;
 import engine.dto.QuizDto;
 import engine.mapper.QuizMapper;
 import engine.model.*;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.util.CollectionUtils;
+import java.util.stream.Collectors;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
@@ -47,11 +48,14 @@ public class QuizService {
         return quizDto;
     }
 
-    public Page<Quiz> getAllQuizzesByPageNumber(int pageNumber) {
-        List<Quiz> quizList = quizRepository.findAll();
-        if (!CollectionUtils.isEmpty(quizList)) {
+    public Page<QuizDto> getAllQuizzesByPageNumber(int pageNumber) {
+        long quizNumber = quizRepository.countAll();
+        if (quizNumber > 0) {
             PageRequest page = PageRequest.of(--pageNumber, NUMBER_OF_ELEMENTS, Sort.by("id"));
-            return new PageImpl<>(quizRepository.findAll(page).getContent(), page, quizList.size());
+            return new PageImpl<>(quizRepository.findAll(page).getContent()
+                    .stream()
+                    .map(quizMapper::toQuizDto)
+                    .collect(Collectors.toList()), page, quizNumber);
         }
         return Page.empty();
     }
@@ -103,14 +107,15 @@ public class QuizService {
                 String.format(QuizController.QUIZ_NOT_FOUND, id));
     }
 
-    public Page<CompletedQuiz> getCompletedQuizzes(int pageNumber) {
+    public Page<CompletedQuizDto> getCompletedQuizzes(int pageNumber) {
         long userId = userService.getCurrentUser().getId();
-        List<CompletedQuiz> completedQuizList = completedQuizRepository.findAllByUserId(userId);
-        if (!CollectionUtils.isEmpty(completedQuizList)) {
+        long completedQuizAmount = completedQuizRepository.countAllByUserId(userId);
+        if (completedQuizAmount > 0) {
             PageRequest page = PageRequest.of(--pageNumber, NUMBER_OF_ELEMENTS, Sort.by("completedAt").descending());
-            List<CompletedQuiz> page1 = completedQuizRepository.findAllByUserId(userId, page).getContent();
-            return new PageImpl<>(page1, page,
-                    completedQuizList.size());
+            return new PageImpl<>(completedQuizRepository.findAllByUserId(userId, page).getContent()
+                    .stream()
+                    .map(quizMapper::toCompletedQuizDto)
+                    .collect(Collectors.toList()), page, completedQuizAmount);
         }
         return Page.empty();
     }

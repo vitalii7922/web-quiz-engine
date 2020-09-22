@@ -11,7 +11,6 @@ import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.web.server.ResponseStatusException;
@@ -61,7 +60,7 @@ public class QuizService {
     }
 
     public boolean answerIsCorrect(final Answer answer, final Quiz quiz) {
-        if (answer.getAnswer().equals(quiz.getAnswer())) {
+        if (answer.getAnswers().equals(quiz.getAnswer())) {
             CompletedQuiz completedQuiz = CompletedQuiz.builder()
                     .user(userService.getCurrentUser())
                     .id(quiz.getId())

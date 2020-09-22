@@ -4,7 +4,6 @@ import engine.dto.CompletedQuizDto;
 import engine.dto.QuizDto;
 import engine.error.ApiError;
 import engine.model.Answer;
-import engine.model.CompletedQuiz;
 import engine.model.Quiz;
 import engine.model.Result;
 import engine.service.QuizService;

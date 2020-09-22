@@ -23,7 +23,6 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<User> authorizeUser(@Valid @RequestBody final UserDto userDto) {
-        System.out.println(userDto);
         Optional<User> userOptional = Optional.ofNullable(userDetailsService.registerUser(userDto));
         if (userOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.OK);

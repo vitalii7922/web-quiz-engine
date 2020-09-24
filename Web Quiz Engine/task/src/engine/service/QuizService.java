@@ -1,6 +1,7 @@
 package engine.service;
 
 import engine.controller.QuizController;
+import engine.dto.Answer;
 import engine.dto.CompletedQuizDto;
 import engine.dto.QuizDto;
 import engine.mapper.QuizMapper;
@@ -10,9 +11,11 @@ import engine.repository.QuizRepository;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 import org.springframework.web.server.ResponseStatusException;
 
 @Service

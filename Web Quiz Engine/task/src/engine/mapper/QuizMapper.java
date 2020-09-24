@@ -24,6 +24,7 @@ public class QuizMapper {
 
     public QuizDto toQuizDto(Quiz quiz) {
         return QuizDto.builder()
+                .id(quiz.getId())
                 .title(quiz.getTitle())
                 .text(quiz.getText())
                 .options(quiz.getOptions())

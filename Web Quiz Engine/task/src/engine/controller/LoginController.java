@@ -31,6 +31,11 @@ public class LoginController {
         return "quizList";
     }
 
+    @GetMapping("/openQuiz")
+    public String openQuiz() {
+        return "quiz";
+    }
+
     @GetMapping("/opening-page")
     public String something() {
         return "addQuiz";

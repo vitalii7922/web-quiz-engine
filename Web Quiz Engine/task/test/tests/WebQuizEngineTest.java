@@ -20,120 +20,120 @@ public class WebQuizEngineTest extends SpringTest {
     }
 
     private static String quiz1 =
-        "{\n" +
-        "  \"title\": \"The Java Logo\", \n" +
-        "  \"text\": \"What is depicted on the Java logo?\",\n" +
-        "  \"options\": [\"Robot\",\"Tea leaf\",\"Cup of coffee\",\"Bug\"],\n" +
-        "  \"answer\": [2]\n" +
-        "}";
+            "{\n" +
+                    "  \"title\": \"The Java Logo\", \n" +
+                    "  \"text\": \"What is depicted on the Java logo?\",\n" +
+                    "  \"options\": [\"Robot\",\"Tea leaf\",\"Cup of coffee\",\"Bug\"],\n" +
+                    "  \"answer\": [2]\n" +
+                    "}";
 
     private static String quiz2 =
-        "{\n" +
-        "  \"title\": \"The Ultimate Question\",\n" +
-        "  \"text\": \"What is the answer to the Ultimate Question of Life, the Universe and Everything?\",\n" +
-        "  \"options\": [\"Everything goes right\",\"42\",\"2+2=4\",\"11011100\"],\n" +
-        "  \"answer\": [1]\n" +
-        "}";
+            "{\n" +
+                    "  \"title\": \"The Ultimate Question\",\n" +
+                    "  \"text\": \"What is the answer to the Ultimate Question of Life, the Universe and Everything?\",\n" +
+                    "  \"options\": [\"Everything goes right\",\"42\",\"2+2=4\",\"11011100\"],\n" +
+                    "  \"answer\": [1]\n" +
+                    "}";
 
     private static String quiz3 =
-        "{\n" +
-        "  \"title\": \"Math1\",\n" +
-        "  \"text\": \"Which of the following is equal to 4?\",\n" +
-        "  \"options\": [\"1+3\",\"2+2\",\"8-1\",\"1+5\"],\n" +
-        "  \"answer\": [0,1]\n" +
-        "}";
+            "{\n" +
+                    "  \"title\": \"Math1\",\n" +
+                    "  \"text\": \"Which of the following is equal to 4?\",\n" +
+                    "  \"options\": [\"1+3\",\"2+2\",\"8-1\",\"1+5\"],\n" +
+                    "  \"answer\": [0,1]\n" +
+                    "}";
 
     private static String quiz4 =
-        "{\n" +
-        "  \"title\": \"Math2\",\n" +
-        "  \"text\": \"Which of the following is equal to 4?\",\n" +
-        "  \"options\": [\"1+1\",\"2+2\",\"8-1\",\"5-1\"],\n" +
-        "  \"answer\": [1,3]\n" +
-        "}";
+            "{\n" +
+                    "  \"title\": \"Math2\",\n" +
+                    "  \"text\": \"Which of the following is equal to 4?\",\n" +
+                    "  \"options\": [\"1+1\",\"2+2\",\"8-1\",\"5-1\"],\n" +
+                    "  \"answer\": [1,3]\n" +
+                    "}";
 
     private static String quiz5 =
-        "{\n" +
-        "  \"title\": \"Math3\",\n" +
-        "  \"text\": \"Which of the following is equal to 4?\",\n" +
-        "  \"options\": [\"2*3\",\"5*8\",\"8*0\",\"1*5\"],\n" +
-        "  \"answer\": []\n" +
-        "}";
+            "{\n" +
+                    "  \"title\": \"Math3\",\n" +
+                    "  \"text\": \"Which of the following is equal to 4?\",\n" +
+                    "  \"options\": [\"2*3\",\"5*8\",\"8*0\",\"1*5\"],\n" +
+                    "  \"answer\": []\n" +
+                    "}";
 
     private static String quiz6 =
-        "{\n" +
-        "  \"title\": \"Math4\",\n" +
-        "  \"text\": \"Which of the following is equal to 4?\",\n" +
-        "  \"options\": [\"2*3\",\"5*8\",\"8*0\",\"1*5\"]\n" +
-        "}";
+            "{\n" +
+                    "  \"title\": \"Math4\",\n" +
+                    "  \"text\": \"Which of the following is equal to 4?\",\n" +
+                    "  \"options\": [\"2*3\",\"5*8\",\"8*0\",\"1*5\"]\n" +
+                    "}";
 
     private static String quiz7 =
-        "{\n" +
-        "  \"title\": \"Math5\",\n" +
-        "  \"text\": \"Which of the following is equal to 4?\",\n" +
-        "  \"options\": [\"2^2\",\"2+2\",\"2-2\",\"2*2\"],\n" +
-        "  \"answer\": [0,1,3]\n" +
-        "}";
+            "{\n" +
+                    "  \"title\": \"Math5\",\n" +
+                    "  \"text\": \"Which of the following is equal to 4?\",\n" +
+                    "  \"options\": [\"2^2\",\"2+2\",\"2-2\",\"2*2\"],\n" +
+                    "  \"answer\": [0,1,3]\n" +
+                    "}";
 
-    private static String[] quizzes = new String[] {
-        quiz1, quiz2, quiz3, quiz4, quiz5, quiz6, quiz7
+    private static String[] quizzes = new String[]{
+            quiz1, quiz2, quiz3, quiz4, quiz5, quiz6, quiz7
     };
 
-    private static int[] quizIds = new int[] {
-        0, 0, 0, 0, 0, 0, 0
+    private static int[] quizIds = new int[]{
+            0, 0, 0, 0, 0, 0, 0
     };
 
     private static String error400noTitle =
-        "{\n" +
-        "  \"text\": \"What is the answer to the Ultimate Question of Life, the Universe and Everything?\",\n" +
-        "  \"options\": [\"Everything goes right\",\"42\",\"2+2=4\",\"11011100\"]\n" +
-        "  \"answer\": [1]\n" +
-        "}";
+            "{\n" +
+                    "  \"text\": \"What is the answer to the Ultimate Question of Life, the Universe and Everything?\",\n" +
+                    "  \"options\": [\"Everything goes right\",\"42\",\"2+2=4\",\"11011100\"]\n" +
+                    "  \"answer\": [1]\n" +
+                    "}";
 
     private static String error400emptyTitle =
-        "{\n" +
-        "  \"title\": \"\",\n" +
-        "  \"text\": \"What is the answer to the Ultimate Question of Life, the Universe and Everything?\",\n" +
-        "  \"options\": [\"Everything goes right\",\"42\",\"2+2=4\",\"11011100\"]\n" +
-        "  \"answer\": [1]\n" +
-        "}";
+            "{\n" +
+                    "  \"title\": \"\",\n" +
+                    "  \"text\": \"What is the answer to the Ultimate Question of Life, the Universe and Everything?\",\n" +
+                    "  \"options\": [\"Everything goes right\",\"42\",\"2+2=4\",\"11011100\"]\n" +
+                    "  \"answer\": [1]\n" +
+                    "}";
 
     private static String error400noText =
-        "{\n" +
-        "  \"title\": \"123123123\",\n" +
-        "  \"options\": [\"Everything goes right\",\"42\",\"2+2=4\",\"11011100\"]\n" +
-        "  \"answer\": [1]\n" +
-        "}";
+            "{\n" +
+                    "  \"title\": \"123123123\",\n" +
+                    "  \"options\": [\"Everything goes right\",\"42\",\"2+2=4\",\"11011100\"]\n" +
+                    "  \"answer\": [1]\n" +
+                    "}";
 
     private static String error400emptyText =
-        "{\n" +
-        "  \"title\": \"The Ultimate Question\",\n" +
-        "  \"text\": \"\",\n" +
-        "  \"options\": [\"Everything goes right\",\"42\",\"2+2=4\",\"11011100\"]\n" +
-        "  \"answer\": [1]\n" +
-        "}";
+            "{\n" +
+                    "  \"title\": \"The Ultimate Question\",\n" +
+                    "  \"text\": \"\",\n" +
+                    "  \"options\": [\"Everything goes right\",\"42\",\"2+2=4\",\"11011100\"]\n" +
+                    "  \"answer\": [1]\n" +
+                    "}";
 
     private static String error400noOptions =
-        "{\n" +
-        "  \"title\": \"The Ultimate Question\",\n" +
-        "  \"text\": \"123123123\",\n" +
-        "  \"answer\": [1]\n" +
-        "}";
+            "{\n" +
+                    "  \"title\": \"The Ultimate Question\",\n" +
+                    "  \"text\": \"123123123\",\n" +
+                    "  \"answer\": [1]\n" +
+                    "}";
 
     private static String error400emptyOptions =
-        "{\n" +
-        "  \"title\": \"The Ultimate Question\",\n" +
-        "  \"text\": \"What is the answer to the Ultimate Question of Life, the Universe and Everything?\",\n" +
-        "  \"options\": [ ]\n" +
-        "  \"answer\": [ ]\n" +
-        "}";
+            "{\n" +
+                    "  \"title\": \"The Ultimate Question\",\n" +
+                    "  \"text\": \"What is the answer to the Ultimate Question of Life, the Universe and Everything?\",\n" +
+                    "  \"options\": [ ]\n" +
+                    "  \"answer\": [ ]\n" +
+                    "}";
 
     private static String error400oneOption =
-        "{\n" +
-        "  \"title\": \"The Ultimate Question\",\n" +
-        "  \"text\": \"What is the answer to the Ultimate Question of Life, the Universe and Everything?\",\n" +
-        "  \"options\": [\"Everything goes right\"]\n" +
-        "  \"answer\": [0]\n" +
-        "}";
+            "{\n" +
+                    "  \"title\": \"The Ultimate Question\",\n" +
+                    "  \"text\": \"What is the answer to the Ultimate Question of Life, the Universe and Everything?\",\n" +
+                    "  \"options\": [\"Everything goes right\"]\n" +
+                    "  \"answer\": [0]\n" +
+                    "}";
 
 
     private static String login1 = "test@google.com";
@@ -177,298 +177,298 @@ public class WebQuizEngineTest extends SpringTest {
     private static String shortPassword2_pass = "123";
 
     @DynamicTestingMethod
-    DynamicTesting[] dt = new DynamicTesting[] {
-        // Test login
-        () -> testRegister(login1, pass1, 200),
-        () -> testRegister(login2, pass2, 200),
-        () -> testRegister(noAtInLogin_login, noAtInLogin_pass, 400),
-        () -> testRegister(noDotInLogin_login, noDotInLogin_pass, 400),
-        () -> testRegister(loginExist_login, loginExist_pass, 400),
-        () -> testRegister(shortPassword_login, shortPassword_pass, 400),
-        () -> testRegister(shortPassword2_login, shortPassword2_pass, 400),
+    DynamicTesting[] dt = new DynamicTesting[]{
+            // Test login
+            () -> testRegister(login1, pass1, 200),
+            () -> testRegister(login2, pass2, 200),
+            () -> testRegister(noAtInLogin_login, noAtInLogin_pass, 400),
+            () -> testRegister(noDotInLogin_login, noDotInLogin_pass, 400),
+            () -> testRegister(loginExist_login, loginExist_pass, 400),
+            () -> testRegister(shortPassword_login, shortPassword_pass, 400),
+            () -> testRegister(shortPassword2_login, shortPassword2_pass, 400),
 
 
-        // Add 2 quizzes and check their existence
-        () -> testAllQuizzes(0, 0,1),
-        () -> testAllQuizzes(0, 0,2),
+            // Add 2 quizzes and check their existence
+            () -> testAllQuizzes(0, 0, 1),
+            () -> testAllQuizzes(0, 0, 2),
 
-        () -> testCreateQuiz(0, 1),
-        () -> testQuizExists(0, 2),
-        () -> testQuizNotExists(0, 2, 125),
+            () -> testCreateQuiz(0, 1),
+            () -> testQuizExists(0, 2),
+            () -> testQuizNotExists(0, 2, 125),
 
-        () -> testAllQuizzes(1, 0,1),
+            () -> testAllQuizzes(1, 0, 1),
 
-        () -> testCreateQuiz(1, 2),
-        () -> testQuizExists(1, 2),
-        () -> testQuizNotExists(1, 2, 125),
+            () -> testCreateQuiz(1, 2),
+            () -> testQuizExists(1, 2),
+            () -> testQuizNotExists(1, 2, 125),
 
-        () -> testAllQuizzes(2, 0,2),
-
-
-        // No auth operations tests
-        () -> testAllQuizzesNoAuth(),
-        () -> testCreateQuizNoAuth(1),
-        () -> testCreateQuizNoAuth(2),
-        () -> testSolveQuizNoAuth(quizIds[0], "[0]"),
-        () -> testSolveQuizNoAuth(quizIds[1], "[1]"),
-        () -> testDeleteQuizzesNoAuth(quizIds[0]),
-        () -> testDeleteQuizzesNoAuth(quizIds[1]),
-        () -> testCompletedQuizzesNoAuth(),
+            () -> testAllQuizzes(2, 0, 2),
 
 
-        // Fake auth operations tests
-        () -> testAllQuizzesFakeAuth(),
-        () -> testCreateQuizFakeAuth(1),
-        () -> testCreateQuizFakeAuth(2),
-        () -> testSolveQuizFakeAuth(quizIds[0], "[0]"),
-        () -> testSolveQuizFakeAuth(quizIds[1], "[1]"),
-        () -> testDeleteQuizzesFakeAuth(quizIds[0]),
-        () -> testDeleteQuizzesFakeAuth(quizIds[1]),
-        () -> testCompletedQuizzesFakeAuth(),
+            // No auth operations tests
+            () -> testAllQuizzesNoAuth(),
+            () -> testCreateQuizNoAuth(1),
+            () -> testCreateQuizNoAuth(2),
+            () -> testSolveQuizNoAuth(quizIds[0], "[0]"),
+            () -> testSolveQuizNoAuth(quizIds[1], "[1]"),
+            () -> testDeleteQuizzesNoAuth(quizIds[0]),
+            () -> testDeleteQuizzesNoAuth(quizIds[1]),
+            () -> testCompletedQuizzesNoAuth(),
 
 
-        // Solve two quizzes
-        () -> checkQuizSuccess(quizIds[0], "[0]", false, 1),
-        () -> checkQuizSuccess(quizIds[0], "[1]", false, 2),
-        () -> checkQuizSuccess(quizIds[0], "[2]", true, 1),
-        () -> checkQuizSuccess(quizIds[0], "[3]", false, 2),
-
-        () -> checkQuizSuccess(quizIds[1], "[0]", false, 1),
-        () -> checkQuizSuccess(quizIds[1], "[1]", true, 2),
-        () -> checkQuizSuccess(quizIds[1], "[2]", false, 1),
-        () -> checkQuizSuccess(quizIds[1], "[3]", false, 2),
-
-
-        // Check completed
-        () -> testCompletedQuizzes(1, 1, 0 ,0, quizIds[0]),
-        () -> testCompletedQuizzes(1, 2, 0, 0, quizIds[1]),
+            // Fake auth operations tests
+            () -> testAllQuizzesFakeAuth(),
+            () -> testCreateQuizFakeAuth(1),
+            () -> testCreateQuizFakeAuth(2),
+            () -> testSolveQuizFakeAuth(quizIds[0], "[0]"),
+            () -> testSolveQuizFakeAuth(quizIds[1], "[1]"),
+            () -> testDeleteQuizzesFakeAuth(quizIds[0]),
+            () -> testDeleteQuizzesFakeAuth(quizIds[1]),
+            () -> testCompletedQuizzesFakeAuth(),
 
 
-        // Test database save
-        () -> testAllQuizzes(2, 0, 1),
-        () -> testAllQuizzes(2, 0,2),
-        () -> reloadServer(),
-        () -> testAllQuizzes(2, 0,1),
-        () -> testAllQuizzes(2, 0,2),
-        () -> checkQuizSuccess(quizIds[0], "[2]", true, 2),
-        () -> checkQuizSuccess(quizIds[0], "[3]", false, 1),
-        () -> checkQuizSuccess(quizIds[1], "[0]", false, 2),
-        () -> checkQuizSuccess(quizIds[1], "[1]", true, 1),
+            // Solve two quizzes
+            () -> checkQuizSuccess(quizIds[0], "[0]", false, 1),
+            () -> checkQuizSuccess(quizIds[0], "[1]", false, 2),
+            () -> checkQuizSuccess(quizIds[0], "[2]", true, 1),
+            () -> checkQuizSuccess(quizIds[0], "[3]", false, 2),
+
+            () -> checkQuizSuccess(quizIds[1], "[0]", false, 1),
+            () -> checkQuizSuccess(quizIds[1], "[1]", true, 2),
+            () -> checkQuizSuccess(quizIds[1], "[2]", false, 1),
+            () -> checkQuizSuccess(quizIds[1], "[3]", false, 2),
 
 
-        // Check completed
-        () -> testCompletedQuizzes(2, 1, 0 ,1, quizIds[0]),
-        () -> testCompletedQuizzes(2, 1, 0 ,0, quizIds[1]),
-
-        () -> testCompletedQuizzes(2, 2, 0, 1, quizIds[1]),
-        () -> testCompletedQuizzes(2, 2, 0, 0, quizIds[0]),
+            // Check completed
+            () -> testCompletedQuizzes(1, 1, 0, 0, quizIds[0]),
+            () -> testCompletedQuizzes(1, 2, 0, 0, quizIds[1]),
 
 
-        // Test wrongly created quizzes
-        () -> addIncorrectQuiz(error400noTitle, 1),
-        () -> addIncorrectQuiz(error400emptyTitle, 2),
-        () -> addIncorrectQuiz(error400noText, 1),
-        () -> addIncorrectQuiz(error400emptyText, 2),
-        () -> addIncorrectQuiz(error400noOptions, 1),
-        () -> addIncorrectQuiz(error400emptyOptions, 2),
-        () -> addIncorrectQuiz(error400oneOption, 1),
+            // Test database save
+            () -> testAllQuizzes(2, 0, 1),
+            () -> testAllQuizzes(2, 0, 2),
+            () -> reloadServer(),
+            () -> testAllQuizzes(2, 0, 1),
+            () -> testAllQuizzes(2, 0, 2),
+            () -> checkQuizSuccess(quizIds[0], "[2]", true, 2),
+            () -> checkQuizSuccess(quizIds[0], "[3]", false, 1),
+            () -> checkQuizSuccess(quizIds[1], "[0]", false, 2),
+            () -> checkQuizSuccess(quizIds[1], "[1]", true, 1),
 
 
-        // Test multiple answers
-        () -> testCreateQuiz(2, 1),
-        () -> testQuizExists(2, 1),
-        () -> testQuizNotExists(2, 1, 125),
-        () -> checkQuizSuccess(quizIds[2], "[]", false, 1),
-        () -> checkQuizSuccess(quizIds[2], "[0]", false, 2),
-        () -> checkQuizSuccess(quizIds[2], "[1]", false, 1),
-        () -> checkQuizSuccess(quizIds[2], "[2]", false, 2),
-        () -> checkQuizSuccess(quizIds[2], "[3]", false, 1),
-        () -> checkQuizSuccess(quizIds[2], "[0,1]", true, 2),
-        () -> checkQuizSuccess(quizIds[2], "[0,2]", false, 1),
-        () -> checkQuizSuccess(quizIds[2], "[0,3]", false, 2),
-        () -> checkQuizSuccess(quizIds[2], "[1,2]", false, 1),
-        () -> checkQuizSuccess(quizIds[2], "[1,3]", false, 2),
-        () -> checkQuizSuccess(quizIds[2], "[2,3]", false, 1),
-        () -> checkQuizSuccess(quizIds[2], "[0,1,2]", false, 2),
-        () -> checkQuizSuccess(quizIds[2], "[0,1,3]", false, 1),
-        () -> checkQuizSuccess(quizIds[2], "[1,2,3]", false, 2),
-        () -> checkQuizSuccess(quizIds[2], "[0,1,2,3]", false, 1),
+            // Check completed
+            () -> testCompletedQuizzes(2, 1, 0, 1, quizIds[0]),
+            () -> testCompletedQuizzes(2, 1, 0, 0, quizIds[1]),
 
-        () -> testCreateQuiz(3, 1),
-        () -> testQuizExists(3, 1),
-        () -> testQuizNotExists(3, 1, 125),
-        () -> checkQuizSuccess(quizIds[3], "[]", false, 1),
-        () -> checkQuizSuccess(quizIds[3], "[0]", false, 2),
-        () -> checkQuizSuccess(quizIds[3], "[1]", false, 1),
-        () -> checkQuizSuccess(quizIds[3], "[2]", false, 2),
-        () -> checkQuizSuccess(quizIds[3], "[3]", false, 1),
-        () -> checkQuizSuccess(quizIds[3], "[0,1]", false, 2),
-        () -> checkQuizSuccess(quizIds[3], "[0,2]", false, 1),
-        () -> checkQuizSuccess(quizIds[3], "[0,3]", false, 2),
-        () -> checkQuizSuccess(quizIds[3], "[1,2]", false, 1),
-        () -> checkQuizSuccess(quizIds[3], "[1,3]", true, 2),
-        () -> checkQuizSuccess(quizIds[3], "[2,3]", false, 1),
-        () -> checkQuizSuccess(quizIds[3], "[0,1,2]", false, 2),
-        () -> checkQuizSuccess(quizIds[3], "[0,1,3]", false, 1),
-        () -> checkQuizSuccess(quizIds[3], "[1,2,3]", false, 2),
-        () -> checkQuizSuccess(quizIds[3], "[0,1,2,3]", false, 1),
-
-        () -> testCreateQuiz(4, 1),
-        () -> testQuizExists(4, 1),
-        () -> testQuizNotExists(4, 1, 125),
-        () -> checkQuizSuccess(quizIds[4], "[]", true, 1),
-        () -> checkQuizSuccess(quizIds[4], "[0]", false, 2),
-        () -> checkQuizSuccess(quizIds[4], "[1]", false, 1),
-        () -> checkQuizSuccess(quizIds[4], "[2]", false, 2),
-        () -> checkQuizSuccess(quizIds[4], "[3]", false, 1),
-        () -> checkQuizSuccess(quizIds[4], "[0,1]", false, 2),
-        () -> checkQuizSuccess(quizIds[4], "[0,2]", false, 1),
-        () -> checkQuizSuccess(quizIds[4], "[0,3]", false, 2),
-        () -> checkQuizSuccess(quizIds[4], "[1,2]", false, 1),
-        () -> checkQuizSuccess(quizIds[4], "[1,3]", false, 2),
-        () -> checkQuizSuccess(quizIds[4], "[2,3]", false, 1),
-        () -> checkQuizSuccess(quizIds[4], "[0,1,2]", false, 1),
-        () -> checkQuizSuccess(quizIds[4], "[0,1,3]", false, 2),
-        () -> checkQuizSuccess(quizIds[4], "[1,2,3]", false, 1),
-        () -> checkQuizSuccess(quizIds[4], "[0,1,2,3]", false, 2),
-
-        () -> testCreateQuiz(5, 1),
-        () -> testQuizExists(5, 1),
-        () -> testQuizNotExists(5, 1, 125),
-        () -> checkQuizSuccess(quizIds[5], "[]", true, 1),
-        () -> checkQuizSuccess(quizIds[5], "[0]", false, 1),
-        () -> checkQuizSuccess(quizIds[5], "[1]", false, 1),
-        () -> checkQuizSuccess(quizIds[5], "[2]", false, 1),
-        () -> checkQuizSuccess(quizIds[5], "[3]", false, 1),
-        () -> checkQuizSuccess(quizIds[5], "[0,1]", false, 1),
-        () -> checkQuizSuccess(quizIds[5], "[0,2]", false, 1),
-        () -> checkQuizSuccess(quizIds[5], "[0,3]", false, 1),
-        () -> checkQuizSuccess(quizIds[5], "[1,2]", false, 1),
-        () -> checkQuizSuccess(quizIds[5], "[1,3]", false, 1),
-        () -> checkQuizSuccess(quizIds[5], "[2,3]", false, 1),
-        () -> checkQuizSuccess(quizIds[5], "[0,1,2]", false, 1),
-        () -> checkQuizSuccess(quizIds[5], "[0,1,3]", false, 1),
-        () -> checkQuizSuccess(quizIds[5], "[1,2,3]", false, 1),
-        () -> checkQuizSuccess(quizIds[5], "[0,1,2,3]", false, 1),
-
-        () -> testCreateQuiz(6, 1),
-        () -> testQuizExists(6, 1),
-        () -> testQuizNotExists(6, 1, 125),
-        () -> checkQuizSuccess(quizIds[6], "[]", false, 2),
-        () -> checkQuizSuccess(quizIds[6], "[0]", false, 2),
-        () -> checkQuizSuccess(quizIds[6], "[1]", false, 2),
-        () -> checkQuizSuccess(quizIds[6], "[2]", false, 2),
-        () -> checkQuizSuccess(quizIds[6], "[3]", false, 2),
-        () -> checkQuizSuccess(quizIds[6], "[0,1]", false, 2),
-        () -> checkQuizSuccess(quizIds[6], "[0,2]", false, 2),
-        () -> checkQuizSuccess(quizIds[6], "[0,3]", false, 2),
-        () -> checkQuizSuccess(quizIds[6], "[1,2]", false, 2),
-        () -> checkQuizSuccess(quizIds[6], "[1,3]", false, 2),
-        () -> checkQuizSuccess(quizIds[6], "[2,3]", false, 2),
-        () -> checkQuizSuccess(quizIds[6], "[0,1,2]", false, 2),
-        () -> checkQuizSuccess(quizIds[6], "[0,1,3]", true, 2),
-        () -> checkQuizSuccess(quizIds[6], "[1,2,3]", false, 2),
-        () -> checkQuizSuccess(quizIds[6], "[0,1,2,3]", false, 2),
-
-        () -> testAllQuizzes(7, 0,2),
-        () -> reloadServer(),
-        () -> testAllQuizzes(7, 0,2),
-        () -> checkQuizSuccess(quizIds[5], "[]", true, 1),
-        () -> checkQuizSuccess(quizIds[5], "[0]", false, 2),
-        () -> checkQuizSuccess(quizIds[6], "[0,1,2]", false, 1),
-        () -> checkQuizSuccess(quizIds[6], "[0,1,3]", true, 2),
+            () -> testCompletedQuizzes(2, 2, 0, 1, quizIds[1]),
+            () -> testCompletedQuizzes(2, 2, 0, 0, quizIds[0]),
 
 
-        // Check completed
-        () -> testCompletedQuizzes(5, 1, 0 ,4, quizIds[0]),
-        () -> testCompletedQuizzes(5, 1, 0 ,3, quizIds[1]),
-        () -> testCompletedQuizzes(5, 1, 0 ,2, quizIds[4]),
-        () -> testCompletedQuizzes(5, 1, 0 ,1, quizIds[5]),
-        () -> testCompletedQuizzes(5, 1, 0 ,0, quizIds[5]),
-
-        () -> testCompletedQuizzes(6, 2, 0, 5, quizIds[1]),
-        () -> testCompletedQuizzes(6, 2, 0, 4, quizIds[0]),
-        () -> testCompletedQuizzes(6, 2, 0, 3, quizIds[2]),
-        () -> testCompletedQuizzes(6, 2, 0, 2, quizIds[3]),
-        () -> testCompletedQuizzes(6, 2, 0, 1, quizIds[6]),
-        () -> testCompletedQuizzes(6, 2, 0, 0, quizIds[6]),
+            // Test wrongly created quizzes
+            () -> addIncorrectQuiz(error400noTitle, 1),
+            () -> addIncorrectQuiz(error400emptyTitle, 2),
+            () -> addIncorrectQuiz(error400noText, 1),
+            () -> addIncorrectQuiz(error400emptyText, 2),
+            () -> addIncorrectQuiz(error400noOptions, 1),
+            () -> addIncorrectQuiz(error400emptyOptions, 2),
+            () -> addIncorrectQuiz(error400oneOption, 1),
 
 
-        // Test pagination completed quizzes
-        () -> checkQuizSuccess(quizIds[4], "[]", true, 1),
-        () -> checkQuizSuccess(quizIds[4], "[]", true, 1),
-        () -> checkQuizSuccess(quizIds[4], "[]", true, 1),
-        () -> checkQuizSuccess(quizIds[4], "[]", true, 1),
-        () -> checkQuizSuccess(quizIds[4], "[]", true, 1),
-        () -> checkQuizSuccess(quizIds[6], "[0,1,3]", true, 1),
+            // Test multiple answers
+            () -> testCreateQuiz(2, 1),
+            () -> testQuizExists(2, 1),
+            () -> testQuizNotExists(2, 1, 125),
+            () -> checkQuizSuccess(quizIds[2], "[]", false, 1),
+            () -> checkQuizSuccess(quizIds[2], "[0]", false, 2),
+            () -> checkQuizSuccess(quizIds[2], "[1]", false, 1),
+            () -> checkQuizSuccess(quizIds[2], "[2]", false, 2),
+            () -> checkQuizSuccess(quizIds[2], "[3]", false, 1),
+            () -> checkQuizSuccess(quizIds[2], "[0,1]", true, 2),
+            () -> checkQuizSuccess(quizIds[2], "[0,2]", false, 1),
+            () -> checkQuizSuccess(quizIds[2], "[0,3]", false, 2),
+            () -> checkQuizSuccess(quizIds[2], "[1,2]", false, 1),
+            () -> checkQuizSuccess(quizIds[2], "[1,3]", false, 2),
+            () -> checkQuizSuccess(quizIds[2], "[2,3]", false, 1),
+            () -> checkQuizSuccess(quizIds[2], "[0,1,2]", false, 2),
+            () -> checkQuizSuccess(quizIds[2], "[0,1,3]", false, 1),
+            () -> checkQuizSuccess(quizIds[2], "[1,2,3]", false, 2),
+            () -> checkQuizSuccess(quizIds[2], "[0,1,2,3]", false, 1),
 
-        () -> checkQuizSuccess(quizIds[3], "[1,3]", true, 2),
-        () -> checkQuizSuccess(quizIds[3], "[1,3]", true, 2),
-        () -> checkQuizSuccess(quizIds[3], "[1,3]", true, 2),
-        () -> checkQuizSuccess(quizIds[3], "[1,3]", true, 2),
-        () -> checkQuizSuccess(quizIds[3], "[1,3]", true, 2),
-        () -> checkQuizSuccess(quizIds[5], "[]", true, 2),
+            () -> testCreateQuiz(3, 1),
+            () -> testQuizExists(3, 1),
+            () -> testQuizNotExists(3, 1, 125),
+            () -> checkQuizSuccess(quizIds[3], "[]", false, 1),
+            () -> checkQuizSuccess(quizIds[3], "[0]", false, 2),
+            () -> checkQuizSuccess(quizIds[3], "[1]", false, 1),
+            () -> checkQuizSuccess(quizIds[3], "[2]", false, 2),
+            () -> checkQuizSuccess(quizIds[3], "[3]", false, 1),
+            () -> checkQuizSuccess(quizIds[3], "[0,1]", false, 2),
+            () -> checkQuizSuccess(quizIds[3], "[0,2]", false, 1),
+            () -> checkQuizSuccess(quizIds[3], "[0,3]", false, 2),
+            () -> checkQuizSuccess(quizIds[3], "[1,2]", false, 1),
+            () -> checkQuizSuccess(quizIds[3], "[1,3]", true, 2),
+            () -> checkQuizSuccess(quizIds[3], "[2,3]", false, 1),
+            () -> checkQuizSuccess(quizIds[3], "[0,1,2]", false, 2),
+            () -> checkQuizSuccess(quizIds[3], "[0,1,3]", false, 1),
+            () -> checkQuizSuccess(quizIds[3], "[1,2,3]", false, 2),
+            () -> checkQuizSuccess(quizIds[3], "[0,1,2,3]", false, 1),
 
-        () -> testCompletedQuizzes(10, 1, 0 ,0, quizIds[6]),
-        () -> testCompletedQuizzes(10, 1, 0 ,1, quizIds[4]),
-        () -> testCompletedQuizzes(10, 1, 0 ,2, quizIds[4]),
-        () -> testCompletedQuizzes(10, 1, 0 ,3, quizIds[4]),
-        () -> testCompletedQuizzes(10, 1, 0 ,4, quizIds[4]),
-        () -> testCompletedQuizzes(10, 1, 0 ,5, quizIds[4]),
-        () -> testCompletedQuizzes(1, 1, 1 ,0, quizIds[0]),
+            () -> testCreateQuiz(4, 1),
+            () -> testQuizExists(4, 1),
+            () -> testQuizNotExists(4, 1, 125),
+            () -> checkQuizSuccess(quizIds[4], "[]", true, 1),
+            () -> checkQuizSuccess(quizIds[4], "[0]", false, 2),
+            () -> checkQuizSuccess(quizIds[4], "[1]", false, 1),
+            () -> checkQuizSuccess(quizIds[4], "[2]", false, 2),
+            () -> checkQuizSuccess(quizIds[4], "[3]", false, 1),
+            () -> checkQuizSuccess(quizIds[4], "[0,1]", false, 2),
+            () -> checkQuizSuccess(quizIds[4], "[0,2]", false, 1),
+            () -> checkQuizSuccess(quizIds[4], "[0,3]", false, 2),
+            () -> checkQuizSuccess(quizIds[4], "[1,2]", false, 1),
+            () -> checkQuizSuccess(quizIds[4], "[1,3]", false, 2),
+            () -> checkQuizSuccess(quizIds[4], "[2,3]", false, 1),
+            () -> checkQuizSuccess(quizIds[4], "[0,1,2]", false, 1),
+            () -> checkQuizSuccess(quizIds[4], "[0,1,3]", false, 2),
+            () -> checkQuizSuccess(quizIds[4], "[1,2,3]", false, 1),
+            () -> checkQuizSuccess(quizIds[4], "[0,1,2,3]", false, 2),
 
-        () -> testCompletedQuizzes(10, 2, 0 ,0, quizIds[5]),
-        () -> testCompletedQuizzes(10, 2, 0 ,1, quizIds[3]),
-        () -> testCompletedQuizzes(10, 2, 0 ,2, quizIds[3]),
-        () -> testCompletedQuizzes(10, 2, 0 ,3, quizIds[3]),
-        () -> testCompletedQuizzes(10, 2, 0 ,4, quizIds[3]),
-        () -> testCompletedQuizzes(10, 2, 0 ,5, quizIds[3]),
-        () -> testCompletedQuizzes(2, 2, 1 ,1, quizIds[1]),
-        () -> testCompletedQuizzes(2, 2, 1 ,0, quizIds[0]),
+            () -> testCreateQuiz(5, 1),
+            () -> testQuizExists(5, 1),
+            () -> testQuizNotExists(5, 1, 125),
+            () -> checkQuizSuccess(quizIds[5], "[]", true, 1),
+            () -> checkQuizSuccess(quizIds[5], "[0]", false, 1),
+            () -> checkQuizSuccess(quizIds[5], "[1]", false, 1),
+            () -> checkQuizSuccess(quizIds[5], "[2]", false, 1),
+            () -> checkQuizSuccess(quizIds[5], "[3]", false, 1),
+            () -> checkQuizSuccess(quizIds[5], "[0,1]", false, 1),
+            () -> checkQuizSuccess(quizIds[5], "[0,2]", false, 1),
+            () -> checkQuizSuccess(quizIds[5], "[0,3]", false, 1),
+            () -> checkQuizSuccess(quizIds[5], "[1,2]", false, 1),
+            () -> checkQuizSuccess(quizIds[5], "[1,3]", false, 1),
+            () -> checkQuizSuccess(quizIds[5], "[2,3]", false, 1),
+            () -> checkQuizSuccess(quizIds[5], "[0,1,2]", false, 1),
+            () -> checkQuizSuccess(quizIds[5], "[0,1,3]", false, 1),
+            () -> checkQuizSuccess(quizIds[5], "[1,2,3]", false, 1),
+            () -> checkQuizSuccess(quizIds[5], "[0,1,2,3]", false, 1),
+
+            () -> testCreateQuiz(6, 1),
+            () -> testQuizExists(6, 1),
+            () -> testQuizNotExists(6, 1, 125),
+            () -> checkQuizSuccess(quizIds[6], "[]", false, 2),
+            () -> checkQuizSuccess(quizIds[6], "[0]", false, 2),
+            () -> checkQuizSuccess(quizIds[6], "[1]", false, 2),
+            () -> checkQuizSuccess(quizIds[6], "[2]", false, 2),
+            () -> checkQuizSuccess(quizIds[6], "[3]", false, 2),
+            () -> checkQuizSuccess(quizIds[6], "[0,1]", false, 2),
+            () -> checkQuizSuccess(quizIds[6], "[0,2]", false, 2),
+            () -> checkQuizSuccess(quizIds[6], "[0,3]", false, 2),
+            () -> checkQuizSuccess(quizIds[6], "[1,2]", false, 2),
+            () -> checkQuizSuccess(quizIds[6], "[1,3]", false, 2),
+            () -> checkQuizSuccess(quizIds[6], "[2,3]", false, 2),
+            () -> checkQuizSuccess(quizIds[6], "[0,1,2]", false, 2),
+            () -> checkQuizSuccess(quizIds[6], "[0,1,3]", true, 2),
+            () -> checkQuizSuccess(quizIds[6], "[1,2,3]", false, 2),
+            () -> checkQuizSuccess(quizIds[6], "[0,1,2,3]", false, 2),
+
+            () -> testAllQuizzes(7, 0, 2),
+            () -> reloadServer(),
+            () -> testAllQuizzes(7, 0, 2),
+            () -> checkQuizSuccess(quizIds[5], "[]", true, 1),
+            () -> checkQuizSuccess(quizIds[5], "[0]", false, 2),
+            () -> checkQuizSuccess(quizIds[6], "[0,1,2]", false, 1),
+            () -> checkQuizSuccess(quizIds[6], "[0,1,3]", true, 2),
 
 
-        // Test delete
-        () -> testDelete(quizIds[0], 1, 204),
-        () -> testDelete(quizIds[0], 1, 404),
-        () -> testQuizNotExists(0, 1, 0),
-        () -> testQuizNotExists(0, 2, 0),
-        () -> testQuizExists(1, 1),
-        () -> testQuizExists(1, 2),
+            // Check completed
+            () -> testCompletedQuizzes(5, 1, 0, 4, quizIds[0]),
+            () -> testCompletedQuizzes(5, 1, 0, 3, quizIds[1]),
+            () -> testCompletedQuizzes(5, 1, 0, 2, quizIds[4]),
+            () -> testCompletedQuizzes(5, 1, 0, 1, quizIds[5]),
+            () -> testCompletedQuizzes(5, 1, 0, 0, quizIds[5]),
 
-        () -> testDelete(quizIds[1], 1, 403),
-        () -> testDelete(quizIds[1], 1, 403),
-        () -> testDelete(quizIds[1], 2, 204),
-        () -> testDelete(quizIds[1], 2, 404),
-        () -> testDelete(quizIds[1], 1, 404),
-        () -> testQuizNotExists(0, 1, 0),
-        () -> testQuizNotExists(0, 2, 0),
-        () -> testQuizNotExists(1, 1, 0),
-        () -> testQuizNotExists(1, 2, 0),
-
-        () -> testAllQuizzes(5, 0,1),
-        () -> reloadServer(),
-        () -> testAllQuizzes(5, 0,2),
-        () -> testQuizNotExists(0, 1, 0),
-        () -> testQuizNotExists(0, 2, 0),
-        () -> testQuizNotExists(1, 1, 0),
-        () -> testQuizNotExists(1, 2, 0),
+            () -> testCompletedQuizzes(6, 2, 0, 5, quizIds[1]),
+            () -> testCompletedQuizzes(6, 2, 0, 4, quizIds[0]),
+            () -> testCompletedQuizzes(6, 2, 0, 3, quizIds[2]),
+            () -> testCompletedQuizzes(6, 2, 0, 2, quizIds[3]),
+            () -> testCompletedQuizzes(6, 2, 0, 1, quizIds[6]),
+            () -> testCompletedQuizzes(6, 2, 0, 0, quizIds[6]),
 
 
-        // Test pagination all quizzes
-        () -> testCreateQuiz(6, 1),
-        () -> testCreateQuiz(6, 2),
-        () -> testCreateQuiz(6, 1),
-        () -> testCreateQuiz(6, 1),
-        () -> testCreateQuiz(6, 1),
-        () -> testCreateQuiz(6, 2),
-        () -> testCreateQuiz(6, 1),
-        () -> testCreateQuiz(6, 2),
-        () -> testCreateQuiz(6, 1),
-        () -> testCreateQuiz(6, 2),
-        () -> testAllQuizzes(10, 0,1),
-        () -> testAllQuizzes(10, 0,2),
-        () -> testAllQuizzes(5, 1,1),
-        () -> testAllQuizzes(5, 1,2),
+            // Test pagination completed quizzes
+            () -> checkQuizSuccess(quizIds[4], "[]", true, 1),
+            () -> checkQuizSuccess(quizIds[4], "[]", true, 1),
+            () -> checkQuizSuccess(quizIds[4], "[]", true, 1),
+            () -> checkQuizSuccess(quizIds[4], "[]", true, 1),
+            () -> checkQuizSuccess(quizIds[4], "[]", true, 1),
+            () -> checkQuizSuccess(quizIds[6], "[0,1,3]", true, 1),
+
+            () -> checkQuizSuccess(quizIds[3], "[1,3]", true, 2),
+            () -> checkQuizSuccess(quizIds[3], "[1,3]", true, 2),
+            () -> checkQuizSuccess(quizIds[3], "[1,3]", true, 2),
+            () -> checkQuizSuccess(quizIds[3], "[1,3]", true, 2),
+            () -> checkQuizSuccess(quizIds[3], "[1,3]", true, 2),
+            () -> checkQuizSuccess(quizIds[5], "[]", true, 2),
+
+            () -> testCompletedQuizzes(10, 1, 0, 0, quizIds[6]),
+            () -> testCompletedQuizzes(10, 1, 0, 1, quizIds[4]),
+            () -> testCompletedQuizzes(10, 1, 0, 2, quizIds[4]),
+            () -> testCompletedQuizzes(10, 1, 0, 3, quizIds[4]),
+            () -> testCompletedQuizzes(10, 1, 0, 4, quizIds[4]),
+            () -> testCompletedQuizzes(10, 1, 0, 5, quizIds[4]),
+            () -> testCompletedQuizzes(1, 1, 1, 0, quizIds[0]),
+
+            () -> testCompletedQuizzes(10, 2, 0, 0, quizIds[5]),
+            () -> testCompletedQuizzes(10, 2, 0, 1, quizIds[3]),
+            () -> testCompletedQuizzes(10, 2, 0, 2, quizIds[3]),
+            () -> testCompletedQuizzes(10, 2, 0, 3, quizIds[3]),
+            () -> testCompletedQuizzes(10, 2, 0, 4, quizIds[3]),
+            () -> testCompletedQuizzes(10, 2, 0, 5, quizIds[3]),
+            () -> testCompletedQuizzes(2, 2, 1, 1, quizIds[1]),
+            () -> testCompletedQuizzes(2, 2, 1, 0, quizIds[0]),
+
+
+            // Test delete
+            () -> testDelete(quizIds[0], 1, 204),
+            () -> testDelete(quizIds[0], 1, 404),
+            () -> testQuizNotExists(0, 1, 0),
+            () -> testQuizNotExists(0, 2, 0),
+            () -> testQuizExists(1, 1),
+            () -> testQuizExists(1, 2),
+
+            () -> testDelete(quizIds[1], 1, 403),
+            () -> testDelete(quizIds[1], 1, 403),
+            () -> testDelete(quizIds[1], 2, 204),
+            () -> testDelete(quizIds[1], 2, 404),
+            () -> testDelete(quizIds[1], 1, 404),
+            () -> testQuizNotExists(0, 1, 0),
+            () -> testQuizNotExists(0, 2, 0),
+            () -> testQuizNotExists(1, 1, 0),
+            () -> testQuizNotExists(1, 2, 0),
+
+            () -> testAllQuizzes(5, 0, 1),
+            () -> reloadServer(),
+            () -> testAllQuizzes(5, 0, 2),
+            () -> testQuizNotExists(0, 1, 0),
+            () -> testQuizNotExists(0, 2, 0),
+            () -> testQuizNotExists(1, 1, 0),
+            () -> testQuizNotExists(1, 2, 0),
+
+
+            // Test pagination all quizzes
+            () -> testCreateQuiz(6, 1),
+            () -> testCreateQuiz(6, 2),
+            () -> testCreateQuiz(6, 1),
+            () -> testCreateQuiz(6, 1),
+            () -> testCreateQuiz(6, 1),
+            () -> testCreateQuiz(6, 2),
+            () -> testCreateQuiz(6, 1),
+            () -> testCreateQuiz(6, 2),
+            () -> testCreateQuiz(6, 1),
+            () -> testCreateQuiz(6, 2),
+            () -> testAllQuizzes(10, 0, 1),
+            () -> testAllQuizzes(10, 0, 2),
+            () -> testAllQuizzes(5, 1, 1),
+            () -> testAllQuizzes(5, 1, 2),
     };
 
     private CheckResult testRegister(String login, String password, int status) {
@@ -613,10 +613,10 @@ public class WebQuizEngineTest extends SpringTest {
 
         if (!rightQuiz.equals(obj)) {
             return CheckResult.wrong(
-                "The quiz sent to the program looked like this:\n" +
-                getPrettyJson(rightQuiz) + "\n\n" +
-                "But the received quiz looks like that:\n" +
-                getPrettyJson(obj)
+                    "The quiz sent to the program looked like this:\n" +
+                            getPrettyJson(rightQuiz) + "\n\n" +
+                            "But the received quiz looks like that:\n" +
+                            getPrettyJson(obj)
             );
         }
 

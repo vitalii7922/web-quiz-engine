@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body onload="loadQuiz()">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse navbar navbar-dark bg-dark" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/opening-page">Submit</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/openQuizList">Solve<span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="w-50 p-3 container h-100" id="resultQuiz">
+    <div id="alert" role="alert">
+    </div>
+    <div class="container-sm border">
+        <h5 class="text-center">Title</h5>
+        <p><em id="title"></em></p>
+    </div>
+    <div class="container-sm border">
+        <h5 class="text-center">Description</h5>
+        <p><em id="description"></em></p>
+
+    </div>
+    <div class="container-sm border">
+        <h5 class="text-center">Options</h5>
+        <div id="options">
+        </div>
+    </div>
+    <br>
+    <button type="button" onClick="getAnswers();" class="btn btn-primary">Solve</button>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    const id = sessionStorage.getItem("id");
+    const urlGetQuiz = 'http://localhost:8889/api/quizzes/' + id;
+    const urlSolveQuiz = `http://localhost:8889/api/quizzes/${id}/solve`;
+
+    const loadQuiz = async () => {
+        try {
+            const response = await fetch(urlGetQuiz, {
+                method: 'GET',
+                headers: {
+                    "Content-type": "application/json",
+                }
+            })
+            if (response.ok) {
+                response.json().then(data => {
+                    renderQuiz(data);
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getAnswers = () => {
+        const answers = [];
+        const options = $("input[type=checkbox]");
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].checked) {
+                answers.push(i);
+            }
+        }
+        solveQuiz(answers);
+    }
+
+    const solveQuiz = async (answers) => {
+        const data = JSON.stringify({
+            answers: answers
+        });
+        try {
+            const response = await fetch(urlSolveQuiz, {
+                method: 'POST',
+                body: data,
+                headers: {
+                    "Content-type": "application/json",
+                }
+            })
+            if (response.ok) {
+                const alert = $('#alert');
+                alert.empty();
+                alert.removeClass();
+                response.json().then(data => {
+                    const feedback = data.feedback;
+                    let className;
+                    className = data.success ? "alert alert-success" : 'alert alert-danger';
+                    alert.toggleClass(className).append(feedback);
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const renderQuiz = (quiz) => {
+        $('#title').append(quiz.title);
+        $('#description').append(quiz.text);
+        const optionsTag = $('#options');
+        for (let i = 0; i < quiz.options.length; i++) {
+            optionsTag.append(` <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="${quiz.options[i]}" id="Check${i + 1}">
+            <label class="form-check-label" for="Check${i + 1}">
+                ${quiz.options[i]}
+            </label>
+        </div>`);
+        }
+    }
+</script>
+</body>
+</html>

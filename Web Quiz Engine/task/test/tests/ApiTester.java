@@ -10,19 +10,19 @@ import static java.lang.Math.abs;
 public class ApiTester {
 
     private static void checkJson(
-        boolean passed,
-        HttpResp resp,
-        JsonElement json,
-        String path,
-        String should) {
+            boolean passed,
+            HttpResp resp,
+            JsonElement json,
+            String path,
+            String should) {
 
         if (!passed) {
             if (path.length() != 0) {
                 path = " in the JSON in path \"" + path + "\"";
             }
             throw new WrongAnswer(
-                resp.getRequest() + " should " + should + path +
-                    ".\nFound: \n\n" + getPrettyJson(json)
+                    resp.getRequest() + " should " + should + path +
+                            ".\nFound: \n\n" + getPrettyJson(json)
             );
         }
     }
@@ -74,7 +74,7 @@ public class ApiTester {
 
     static void checkIsString(HttpResp resp, JsonElement json, String path) {
         checkJson(json.isJsonPrimitive() && json.getAsJsonPrimitive().isString(),
-            resp, json, path, "contain a string");
+                resp, json, path, "contain a string");
     }
 
     static void checkStringValue(HttpResp resp, JsonElement json, String value, String path) {
@@ -91,7 +91,7 @@ public class ApiTester {
 
     static void checkIsBoolean(HttpResp resp, JsonElement json, String path) {
         checkJson(json.isJsonPrimitive() && json.getAsJsonPrimitive().isBoolean(),
-            resp, json, path, "contain a boolean");
+                resp, json, path, "contain a boolean");
     }
 
     static void checkBooleanValue(HttpResp resp, JsonElement json, boolean value, String path) {
@@ -110,7 +110,7 @@ public class ApiTester {
         try {
             json.getAsInt();
         } catch (NumberFormatException ex) {
-            checkJson(false, resp, json, path,"contain a number");
+            checkJson(false, resp, json, path, "contain a number");
         }
     }
 
@@ -130,7 +130,7 @@ public class ApiTester {
         try {
             json.getAsDouble();
         } catch (NumberFormatException ex) {
-            checkJson(false, resp, json, path,"contain a floating-point number");
+            checkJson(false, resp, json, path, "contain a floating-point number");
         }
     }
 
@@ -149,7 +149,7 @@ public class ApiTester {
     static void checkObjectKey(HttpResp resp, JsonElement json, String key, String path) {
         checkIsObject(resp, json, path);
         checkJson(json.getAsJsonObject().has(key),
-            resp, json, path, "contain a key \"" + key + "\" in object");
+                resp, json, path, "contain a key \"" + key + "\" in object");
     }
 
 
@@ -162,7 +162,7 @@ public class ApiTester {
     static void checkArrayLength(HttpResp resp, JsonElement json, int length, String path) {
         checkIsArray(resp, json, path);
         checkJson(json.getAsJsonArray().size() == length,
-            resp, json, path, "contain a JSON array with length " + length);
+                resp, json, path, "contain a JSON array with length " + length);
     }
 
 }

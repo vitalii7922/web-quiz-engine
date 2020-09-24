@@ -57,9 +57,9 @@ public class TestHelper {
         if (resp.getStatusCode() != status) {
             throw new WrongAnswer(
                     resp.getRequest() +
-                    " should respond with status code " + status + ", " +
-                    "responded: " + resp.getStatusCode() + "\n\n" +
-                    "Response body:\n\n" + resp.getContent()
+                            " should respond with status code " + status + ", " +
+                            "responded: " + resp.getStatusCode() + "\n\n" +
+                            "Response body:\n\n" + resp.getContent()
             );
         }
     }
@@ -68,32 +68,32 @@ public class TestHelper {
         Map<String, String> headers = resp.getHeaders();
         if (!headers.containsKey(header)) {
             throw new WrongAnswer(
-                resp.getRequest() +
-                    " should respond with header \"Content-Type\", " +
-                    "but this header is not found in the response."
+                    resp.getRequest() +
+                            " should respond with header \"Content-Type\", " +
+                            "but this header is not found in the response."
             );
         }
         String actualValue = headers.get(header);
         if (!actualValue.equals(value)) {
             throw new WrongAnswer(
-                resp.getRequest() +
-                    " should respond with header \"Content-Type\" being " +
-                    "equal to " + value + " but in the response header " +
-                    "\"Content-Type\" is equal to " + actualValue + "."
+                    resp.getRequest() +
+                            " should respond with header \"Content-Type\" being " +
+                            "equal to " + value + " but in the response header " +
+                            "\"Content-Type\" is equal to " + actualValue + "."
             );
         }
     }
 
     static JsonElement getJson(HttpResp resp) {
         checkHeader(resp,
-            HttpHeaders.CONTENT_TYPE,
-            ContentType.APPLICATION_JSON.getMimeType()
+                HttpHeaders.CONTENT_TYPE,
+                ContentType.APPLICATION_JSON.getMimeType()
         );
         try {
             return resp.getJson();
         } catch (Exception ex) {
             throw new WrongAnswer(
-                resp.getRequest() + " should return a valid JSON"
+                    resp.getRequest() + " should return a valid JSON"
             );
         }
     }

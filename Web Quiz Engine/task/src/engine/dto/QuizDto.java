@@ -16,6 +16,8 @@ import java.util.List;
 @Builder
 public class QuizDto {
 
+    private long id;
+
     @NotBlank(message = "Title cannot be empty")
     private String title;
     @NotBlank(message = "Description cannot be empty")

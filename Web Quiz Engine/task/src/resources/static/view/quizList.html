@@ -49,9 +49,16 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/openQuizList">Solve<span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/openCompletedQuizzes">Completed</a>
+            </li>
         </ul>
+        <form class="form-inline my-2 my-lg-0" action="/logout" method="post">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Logout</button>
+        </form>
     </div>
 </nav>
+
 <div class="container h-100" id="container-pages">
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center" id="pages">
@@ -59,24 +66,54 @@
     </nav>
 </div>
 <div class="w-75 p-3 container h-100">
+    <div class="alert alert-info" role="alert" id="alert">
+        There are no quizzes yet! Click on
+        <a href="/opening-page" class="alert-link">submit</a> to fill in a form and add first quiz
+    </div>
     <table class="table table-hover table-borderless">
         <thead>
-        <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Description</th>
-            <th scope="col"></th>
+        <tr id="heading">
         </tr>
         </thead>
         <tbody id="table">
         </tbody>
     </table>
 </div>
-
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Deletion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="message" class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Decline</button>
+                <button type="button" id="deleteButton" class="btn btn-danger">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     let currentPage;
     let pagesNumber;
+    const message = document.getElementById("alert");
+    message.hidden = true;
     const getRequestUrl = 'http://localhost:8889/api/quizzes?page='
+    const deleteRequestUrl = 'http://localhost:8889/api/quizzes/'
     const loadQuizzes = async (url) => {
         try {
             const response = await fetch(url, {
@@ -88,9 +125,12 @@
             if (response.ok) {
                 response.json().then(data => {
                     addPagination(data);
+                    addHeading(data);
                     addDataToTable(data);
                     console.log(data);
                 });
+            } else if (response.status === 401) {
+                window.location.replace('http://localhost:8889/');
             }
         } catch (error) {
             console.log(error);
@@ -112,32 +152,55 @@
     }
 
     const addPagination = (data) => {
-        pagesNumber = data.totalPages;
         $('#pages').empty();
-        insertArrows();
-        for (let i = 1; i <= pagesNumber; i++) {
-            console.log(i);
-            if (i === currentPage) {
-                $("#next").before(`<li class="page-item active">` +
-                    `<button class="page-link" onclick="openPage(${i})">${i}</button></li>`);
-            } else {
-                $("#next").before(`<li class="page-item">` +
-                    `<button class="page-link" onclick="openPage(${i})">${i}</button></li>`);
+        if (data.content.length === 0) {
+            message.hidden = false;
+        }
+        pagesNumber = data.totalPages;
+        if (pagesNumber > 1) {
+            insertArrows();
+            for (let i = 1; i <= pagesNumber; i++) {
+                console.log(i);
+                if (i === currentPage) {
+                    $("#next").before(`<li class="page-item active">` +
+                        `<button class="page-link" onclick="openPage(${i})">${i}</button></li>`);
+                } else {
+                    $("#next").before(`<li class="page-item">` +
+                        `<button class="page-link" onclick="openPage(${i})">${i}</button></li>`);
+                }
             }
         }
     }
 
     const addDataToTable = (data) => {
-        let getQuizUrl = 'http://localhost:8889/api/quizzes/';
         $('#table').empty();
         data.content.forEach(quiz => {
+            let buttonGroup = `<button type="button" onclick="redirect(${quiz.id})" ` +
+                `class="btn btn-outline-info">Open</button>\n`;
+            if (quiz.modifiable === true) {
+                buttonGroup += `<button type="button" ` +
+                    `class="btn btn-outline-dark">Update</button>\n` +
+                    `<button type="button" ` +
+                    `class="btn btn-outline-danger" onclick="addMessageToModal('${quiz.title}', ${quiz.id})"
+data-toggle="modal" data-target="#modal">Delete</button>`;
+            }
             $('#table').append(`<tr>
             <td>${quiz.title}</td>
             <td>${quiz.text}</td>
-            <td><button type="button" onclick="redirect(${quiz.id})" class="btn btn-outline-info">Open</button></td>
+           <td>${buttonGroup}</td>>
         </tr>`);
         })
     };
+
+    const addHeading = (data) => {
+        const heading = $('#heading');
+        heading.empty();
+        if (data.content.length > 0) {
+            heading.append('<th scope="col">Title</th>\n' +
+                '            <th scope="col">Description</th>\n' +
+                '            <th scope="col"></th>')
+        }
+    }
 
     const openPage = (page) => {
         currentPage = page;
@@ -158,6 +221,26 @@
         sessionStorage.setItem('id', id);
         window.location.href = "http://localhost:8889/openQuiz";
     }
+
+    const addMessageToModal = (title, id) => {
+        console.log('work message to modal');
+        $('#message').text('Are you sure to delete the quiz with title ' + '\"' + title + '\"');
+        $('#deleteButton').attr('onclick', `deleteRequest(${id})`);
+    }
+
+    const deleteRequest = async (id) => {
+        try {
+            const response = await fetch(deleteRequestUrl + id, {
+                method: 'DELETE',
+            })
+            if (response.ok) {
+                location.reload();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 </script>
 </body>
 </html>

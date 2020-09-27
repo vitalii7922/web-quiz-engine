@@ -27,6 +27,7 @@ public class QuizMapper {
                 .id(quiz.getId())
                 .title(quiz.getTitle())
                 .text(quiz.getText())
+                .user(quiz.getUser())
                 .options(quiz.getOptions())
                 .build();
     }
@@ -34,6 +35,8 @@ public class QuizMapper {
     public CompletedQuizDto toCompletedQuizDto(CompletedQuiz completedQuiz) {
         return CompletedQuizDto.builder()
                 .id(completedQuiz.getId())
+                .title(completedQuiz.getTitle())
+                .text(completedQuiz.getText())
                 .completedAt(completedQuiz.getCompletedAt())
                 .build();
     }

@@ -28,19 +28,7 @@ public class Quiz {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ElementCollection
     private List<Integer> answer;
-    @ManyToOne
-    @JsonIgnore
-    private User user;
 
-    @Override
-    public String toString() {
-        return "Quiz{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", text='" + text + '\'' +
-                ", options=" + options +
-                ", answer=" + answer +
-                ", user=" + user +
-                '}';
-    }
+    @ManyToOne
+    private User user;
 }

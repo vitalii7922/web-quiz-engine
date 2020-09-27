@@ -16,7 +16,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="/openQuizList">Solve</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/openCompletedQuizzes">Completed</a>
+            </li>
         </ul>
+        <form class="form-inline my-2 my-lg-0" action="/logout" method="post">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Logout</button>
+        </form>
     </div>
 </nav>
 
@@ -59,17 +65,7 @@
         <button type="button" id="addQuiz" class="btn btn-primary">Submit</button>
     </div>
 </div>
-<div class="w-50 p-3 container h-100" id="resultQuiz">
-    <div class="alert alert-danger" role="alert">
-        You have added the quiz
-    </div>
-    <p id="resultText"></p>
-    <ul id="resultList" class="list-group">
-    </ul>
-    <br>
-    <button type="button" onClick="window.location.reload();" class="btn btn-primary">Add next quiz</button>
-</div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -89,12 +85,7 @@
     const description = document.getElementById("description");
     const deleteCheckBox = document.getElementById("deleteCheckBox");
     const submitQuiz = document.getElementById('addQuiz');
-    const resultText = document.getElementById('resultText');
-    const resultList = document.getElementById('resultList');
     let divOptions = document.getElementById("options");
-    let resultQuiz = document.getElementById("resultQuiz");
-    let quizForm = document.getElementById("quizForm");
-    resultQuiz.hidden = true;
     let checkboxesNumber = 2;
 
     addCheckbox.addEventListener('click', (event) => {
@@ -167,18 +158,10 @@
                 }
             })
             if (response.ok) {
-                response.json().then(data => {
-                    console.log(data);
-                    resultText.innerHTML = '<h5>Title:</h5>' +
-                        data.title + '<br>'
-                        + '<h5>Description:</h5>'
-                        + data.text + '<br><h5>Options</h5>';
-                    data.options.forEach(option => {
-                        resultList.innerHTML += '<li class="list-group-item">' + option + '</li>';
-                    });
-                    resultQuiz.hidden = false;
-                    quizForm.hidden = true;
-                })
+                await response.json().then(data => {
+                    sessionStorage.setItem('quiz', JSON.stringify(data));
+                    window.location.replace('http://localhost:8889/addedQuiz');
+                });
             } else {
                 response.json().then(data => {
                     renderMessage(data.message.join("<br>"));

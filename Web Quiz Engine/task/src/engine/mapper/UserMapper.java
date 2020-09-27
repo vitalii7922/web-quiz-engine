@@ -1,5 +1,4 @@
 package engine.mapper;
-
 import engine.dto.UserDto;
 import engine.model.User;
 import org.springframework.stereotype.Component;

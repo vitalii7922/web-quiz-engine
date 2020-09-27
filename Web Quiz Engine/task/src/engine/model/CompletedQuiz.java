@@ -19,6 +19,10 @@ public class CompletedQuiz {
     @Column(name = "id")
     private long completedQuizId;
 
+    private String title;
+
+    private String text;
+
     @Column(name = "quiz_id")
     private long id;
 

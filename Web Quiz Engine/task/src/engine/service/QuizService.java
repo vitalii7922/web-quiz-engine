@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,7 @@ public class QuizService {
 
     private final QuizMapper quizMapper;
 
-    private static final int NUMBER_OF_ELEMENTS = 10;
+    private static final int NUMBER_OF_ELEMENTS = 5;
 
     public QuizService(QuizRepository quizRepository, CompletedQuizRepository completedQuizRepository,
                        UserService userService, QuizMapper quizMapper) {
@@ -54,10 +55,17 @@ public class QuizService {
         long quizNumber = quizRepository.countAll();
         if (quizNumber > 0) {
             PageRequest page = PageRequest.of(--pageNumber, NUMBER_OF_ELEMENTS, Sort.by("id"));
-            return new PageImpl<>(quizRepository.findAll(page).getContent()
+            List<QuizDto> quizDtoList = quizRepository.findAll(page).getContent()
                     .stream()
-                    .map(quizMapper::toQuizDto)
-                    .collect(Collectors.toList()), page, quizNumber);
+                    .map(quizMapper::toQuizDto).collect(Collectors.toList());
+            quizDtoList.forEach(quizDto -> {
+                        long id = userService.getCurrentUser().getId();
+                System.out.println(id);
+                        if (quizDto.getUser().getId() == userService.getCurrentUser().getId()) {
+                            quizDto.setModifiable(true);
+                        }
+                    });
+            return new PageImpl<>(quizDtoList, page, quizNumber);
         }
         return Page.empty();
     }
@@ -67,6 +75,8 @@ public class QuizService {
             CompletedQuiz completedQuiz = CompletedQuiz.builder()
                     .user(userService.getCurrentUser())
                     .id(quiz.getId())
+                    .title(quiz.getTitle())
+                    .text(quiz.getText())
                     .completedAt(LocalDateTime.now())
                     .build();
             completedQuizRepository.save(completedQuiz);

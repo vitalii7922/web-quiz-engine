@@ -12,5 +12,9 @@ import java.time.LocalDateTime;
 public class CompletedQuizDto {
     private long id;
 
+    private String title;
+
+    private String text;
+
     private LocalDateTime completedAt;
 }

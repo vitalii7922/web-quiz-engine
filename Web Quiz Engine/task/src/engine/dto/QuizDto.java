@@ -1,10 +1,11 @@
 package engine.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import engine.model.User;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,5 +31,10 @@ public class QuizDto {
     @Size(min = 1, message = "There must be 1 correct answer at least")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Integer> answer = new ArrayList<>();
+
+    private boolean modifiable;
+
+    @JsonIgnore
+    private User user;
 }
 

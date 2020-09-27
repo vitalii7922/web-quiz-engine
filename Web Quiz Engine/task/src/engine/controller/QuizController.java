@@ -4,6 +4,7 @@ import engine.dto.CompletedQuizDto;
 import engine.dto.QuizDto;
 import engine.error.ApiError;
 import engine.dto.Answer;
+import engine.mapper.QuizMapper;
 import engine.model.Quiz;
 import engine.dto.Result;
 import engine.service.QuizService;
@@ -24,10 +25,13 @@ public class QuizController {
 
     private final QuizService quizService;
 
+    private final QuizMapper quizMapper;
+
     public static final String QUIZ_NOT_FOUND = "QUIZ DOESN'T EXIST WITH ID %d";
 
-    public QuizController(QuizService quizService) {
+    public QuizController(QuizService quizService, QuizMapper quizMapper) {
         this.quizService = quizService;
+        this.quizMapper = quizMapper;
     }
 
     @GetMapping
@@ -37,8 +41,9 @@ public class QuizController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Quiz> getQuizById(@PathVariable("id") final long id) {
-        return Optional.ofNullable(quizService.getQuizById(id))
+    public ResponseEntity<QuizDto> getQuizById(@PathVariable("id") final long id) {
+        QuizDto quizDto = quizMapper.toQuizDto(quizService.getQuizById(id));
+        return Optional.ofNullable(quizDto)
                 .map(quiz -> ResponseEntity.ok().body(quiz))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         String.format(QUIZ_NOT_FOUND, id)));

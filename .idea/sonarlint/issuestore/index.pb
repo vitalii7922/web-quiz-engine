@@ -27,12 +27,8 @@ b
 2Web Quiz Engine/task/src/engine/WebQuizEngine.java,e\f\efab8221d19c7d6ed98207c5fb469b3a3abb2c66
 t
 DWeb Quiz Engine/task/out/production/resources/application.properties,f\5\f5ddeef06acff3e3f25d89ea63b4f0a619f55ef6
-a
-1Web Quiz Engine/task/src/engine/model/Result.java,f\2\f248cb1334723fd77bdfa498de387cca62a2701d
 n
 >Web Quiz Engine/task/src/engine/repository/QuizRepository.java,3\d\3def43e2eef3474b274817a647e3fda3ed1bb7e6
-a
-1Web Quiz Engine/task/src/engine/model/Answer.java,0\0\00191ed5ca46653c712c9f74ae4031c253b7ab74
 Q
 !Web Quiz Engine/task/build.gradle,c\d\cd459ebdd4fb8b48704934f054c6aec91ba38b54
 n

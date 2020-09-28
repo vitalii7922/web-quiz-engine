@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body onload="renderQuiz()">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse navbar navbar-dark bg-dark" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/opening-page">Submit<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/openQuizList">Solve</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/openCompletedQuizzes">Completed</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="/logout" method="post">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Logout</button>
+        </form>
+    </div>
+</nav>
+<div class="w-50 p-3 container h-100" id="resultQuiz">
+    <div class="alert alert-success" role="alert">
+        You have updated the quiz
+    </div>
+    <p id="resultText"></p>
+    <ul id="resultList" class="list-group">
+    </ul>
+    <br>
+    <button type="button" onClick="location.replace('http://localhost:8889/openQuizList');" class="btn btn-primary">Update an other quiz</button>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    const renderQuiz = () => {
+        let quiz = JSON.parse(sessionStorage.getItem('quiz'));
+        console.log(quiz);
+        $('#resultText').append(`<h5>Title:</h5>` +
+            quiz.title + '<br>'
+            + '<h5>Description:</h5>'
+            + quiz.text + '<br><h5>Options</h5>');
+        quiz.options.forEach(option => {
+            $('#resultList').append('<li class="list-group-item">' + option + '</li>')
+        });
+    }
+</script>
+</body>
+</html>

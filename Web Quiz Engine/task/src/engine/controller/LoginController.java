@@ -21,7 +21,6 @@ public class LoginController {
         return "redirect:/opening-page";
     }
 
-
     @GetMapping("/openQuizList")
     public String openQuizList() {
         return "quizList";
@@ -40,6 +39,16 @@ public class LoginController {
     @GetMapping("/addedQuiz")
     public String accessDenied() {
         return "addedQuiz";
+    }
+
+    @GetMapping("/updateQuiz")
+    public String updateQuiz() {
+        return "updateQuiz";
+    }
+
+    @GetMapping("/updatedQuiz")
+    public String updatedQuiz() {
+        return "updatedQuiz";
     }
 
     @GetMapping("/openCompletedQuizzes")

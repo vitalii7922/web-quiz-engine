@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body onload="loadQuiz()">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse navbar navbar-dark bg-dark" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/opening-page">Submit<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/openQuizList">Solve</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/openCompletedQuizzes">Completed</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="/logout" method="post">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Logout</button>
+        </form>
+    </div>
+</nav>
+<div class="w-50 p-3 container h-100">
+    <form>
+        <div class="alert alert-danger" role="alert" id="message">
+        </div>
+        <p id="text"></p>
+        <ul id="list" class="list-group">
+        </ul>
+        <br>
+        <p id="options-message"></p>
+        <div id="options">
+            <div class="input-group mb-3" id="1">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <input type="checkbox" aria-label="Checkbox for following text input">
+                    </div>
+                </div>
+                <input type="text" class="form-control" aria-label="Text input with checkbox">
+            </div>
+            <div class="input-group mb-3" id="2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <input type="checkbox" aria-label="Checkbox for following text input">
+                    </div>
+                </div>
+                <input type="text" class="form-control" aria-label="Text input with checkbox">
+            </div>
+        </div>
+        <div>
+            <button type="button" id="addCheckbox" class="btn btn-primary">Add an additional option</button>
+            <button type="button" id="deleteCheckBox" class="btn btn-danger">Delete an option</button>
+        </div>
+        <br>
+        <div>
+            <button type="button" id="updateQuiz" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    const id = sessionStorage.getItem("id");
+    let resultQuiz;
+    const getRequestUrl = 'http://localhost:8889/api/quizzes/' + id;
+    const putRequestUrl = 'http://localhost:8889/api/quizzes/' + id;
+    let checkboxesNumber = 2;
+    let message = $('#message');
+    message.hide();
+
+
+    $('#addCheckbox').on('click', (event) => {
+        event.preventDefault();
+        if (checkboxesNumber < 10) {
+            $('#options').append(` <div class="input-group mb-3" id="${++checkboxesNumber}">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <input type="checkbox" aria-label="Checkbox for following text input">
+                </div>
+            </div>
+            <input type="text" class="form-control" aria-label="Text input with checkbox">
+        </div>`);
+        } else {
+            renderMessage('You cannot add over ten options');
+        }
+    });
+
+
+    $('#deleteCheckBox').on('click', (event) => {
+        event.preventDefault();
+        if (checkboxesNumber > 2) {
+            $(`#${checkboxesNumber--}`).remove();
+        } else {
+            renderMessage('You cannot leave less than two options');
+        }
+    });
+
+    const renderMessage = (mes) => {
+        $('#message').text(mes);
+        message.show();
+    }
+
+    const renderQuiz = (quiz) => {
+        resultQuiz = quiz;
+        $('#text').append(`<h5>Title:</h5>` +
+            quiz.title + '<br>'
+            + '<h5>Description:</h5>'
+            + quiz.text);
+        $('#options-message').text(`Add options and pick correct ones for the quiz \"${quiz.title}\" to update`)
+    }
+
+    const loadQuiz = async () => {
+        try {
+            const response = await fetch(getRequestUrl, {
+                method: 'GET',
+            })
+            if (response.ok) {
+                response.json().then(data => {
+                    renderQuiz(data);
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const sendQuiz = async (optionsArray, answers) => {
+        const data = JSON.stringify({
+            title: resultQuiz.title,
+            text: resultQuiz.text,
+            options: optionsArray,
+            answer: answers
+        });
+        console.log(data);
+        try {
+            const response = await fetch(putRequestUrl, {
+                method: 'PUT',
+                body: data,
+                headers: {
+                    "Content-type": "application/json",
+                }
+            })
+            if (response.ok) {
+                response.json().then(data => {
+                    console.log('updated');
+                    sessionStorage.setItem('quiz', JSON.stringify(data));
+                    window.location.replace('http://localhost:8889/updatedQuiz');
+                });
+            } else if (response.status === 401) {
+                window.location.replace('http://localhost:8889/');
+            } else {
+                response.json().then(data => {
+                    renderMessage(data.message.join("<br>"));
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    $('#updateQuiz').on('click', (event) => {
+        event.preventDefault();
+        let inputCheckBoxes = $('input:checkbox');
+        let answers = [];
+        for (let i = 0; i < inputCheckBoxes.length; i++) {
+            if (inputCheckBoxes[i].checked) {
+                answers.push(i);
+            }
+        }
+        const array = $('input:text');
+        const optionsArray = [];
+        let isBadRequest = false;
+        for (let i = 0; i < array.length; i++) {
+            if (array[i].value.trim().length !== 0) {
+                optionsArray[i] = array[i].value;
+            } else {
+                isBadRequest = true;
+                renderMessage("Fill in options");
+                break;
+            }
+        }
+        if (!isBadRequest) {
+            sendQuiz(optionsArray, answers);
+        }
+    });
+</script>
+</body>
+</html>

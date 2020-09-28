@@ -102,6 +102,8 @@
                     addHeading(data);
                     addDataToTable(data);
                 });
+            } else if (response.status === 401) {
+                window.location.replace('http://localhost:8889/');
             }
         } catch (error) {
             console.log(error);

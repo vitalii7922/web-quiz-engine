@@ -158,10 +158,12 @@
                 }
             })
             if (response.ok) {
-                await response.json().then(data => {
+                response.json().then(data => {
                     sessionStorage.setItem('quiz', JSON.stringify(data));
                     window.location.replace('http://localhost:8889/addedQuiz');
                 });
+            } else if (response.status === 401) {
+                window.location.replace('http://localhost:8889/');
             } else {
                 response.json().then(data => {
                     renderMessage(data.message.join("<br>"));

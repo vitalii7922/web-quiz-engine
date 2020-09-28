@@ -43,7 +43,8 @@
         </div>
     </div>
     <br>
-    <button type="button" onClick="getAnswers();" class="btn btn-primary">Solve</button>
+    <button type="button" id="solve" onClick="getAnswers();" class="btn btn-primary">Solve</button>
+    <button type="button" id="openQuizList" onClick="redirectToList();" class="btn btn-primary">Solve next quiz</button>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -51,6 +52,8 @@
     const id = sessionStorage.getItem("id");
     const urlGetQuiz = 'http://localhost:8889/api/quizzes/' + id;
     const urlSolveQuiz = `http://localhost:8889/api/quizzes/${id}/solve`;
+    const buttonOpenQuizList = $('#openQuizList');
+    buttonOpenQuizList.hide();
 
     const loadQuiz = async () => {
         try {
@@ -98,10 +101,15 @@
                 alert.empty();
                 alert.removeClass();
                 response.json().then(data => {
-                    const feedback = data.feedback;
                     let className;
-                    className = data.success ? "alert alert-success" : 'alert alert-danger';
-                    alert.toggleClass(className).append(feedback);
+                    if (data.success) {
+                        className = 'alert alert-success';
+                        buttonOpenQuizList.show();
+                        $('#solve').hide();
+                    } else {
+                        className = 'alert alert-danger';
+                    }
+                    alert.toggleClass(className).append(data.feedback);
                 });
             }
         } catch (error) {
@@ -121,6 +129,10 @@
             </label>
         </div>`);
         }
+    }
+
+    const redirectToList = () => {
+        window.location.href = 'http://localhost:8889/openQuizList';
     }
 </script>
 </body>

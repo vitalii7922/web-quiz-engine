@@ -1,5 +1,6 @@
 package engine.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,5 +17,6 @@ public class CompletedQuizDto {
 
     private String text;
 
+    @JsonFormat(pattern = "dd-MM-yyyy hh:mm")
     private LocalDateTime completedAt;
 }

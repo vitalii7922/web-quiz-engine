@@ -28,6 +28,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/Web Quiz Engine/task/src/engine/controller/AdviceController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/Web Quiz Engine/task/src/engine/controller/Controller.java">
           <value>
             <set />
@@ -58,12 +63,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/Web Quiz Engine/task/src/engine/dto/CompletedQuizDto.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/Web Quiz Engine/task/src/engine/dto/QuizDto.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/Web Quiz Engine/task/src/engine/dto/UserDto.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/Web Quiz Engine/task/src/engine/error/ApiError.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/Web Quiz Engine/task/src/engine/model/CompletedQuiz.java">
           <value>
             <set />
           </value>

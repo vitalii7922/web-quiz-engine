@@ -93,3 +93,15 @@ j
 :Web Quiz Engine/task/build/reports/tests/test/js/report.js,6\1\61e6e4180a6a842c1e694decaf7e16adbfdb97e8
 o
 ?Web Quiz Engine/task/out/production/resources/static/index.html,5\0\50605f36c2655460e8984ca331e076be393cd282
+\
+,.idea/inspectionProfiles/Project_Default.xml,4\9\496a238a6afa168dbaf6efd37bb459331589579c
+o
+?Web Quiz Engine/task/build/resources/main/static/css/signin.css,7\f\7fc48cd2aa30b27efe800bc19143d7c416062ca2
+p
+@Web Quiz Engine/task/build/resources/main/static/view/hello.html,3\5\350cf8d46942b5f4a2ab1c004f0ca451bcff7bab
+p
+@Web Quiz Engine/task/build/resources/main/static/view/login.html,b\8\b85e127384c6337c523c9cce21c42c88cdeff4da
+q
+AWeb Quiz Engine/task/build/resources/main/static/view/signup.html,f\a\fa454eb20787a9310bef4e13e2587ea66224875a
+o
+?Web Quiz Engine/task/src/engine/controller/LoginController.java,e\1\e162998eb0921761f651305b9a8194372ee61023

@@ -72,7 +72,7 @@
                 headers: {
                     "Content-type": "application/json",
                 }
-            })
+            });
             if (response.ok) {
                 window.location.replace("http://localhost:8889");
                 alert('You have been registered')
@@ -84,11 +84,11 @@
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     submit.addEventListener('click', (event) => {
         event.preventDefault();
-        console.log('work')
+        console.log('work');
         if (validateEmail() && validatePassword()) {
             register();
         }
@@ -103,7 +103,7 @@
             return false;
         }
         return true;
-    }
+    };
 
     const validatePassword = () => {
         if (password.value.length < 5 || confirmPassword.value.length < 5) {
@@ -115,7 +115,7 @@
             return false;
         }
         return true;
-    }
+    };
 
     const renderMessage = (mes) => {
         message.innerHTML = mes;

@@ -59,12 +59,10 @@ public class QuizService {
                     .stream()
                     .map(quizMapper::toQuizDto).collect(Collectors.toList());
             quizDtoList.forEach(quizDto -> {
-                        long id = userService.getCurrentUser().getId();
-                System.out.println(id);
-                        if (quizDto.getUser().getId() == userService.getCurrentUser().getId()) {
-                            quizDto.setModifiable(true);
-                        }
-                    });
+                if (quizDto.getUser().getId() == userService.getCurrentUser().getId()) {
+                    quizDto.setModifiable(true);
+                }
+            });
             return new PageImpl<>(quizDtoList, page, quizNumber);
         }
         return Page.empty();

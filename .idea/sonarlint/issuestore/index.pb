@@ -7,16 +7,8 @@ a
 1Web Quiz Engine/User authorization/task-info.yaml,7\c\7ccdfec7c8afd8279d0596253dd1f022d9725c85
 P
  Web Quiz Engine/lesson-info.yaml,8\1\81c6d5c45fab4422740955698407f6815dd77b8d
-‚
-RWeb Quiz Engine/task/build/reports/tests/test/classes/tests.WebQuizEngineTest.html,d\d\ddda91b779205b470395416f1aeaf141e242aad4
-q
-AWeb Quiz Engine/task/build/reports/tests/test/packages/tests.html,6\1\617ad1007bd633cecb379072082bcedecd6a0b23
-h
-8Web Quiz Engine/task/build/reports/tests/test/index.html,1\9\1939a7fd28cc8efa41d3f3ce5cfe5669be1a372c
 p
 @Web Quiz Engine/task/build/resources/main/application.properties,8\4\84f665bc254848cdc8438b53e504848b2a469eee
-}
-MWeb Quiz Engine/task/build/test-results/test/TEST-tests.WebQuizEngineTest.xml,0\e\0e1de1bd7c19239532b2a9ce6e9aec6ad86b7117
 ^
 .Web Quiz Engine/task/test/tests/ApiTester.java,d\8\d86c997c9f1e87e90ea6b58b7da62616418392be
 _
@@ -85,12 +77,6 @@ Q
 !.idea/modules/Web_Quiz_Engine.iml,6\f\6f3b9084341df75b7338b87b9ad1896be49b2d38
 X
 (gradle/wrapper/gradle-wrapper.properties,f\b\fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
-p
-@Web Quiz Engine/task/build/reports/tests/test/css/base-style.css,4\4\44d8198f7a2be0360ccdd719d71ba038df609e6c
-k
-;Web Quiz Engine/task/build/reports/tests/test/css/style.css,2\0\2076f5f5465d871a4afee5fac20b2e0ae6babf50
-j
-:Web Quiz Engine/task/build/reports/tests/test/js/report.js,6\1\61e6e4180a6a842c1e694decaf7e16adbfdb97e8
 o
 ?Web Quiz Engine/task/out/production/resources/static/index.html,5\0\50605f36c2655460e8984ca331e076be393cd282
 \
@@ -101,3 +87,7 @@ p
 @Web Quiz Engine/task/build/resources/main/static/view/login.html,b\8\b85e127384c6337c523c9cce21c42c88cdeff4da
 q
 AWeb Quiz Engine/task/build/resources/main/static/view/signup.html,f\a\fa454eb20787a9310bef4e13e2587ea66224875a
+p
+@Web Quiz Engine/task/src/engine/controller/AdviceController.java,3\9\39485d0bf4c9bff6039c191cb595b1903aeff89b
+]
+-Web Quiz Engine/tests/quiz/QuizTestCases.java,f\f\ffad75d6fc86f4e765769567aab079ed4cf8c5fe

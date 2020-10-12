@@ -102,7 +102,7 @@
     const renderMessage = (mes) => {
         $('#message').text(mes);
         message.show();
-    }
+    };
 
     const renderQuiz = (quiz) => {
         resultQuiz = quiz;
@@ -111,13 +111,13 @@
             + '<h5>Description:</h5>'
             + quiz.text);
         $('#options-message').text(`Add options and pick correct ones for the quiz \"${quiz.title}\" to update`)
-    }
+    };
 
     const loadQuiz = async () => {
         try {
             const response = await fetch(getRequestUrl, {
                 method: 'GET',
-            })
+            });
             if (response.ok) {
                 response.json().then(data => {
                     renderQuiz(data);
@@ -126,7 +126,7 @@
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     const sendQuiz = async (optionsArray, answers) => {
         const data = JSON.stringify({
@@ -143,7 +143,7 @@
                 headers: {
                     "Content-type": "application/json",
                 }
-            })
+            });
             if (response.ok) {
                 response.json().then(data => {
                     console.log('updated');
@@ -160,7 +160,7 @@
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     $('#updateQuiz').on('click', (event) => {
         event.preventDefault();

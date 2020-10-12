@@ -112,8 +112,8 @@
     let pagesNumber;
     const message = document.getElementById("alert");
     message.hidden = true;
-    const getRequestUrl = 'http://localhost:8889/api/quizzes?page='
-    const deleteRequestUrl = 'http://localhost:8889/api/quizzes/'
+    const getRequestUrl = 'http://localhost:8889/api/quizzes?page=';
+    const deleteRequestUrl = 'http://localhost:8889/api/quizzes/';
     const loadQuizzes = async (url) => {
         try {
             const response = await fetch(url, {
@@ -121,7 +121,7 @@
                 headers: {
                     "Content-type": "application/json",
                 }
-            })
+            });
             if (response.ok) {
                 response.json().then(data => {
                     addPagination(data);
@@ -135,7 +135,7 @@
         } catch (error) {
             console.log(error);
         }
-    }
+    };
     const insertArrows = () => {
         $('#pages').append('<li class="page-item">\n' +
             '                <button class="page-link" onclick="dicPage()" aria-label="Previous">\n' +
@@ -149,7 +149,7 @@
             '                    <span class="sr-only">Next</span>\n' +
             '                </button>\n' +
             '            </li>');
-    }
+    };
 
     const addPagination = (data) => {
         $('#pages').empty();
@@ -170,7 +170,7 @@
                 }
             }
         }
-    }
+    };
 
     const addDataToTable = (data) => {
         $('#table').empty();
@@ -200,7 +200,7 @@ data-toggle="modal" data-target="#modal">Delete</button>`;
                 '            <th scope="col">Description</th>\n' +
                 '            <th scope="col"></th>')
         }
-    }
+    };
 
     const openPage = (page) => {
         currentPage = page;
@@ -220,26 +220,26 @@ data-toggle="modal" data-target="#modal">Delete</button>`;
     const redirect = (id) => {
         sessionStorage.setItem('id', id);
         window.location.href = "http://localhost:8889/openQuiz";
-    }
+    };
 
     const addMessageToModal = (title, id) => {
         console.log('work message to modal');
         $('#message').text('Are you sure to delete the quiz with title ' + '\"' + title + '\"');
         $('#deleteButton').attr('onclick', `deleteRequest(${id})`);
-    }
+    };
 
     const deleteRequest = async (id) => {
         try {
             const response = await fetch(deleteRequestUrl + id, {
                 method: 'DELETE',
-            })
+            });
             if (response.ok) {
                 location.reload();
             }
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     const updateQuiz = (id) => {
         sessionStorage.setItem('id', id);

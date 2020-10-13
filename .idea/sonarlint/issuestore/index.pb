@@ -89,5 +89,7 @@ q
 AWeb Quiz Engine/task/build/resources/main/static/view/signup.html,f\a\fa454eb20787a9310bef4e13e2587ea66224875a
 p
 @Web Quiz Engine/task/src/engine/controller/AdviceController.java,3\9\39485d0bf4c9bff6039c191cb595b1903aeff89b
+c
+3Web Quiz Engine/task/src/engine/error/ApiError.java,3\6\363b53df4a090897ef9db7aeebc4ff4c4cb05d4b
 ]
--Web Quiz Engine/tests/quiz/QuizTestCases.java,f\f\ffad75d6fc86f4e765769567aab079ed4cf8c5fe
+-Web Quiz Engine/task/test/tests/QuizTest.java,f\9\f9c94ee0270c23da7cc26c7874761cfe40e08ec0

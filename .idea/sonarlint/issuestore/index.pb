@@ -17,8 +17,6 @@ f
 6Web Quiz Engine/task/test/tests/WebQuizEngineTest.java,7\3\73f33b36affde7b4abd9cd74f9f3e6920595c2f4
 b
 2Web Quiz Engine/task/src/engine/WebQuizEngine.java,e\f\efab8221d19c7d6ed98207c5fb469b3a3abb2c66
-t
-DWeb Quiz Engine/task/out/production/resources/application.properties,f\5\f5ddeef06acff3e3f25d89ea63b4f0a619f55ef6
 n
 >Web Quiz Engine/task/src/engine/repository/QuizRepository.java,3\d\3def43e2eef3474b274817a647e3fda3ed1bb7e6
 Q

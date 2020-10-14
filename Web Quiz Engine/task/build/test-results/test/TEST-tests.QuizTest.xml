@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tests.QuizTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-10-13T23:30:48" hostname="DESKTOP-H0T0QGB" time="0.006">
-  <properties/>
-  <testcase name="getQuizByIdTestAllLayers" classname="tests.QuizTest" time="0.006"/>
-  <system-out><![CDATA[doesn't work
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

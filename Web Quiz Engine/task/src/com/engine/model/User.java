@@ -29,7 +29,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<CompletedQuiz> completedQuizzes;
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -45,7 +45,7 @@ public class UserService implements UserDetailsService {
         return null;
     }
 
-    User getCurrentUser() {
+    public User getCurrentUser() {
         UserImpl userImpl = (UserImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return User.builder()
                 .id(userImpl.getId())

@@ -38,12 +38,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/Web Quiz Engine/task/src/com/engine/dto/QuizDto.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/Web Quiz Engine/task/src/com/engine/mapper/QuizMapper.java">
           <value>
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/Web Quiz Engine/task/src/com/engine/model/User.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/Web Quiz Engine/task/src/com/engine/service/QuizService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/Web Quiz Engine/task/src/com/engine/service/UserService.java">
           <value>
             <set />
           </value>
@@ -249,6 +264,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/Web Quiz Engine/task/test/com/engine/TestingWebApplicationTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/Web Quiz Engine/task/test/com/engine/UserTest.java">
           <value>
             <set />
           </value>

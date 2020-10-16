@@ -9,48 +9,8 @@ P
  Web Quiz Engine/lesson-info.yaml,8\1\81c6d5c45fab4422740955698407f6815dd77b8d
 p
 @Web Quiz Engine/task/build/resources/main/application.properties,8\4\84f665bc254848cdc8438b53e504848b2a469eee
-^
-.Web Quiz Engine/task/test/tests/ApiTester.java,d\8\d86c997c9f1e87e90ea6b58b7da62616418392be
-_
-/Web Quiz Engine/task/test/tests/TestHelper.java,9\c\9c2222a04e6bb7cb05fba76f50a266f1abee19ba
-f
-6Web Quiz Engine/task/test/tests/WebQuizEngineTest.java,7\3\73f33b36affde7b4abd9cd74f9f3e6920595c2f4
-b
-2Web Quiz Engine/task/src/engine/WebQuizEngine.java,e\f\efab8221d19c7d6ed98207c5fb469b3a3abb2c66
-n
->Web Quiz Engine/task/src/engine/repository/QuizRepository.java,3\d\3def43e2eef3474b274817a647e3fda3ed1bb7e6
 Q
 !Web Quiz Engine/task/build.gradle,c\d\cd459ebdd4fb8b48704934f054c6aec91ba38b54
-n
->Web Quiz Engine/task/src/engine/controller/QuizController.java,1\2\12de25d031246f027a42c771efc3ebc8d47973e7
-h
-8Web Quiz Engine/task/src/engine/service/QuizService.java,f\d\fd5c73f5e1f6dc755548aee84d1351a725b00e5b
-_
-/Web Quiz Engine/task/src/engine/model/Quiz.java,1\a\1abb9649fde66ac70a1c121952adb630c18ac836
-n
->Web Quiz Engine/task/src/engine/repository/UserRepository.java,e\0\e092df0957cbac276f6fe943c305b2d0556d122a
-h
-8Web Quiz Engine/task/src/engine/service/UserService.java,6\0\60c85ede31683927b3d8885d9a7bd20fb164f46e
-n
->Web Quiz Engine/task/src/engine/controller/UserController.java,1\c\1c5acf2048ed20a09a369890bf4d8f04c59ee5a8
-_
-/Web Quiz Engine/task/src/engine/model/User.java,9\9\997ee695883bba97ff82f9ceefd9b90de2ece5cd
-c
-3Web Quiz Engine/task/src/engine/model/UserImpl.java,b\e\befa981fea36cf1f8b3bcd9d8733dbb74c2d5bd5
-q
-AWeb Quiz Engine/task/src/engine/config/SecurityConfiguration.java,3\7\37ed4c7f4694b82b934dd78b24d04883b4aede1a
-w
-GWeb Quiz Engine/task/src/engine/repository/CompletedQuizRepository.java,d\8\d8dd3c2939ee786a6aeecea8c370075c03e35a08
-h
-8Web Quiz Engine/task/src/engine/model/CompletedQuiz.java,4\d\4d7f99a9b7350be2dcab4af4e25509d73341b970
-`
-0Web Quiz Engine/task/src/engine/dto/UserDto.java,a\c\acff524142b4a4ab62ad286d12d2a988468f2bd1
-f
-6Web Quiz Engine/task/src/engine/mapper/QuizMapper.java,c\2\c217c072048e079ee377aebb0f2268d4bb2226f8
-f
-6Web Quiz Engine/task/src/engine/mapper/UserMapper.java,f\e\feb79d78dd35f0b2ef8dcdce540cb92cbcf51231
-`
-0Web Quiz Engine/task/src/engine/dto/QuizDto.java,6\0\60cca3a881af7c875678ced50054712e9b18f8c8
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 @
@@ -85,9 +45,3 @@ p
 @Web Quiz Engine/task/build/resources/main/static/view/login.html,b\8\b85e127384c6337c523c9cce21c42c88cdeff4da
 q
 AWeb Quiz Engine/task/build/resources/main/static/view/signup.html,f\a\fa454eb20787a9310bef4e13e2587ea66224875a
-p
-@Web Quiz Engine/task/src/engine/controller/AdviceController.java,3\9\39485d0bf4c9bff6039c191cb595b1903aeff89b
-c
-3Web Quiz Engine/task/src/engine/error/ApiError.java,3\6\363b53df4a090897ef9db7aeebc4ff4c4cb05d4b
-]
--Web Quiz Engine/task/test/tests/QuizTest.java,f\9\f9c94ee0270c23da7cc26c7874761cfe40e08ec0

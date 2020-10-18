@@ -26,7 +26,6 @@ public class QuizDto {
     private String text;
 
     @Size(min = 2, message = "There must be 2 options at least")
-    @NotNull(message = "There must be 1 correct answer at least")
     @Size(max = 10, message = "You cannot add more than ten options")
     private List<String> options = new ArrayList<>();
 

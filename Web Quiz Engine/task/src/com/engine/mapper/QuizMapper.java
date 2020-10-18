@@ -5,7 +5,6 @@ import com.engine.dto.CompletedQuizDto;
 import com.engine.dto.QuizDto;
 import com.engine.model.CompletedQuiz;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 
 @Component
@@ -29,6 +28,7 @@ public class QuizMapper {
                 .text(quiz.getText())
                 .user(quiz.getUser())
                 .options(quiz.getOptions())
+                .answer(quiz.getAnswer())
                 .build();
     }
 

@@ -6,6 +6,7 @@ plugins {
 
 }
 
+
 apply plugin: 'io.spring.dependency-management'
 
 sourceCompatibility = '11'
@@ -38,9 +39,4 @@ dependencies {
     testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '5.1.6.RELEASE'
 }
 
-/*
-tasks.withType(JavaCompile) {
-    options.compilerArgs = [
-            '-Amapstruct.suppressGeneratorTimestamp=true'
-    ]
-}*/
+

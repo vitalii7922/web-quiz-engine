@@ -29,6 +29,12 @@ subprojects {
         test.java.srcDir 'test'
     }
 
+    task printClasspath {
+        doLast {
+            configurations.testRuntime.each { println it }
+        }
+    }
+
     /*test {
         systemProperty "file.encoding", "utf-8"
         outputs.upToDateWhen { false }

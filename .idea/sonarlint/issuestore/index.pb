@@ -75,10 +75,6 @@ l
 <Web Quiz Engine/task/src/com/engine/service/UserService.java,7\1\7197cf84bb28d79d5f49ba436c62bbf4740f6ee0
 f
 6Web Quiz Engine/task/src/com/engine/WebQuizEngine.java,6\b\6bcaf366c818f911f2e80c10c40b4ef4f8a2e04e
-r
-BWeb Quiz Engine/task/test/resources/index_SORT_BY_METHOD_DESC.html,6\1\61e49b9c58d244d4160fca3682ba168efad92371
-e
-5Web Quiz Engine/task/test/resources/.css/coverage.css,2\1\21bd0eeb7adf911eaa5bba0438ad02081461b90d
 u
 EWeb Quiz Engine/task/src/com/engine/config/SecurityConfiguration.java,b\9\b91662111bc096cb3ba727bde965455a9c3de0f0
 l

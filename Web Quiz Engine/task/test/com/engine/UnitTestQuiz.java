@@ -1,20 +1,23 @@
 package com.engine;
 
 import com.engine.dto.Answer;
+import com.engine.dto.CompletedQuizDto;
 import com.engine.dto.QuizDto;
 import com.engine.dto.Result;
 import com.engine.mapper.QuizMapper;
+import com.engine.model.CompletedQuiz;
 import com.engine.model.Quiz;
 import com.engine.model.User;
+import com.engine.repository.CompletedQuizRepository;
 import com.engine.repository.QuizRepository;
 import com.engine.service.UserService;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,9 +28,12 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -56,8 +62,17 @@ class UnitTestQuiz {
     @MockBean
     UserService userServiceMock;
 
+    @MockBean
+    CompletedQuizRepository completedQuizRepositoryMock;
+
+
+    @BeforeEach
+    void disableJsonAnnotation() {
+        objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
+    }
+
     @Test
-    void getQuizPositive() throws Exception {
+    void getQuizResultOk() throws Exception {
         Quiz quiz = Quiz.builder()
                 .id(1L)
                 .title("Fruits")
@@ -75,13 +90,13 @@ class UnitTestQuiz {
     }
 
     @Test
-    void getQuizNegative() throws Exception {
+    void getQuizResultNotFound() throws Exception {
         mockMvc.perform(get("/api/quizzes/1"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    void postQuizPositive() throws Exception {
+    void postQuizResultOk() throws Exception {
         User user = User.builder()
                 .email("test2@gmail.com")
                 .password("12345").build();
@@ -96,7 +111,6 @@ class UnitTestQuiz {
                 .user(user)
                 .build();
 
-        objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
         Mockito.when(userServiceMock.getCurrentUser()).thenReturn(user);
         Mockito.when(quizRepositoryMock.save(any(Quiz.class))).thenReturn(quizMapper.toQuiz(quizDto));
 
@@ -115,7 +129,7 @@ class UnitTestQuiz {
                 .answer(Arrays.asList(0, 1, 3))
                 .build();
 
-        objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
+//        objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
 
         mockMvc.perform(post("/api/quizzes").content(objectMapper.writeValueAsString(quizDto))
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
@@ -124,7 +138,7 @@ class UnitTestQuiz {
     }
 
     @Test
-    void solveQuizCorrectAnswer() throws Exception {
+    void solveQuizResultOkCorrectAnswer() throws Exception {
         Answer answer = new Answer();
         answer.setAnswers(Arrays.asList(0, 1, 3));
 
@@ -138,7 +152,7 @@ class UnitTestQuiz {
 
         Result result = Result.SUCCESS_RESULT;
 
-        objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
+//        objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
         Mockito.when(quizRepositoryMock.findById(1L)).thenReturn(quizMapper.toQuiz(quizDto));
 
         mockMvc.perform(post("/api/quizzes/1/solve").content(objectMapper.writeValueAsString(answer))
@@ -148,7 +162,7 @@ class UnitTestQuiz {
     }
 
     @Test
-    void solveQuizIncorrectAnswer() throws Exception {
+    void solveQuizResultOkIncorrectAnswer() throws Exception {
         Answer answer = new Answer();
         answer.setAnswers(Arrays.asList(0, 3));
 
@@ -162,7 +176,7 @@ class UnitTestQuiz {
 
         Result result = Result.FAILURE_RESULT;
 
-        objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
+//        objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
         Mockito.when(quizRepositoryMock.findById(1L)).thenReturn(quizMapper.toQuiz(quizDto));
 
         mockMvc.perform(post("/api/quizzes/1/solve").content(objectMapper.writeValueAsString(answer))
@@ -213,7 +227,7 @@ class UnitTestQuiz {
         when(quizRepositoryMock.countAll()).thenReturn(2L);
         when(quizRepositoryMock.findAll(page)).thenReturn(new PageImpl<>(quizList, page, 2));
         when(userServiceMock.getCurrentUser()).thenReturn(user1).thenReturn(user2);
-        objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
+//        objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
         mockMvc.perform(get("/api/quizzes?page=1"))
                 .andExpect(jsonPath("$.content", hasSize(2)))
                 .andExpect(jsonPath("$.content[0].id", is(1)))
@@ -240,7 +254,68 @@ class UnitTestQuiz {
     }
 
     @Test
-    void updateQuizTest() throws Exception {
+    void deleteQuizNotFound() throws Exception {
+        when(quizRepositoryMock.findById(1L)).thenReturn(null);
+        mockMvc.perform(delete("/api/quizzes/1")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+
+    @Test
+    void updateQuizTestQuizNotFound() throws Exception {
+        QuizDto quizDto = QuizDto.builder()
+                .title("Fruits")
+                .text("What plants are fruits?")
+                .options(Arrays.asList("Apple", "Cucumber", "Onion", "Tomato"))
+                .answer(Collections.singletonList(0))
+                .build();
+
+        when(quizRepositoryMock.findById(1L)).thenReturn(null);
+        mockMvc.perform(put("/api/quizzes/1").content(objectMapper.writeValueAsString(quizDto))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void updateQuizTestQuizForbidden() throws Exception {
+        User user1 = User.builder()
+                .id(1L)
+                .email("test2@gmail.com")
+                .password("12345")
+                .build();
+
+        User user2 = User.builder()
+                .id(2L)
+                .email("test3@gmail.com")
+                .password("12345")
+                .build();
+
+        QuizDto quizDto = QuizDto.builder()
+                .title("Fruits")
+                .text("What plants are fruits?")
+                .options(Arrays.asList("Apple", "Cucumber", "Onion", "Tomato"))
+                .answer(Collections.singletonList(0))
+                .build();
+
+        Quiz quiz = Quiz.builder()
+                .id(1L)
+                .title("Fruits")
+                .text("What plants are fruits?")
+                .options(Arrays.asList("Apple", "Cucumber", "Onion", "Tomato"))
+                .answer(Collections.singletonList(0))
+                .user(user1)
+                .build();
+
+        when(quizRepositoryMock.findById(1L)).thenReturn(quiz);
+        when(userServiceMock.getCurrentUser()).thenReturn(user2);
+        mockMvc.perform(put("/api/quizzes/1").content(objectMapper.writeValueAsString(quizDto))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void updateQuizTestResultOk() throws Exception {
         User user = User.builder()
                 .id(1L)
                 .email("test3@gmail.com")
@@ -266,7 +341,7 @@ class UnitTestQuiz {
                 .user(user)
                 .build();
 
-        objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
+
 
         when(quizRepositoryMock.findById(1L)).thenReturn(quiz);
         when(userServiceMock.getCurrentUser()).thenReturn(user);
@@ -284,17 +359,144 @@ class UnitTestQuiz {
     }
 
     @Test
-    void updateQuizTestQuizNotFound() throws Exception {
-        QuizDto quizDto = QuizDto.builder()
+    void deleteQuizForbidden() throws Exception {
+        User user1 = User.builder()
+                .id(1L)
+                .email("test2@gmail.com")
+                .password("12345")
+                .build();
+
+        User user2 = User.builder()
+                .id(2L)
+                .email("test3@gmail.com")
+                .password("12345")
+                .build();
+
+        Quiz quiz = Quiz.builder()
+                .id(1L)
                 .title("Fruits")
                 .text("What plants are fruits?")
                 .options(Arrays.asList("Apple", "Cucumber", "Onion", "Tomato"))
                 .answer(Collections.singletonList(0))
+                .user(user1)
                 .build();
 
-        when(quizRepositoryMock.findById(1L)).thenReturn(null);
-        mockMvc.perform(put("/api/quizzes/1").content(objectMapper.writeValueAsString(quizDto))
+        when(quizRepositoryMock.findById(1L)).thenReturn(quiz);
+        when(userServiceMock.getCurrentUser()).thenReturn(user2);
+        mockMvc.perform(delete("/api/quizzes/1")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isForbidden());
     }
+
+    @Test
+    void deleteQuizNoContent() throws Exception {
+        User user = User.builder()
+                .id(1L)
+                .email("test2@gmail.com")
+                .password("12345")
+                .build();
+
+        Quiz quiz = Quiz.builder()
+                .id(1L)
+                .title("Fruits")
+                .text("What plants are fruits?")
+                .options(Arrays.asList("Apple", "Cucumber", "Onion", "Tomato"))
+                .answer(Collections.singletonList(0))
+                .user(user)
+                .build();
+
+        when(quizRepositoryMock.findById(1L)).thenReturn(quiz);
+        when(userServiceMock.getCurrentUser()).thenReturn(user);
+        mockMvc.perform(delete("/api/quizzes/1")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void getCompletedQuizzesResultTwoElements() throws Exception {
+        User user = User.builder()
+                .id(1L)
+                .email("test2@gmail.com")
+                .password("12345")
+                .build();
+
+        CompletedQuiz completedQuiz1 = CompletedQuiz.builder()
+                .id(1L)
+                .title("Fruits")
+                .text("What plants are fruits?")
+                .user(user)
+                .completedAt(LocalDateTime.of(LocalDate.of(2020, 10, 22),
+                        LocalTime.of(10, 10)))
+                .build();
+
+        CompletedQuiz completedQuiz2 = CompletedQuiz.builder()
+                .id(2L)
+                .title("Cities")
+                .text("What cities are capitals?")
+                .user(user)
+                .completedAt(LocalDateTime.of(LocalDate.of(2020, 10, 21),
+                        LocalTime.of(10, 10)))
+                .build();
+
+        objectMapper.enable(MapperFeature.USE_ANNOTATIONS);
+        when(userServiceMock.getCurrentUser()).thenReturn(user);
+        when(completedQuizRepositoryMock.countAllByUserId(1L)).thenReturn(2L);
+        PageRequest page = PageRequest.of(0, 5, Sort.by("completedAt").descending());
+        when(completedQuizRepositoryMock.findAllByUserId(1L, page))
+                .thenReturn(new PageImpl<>(Arrays.asList(completedQuiz1, completedQuiz2)));
+        mockMvc.perform(get("/api/quizzes/completed?page=1"))
+                .andExpect(jsonPath("$.content", hasSize(2)))
+                .andExpect(jsonPath("$.content[0].id", is(1)))
+                .andExpect(jsonPath("$.content[0].title", is("Fruits")))
+                .andExpect(jsonPath("$.content[0].completedAt", is("22-10-2020 10:10")))
+                .andExpect(jsonPath("$.content[1].id", is(2)))
+                .andExpect(jsonPath("$.content[1].title", is("Cities")))
+                .andExpect(jsonPath("$.content[1].completedAt", is("21-10-2020 10:10")))
+                .andExpect(jsonPath("$.totalPages", is(1)))
+                .andExpect(jsonPath("$.totalElements", is(2)))
+                .andExpect(jsonPath("$.size", is(5)))
+                .andExpect(jsonPath("$.number", is(0)))
+                .andExpect(status().isOk());
+    }
+
+
+    @Test
+    void getCompletedQuizzesPagesNumberTwoResultEmptyContent() throws Exception {
+        User user = User.builder()
+                .id(1L)
+                .email("test2@gmail.com")
+                .password("12345")
+                .build();
+
+        objectMapper.enable(MapperFeature.USE_ANNOTATIONS);
+        when(userServiceMock.getCurrentUser()).thenReturn(user);
+        when(completedQuizRepositoryMock.countAllByUserId(1L)).thenReturn(2L);
+        PageRequest page = PageRequest.of(1, 5, Sort.by("completedAt").descending());
+        when(completedQuizRepositoryMock.findAllByUserId(1L, page))
+                .thenReturn(new PageImpl<>(new ArrayList<>()));
+        mockMvc.perform(get("/api/quizzes/completed?page=2"))
+                .andExpect(jsonPath("$.content", hasSize(0)))
+                .andExpect(jsonPath("$.number", is(1)))
+                .andExpect(jsonPath("$.numberOfElements", is(0)))
+                .andExpect(jsonPath("$.totalPages", is(1)))
+                .andExpect(jsonPath("$.totalElements", is(2)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void getAllQuizzesCompletedResultEmptyList() throws Exception {
+        User user = User.builder()
+                .id(2L)
+                .email("test2@gmail.com")
+                .password("12345")
+                .build();
+
+        when(userServiceMock.getCurrentUser()).thenReturn(user);
+        when(completedQuizRepositoryMock.countAllByUserId(2L)).thenReturn(0L);
+        mockMvc.perform(get("/api/quizzes/completed?page=1"))
+                .andExpect(jsonPath("$.content", hasSize(0)))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
 }

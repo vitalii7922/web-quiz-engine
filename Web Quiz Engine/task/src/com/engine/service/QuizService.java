@@ -1,4 +1,5 @@
 package com.engine.service;
+
 import com.engine.controller.QuizController;
 import com.engine.mapper.QuizMapper;
 import com.engine.model.CompletedQuiz;
@@ -12,6 +13,7 @@ import com.engine.dto.QuizDto;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -122,6 +124,7 @@ public class QuizService {
         long completedQuizAmount = completedQuizRepository.countAllByUserId(userId);
         if (completedQuizAmount > 0) {
             PageRequest page = PageRequest.of(--pageNumber, NUMBER_OF_ELEMENTS, Sort.by("completedAt").descending());
+            Page<CompletedQuiz> page1 = completedQuizRepository.findAllByUserId(userId, page);
             return new PageImpl<>(completedQuizRepository.findAllByUserId(userId, page).getContent()
                     .stream()
                     .map(quizMapper::toCompletedQuizDto)

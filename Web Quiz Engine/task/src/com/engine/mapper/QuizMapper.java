@@ -9,6 +9,12 @@ import java.util.ArrayList;
 
 @Component
 public class QuizMapper {
+    /**
+     * map QuizDto object to Quiz object
+     *
+     * @param quizDto QuizDto object
+     * @return Quiz object
+     */
     public Quiz toQuiz(QuizDto quizDto) {
         if (quizDto.getAnswer() == null) {
             quizDto.setAnswer(new ArrayList<>());
@@ -21,6 +27,13 @@ public class QuizMapper {
                 .build();
     }
 
+
+    /**
+     * map Quiz object to QuizDto object
+     *
+     * @param quiz Quiz object
+     * @return QuizDto object
+     */
     public QuizDto toQuizDto(Quiz quiz) {
         return QuizDto.builder()
                 .id(quiz.getId())
@@ -32,6 +45,10 @@ public class QuizMapper {
                 .build();
     }
 
+    /**
+     * @param completedQuiz completed quiz object
+     * @return CompletedQuizDto object
+     */
     public CompletedQuizDto toCompletedQuizDto(CompletedQuiz completedQuiz) {
         return CompletedQuizDto.builder()
                 .id(completedQuiz.getId())

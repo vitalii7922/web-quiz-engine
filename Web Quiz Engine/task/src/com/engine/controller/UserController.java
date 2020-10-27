@@ -17,12 +17,20 @@ public class UserController {
 
     private final UserService userDetailsService;
 
+    /**Constructor for UserController
+     *
+     * @param userDetailsService has methods for obtaining user's information
+     */
     public UserController(UserService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
+    /**
+     * @param userDto user object
+     * @return HTTP status OK if registered or BAD REQUEST with message if a user with the same email registered
+     */
     @PostMapping("/register")
-    public ResponseEntity<User> authorizeUser(@Valid @RequestBody final UserDto userDto) {
+    public ResponseEntity<User> registerUser(@Valid @RequestBody final UserDto userDto) {
         Optional<User> userOptional = Optional.ofNullable(userDetailsService.registerUser(userDto));
         if (userOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.OK);

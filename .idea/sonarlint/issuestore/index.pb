@@ -57,8 +57,6 @@ d
 4Web Quiz Engine/task/src/com/engine/dto/QuizDto.java,3\c\3c6b43e655333087d541b7c643c4814c941fad81
 h
 8Web Quiz Engine/task/src/resources/static/css/signin.css,2\c\2cd3033332b204ed2d5a6c93db3213caa8b7d385
-u
-EWeb Quiz Engine/task/src/resources/static/view/quizListCompleted.html,c\2\c260f63c41d58c0794410c3120bdf3f95b5224b5
 r
 BWeb Quiz Engine/task/src/com/engine/controller/UserController.java,9\a\9ab534d17de573a3d9a9a1dd1b08b56a681f1c05
 l

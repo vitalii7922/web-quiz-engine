@@ -22,10 +22,4 @@ public interface QuizRepository extends PagingAndSortingRepository<Quiz, Long> {
     long countAll();
 
     Page<Quiz> findAll(Pageable pageable);
-
-    @Modifying
-    @Transactional
-    @Query("update Quiz q set q.options = :options, q.answer = :answer where q.id = :id")
-    void updateById(@Param(value = "id") long id, @Param(value = "options") List<String> options,
-                    @Param(value = "answer") List<Integer> answer);
 }

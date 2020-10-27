@@ -29,6 +29,10 @@ public class QuizController {
 
     public static final String QUIZ_NOT_FOUND = "QUIZ DOESN'T EXIST WITH ID %d";
 
+    /**Constructor for  QuizController
+     * @param quizService service layer that has business logic
+     * @param quizMapper maps Quiz object to QuizDto object and vice versa
+     */
     public QuizController(QuizService quizService, QuizMapper quizMapper) {
         this.quizService = quizService;
         this.quizMapper = quizMapper;
@@ -87,13 +91,21 @@ public class QuizController {
     /**
      * @param quizDto quiz
      * @param id quiz id
-     * @return
+     * @return JSON with updated quiz and HTTP status ok
      */
     @PutMapping("/{id}")
     public ResponseEntity<QuizDto> updateQuiz(@Valid @RequestBody final QuizDto quizDto, @PathVariable("id") final long id) {
         return new ResponseEntity<>(quizService.updateQuizById(quizDto, id), HttpStatus.OK);
     }
 
+    /**
+     * compare answer options with quiz answers obtained by quiz id
+     *
+     * @param answer options of answers
+     * @param id quiz id
+     * @return message "success result" or "failed result" depending on either a quiz solved or not. Unless a quiz found
+     * it returns HTTP status not found
+     */
     @PostMapping(path = "/{id}/solve")
     public ResponseEntity<Result> solveQuiz(@RequestBody final Answer answer, @PathVariable final long id) {
         return Optional.ofNullable(quizService.getQuizById(id)).map(quiz -> quizService.answerIsCorrect(answer, quiz)
@@ -102,6 +114,12 @@ public class QuizController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(QUIZ_NOT_FOUND, id)));
     }
 
+    /**
+     * It's used to make JSON with errors more convenient to parse on UI
+     *
+     * @param ex Exception to be thrown when validation on an argument annotated with {@code @Valid} fails
+     * @return JSON with errors
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiError> handleException(MethodArgumentNotValidException ex) {
         List<String> errors = new ArrayList<>();

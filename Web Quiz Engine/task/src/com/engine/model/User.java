@@ -28,21 +28,4 @@ public class User {
     private List<Quiz> quizzes;
     @OneToMany(mappedBy = "user")
     private List<CompletedQuiz> completedQuizzes;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(quizzes, user.quizzes) &&
-                Objects.equals(completedQuizzes, user.completedQuizzes);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, email, password, quizzes, completedQuizzes);
-    }
 }

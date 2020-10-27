@@ -53,12 +53,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/Web Quiz Engine/task/src/com/engine/controller/Controller.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/Web Quiz Engine/task/src/com/engine/controller/QuizController.java">
           <value>
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/Web Quiz Engine/task/src/com/engine/dto/Answer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/Web Quiz Engine/task/src/com/engine/dto/QuizDto.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/Web Quiz Engine/task/src/com/engine/dto/UserDto.java">
           <value>
             <set />
           </value>

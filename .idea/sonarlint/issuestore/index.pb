@@ -59,16 +59,6 @@ h
 8Web Quiz Engine/task/src/resources/static/css/signin.css,2\c\2cd3033332b204ed2d5a6c93db3213caa8b7d385
 u
 EWeb Quiz Engine/task/src/resources/static/view/quizListCompleted.html,c\2\c260f63c41d58c0794410c3120bdf3f95b5224b5
-l
-<Web Quiz Engine/task/src/resources/static/view/quizList.html,5\4\547397e2c43ea8c0605da6274671558e8f497175
-m
-=Web Quiz Engine/task/src/resources/static/view/addedQuiz.html,1\8\18acfaa53fc9259efe9c7a26c685b9a7a4e8f3c9
-k
-;Web Quiz Engine/task/src/resources/static/view/addQuiz.html,d\1\d1128053c07ef907d7116b2d7a8099582cd15eb4
-i
-9Web Quiz Engine/task/src/resources/static/view/login.html,d\8\d83653ef5ad73de4ca37d7b5b230945b731c0dd6
-h
-8Web Quiz Engine/task/src/resources/static/view/quiz.html,e\e\ee9cdeae99c2d151d9ed14355498dd44416eec8a
 r
 BWeb Quiz Engine/task/src/com/engine/controller/UserController.java,9\a\9ab534d17de573a3d9a9a1dd1b08b56a681f1c05
 l
@@ -79,15 +69,9 @@ u
 EWeb Quiz Engine/task/src/com/engine/config/SecurityConfiguration.java,b\9\b91662111bc096cb3ba727bde965455a9c3de0f0
 l
 <Web Quiz Engine/task/src/com/engine/service/QuizService.java,4\c\4cd54515b731deaa8423d8e41668b2ea7e04dc77
-b
-2Web Quiz Engine/task/test/com/engine/UserTest.java,1\9\19bb3ae39d7450a58fbaa6b1ce22caf89fcaa126
-i
-9Web Quiz Engine/task/test/com/engine/HttpRequestTest.java,a\c\ac9b25b6b51a34b4697211b08f6f0ebf43a89e1e
 c
 3Web Quiz Engine/task/test/com/engine/ApiTester.java,f\d\fdec203f91a2baeb168c8b2ee83e7230bb931e50
 d
 4Web Quiz Engine/task/test/com/engine/TestHelper.java,c\b\cb577189e538b9a3e09cfff809ad4cd075b7a859
 k
 ;Web Quiz Engine/task/test/com/engine/WebQuizEngineTest.java,5\8\5855ea5ce2597b979b521a7a58dc35705b29c0fb
-m
-=Web Quiz Engine/task/test/com/engine/IntegrationTestQuiz.java,d\9\d92f33864b90cbfe481c791094fe91b9c4fc7198

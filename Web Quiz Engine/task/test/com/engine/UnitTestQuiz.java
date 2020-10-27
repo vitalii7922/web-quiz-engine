@@ -1,7 +1,5 @@
 package com.engine;
-
 import com.engine.dto.Answer;
-import com.engine.dto.CompletedQuizDto;
 import com.engine.dto.QuizDto;
 import com.engine.dto.Result;
 import com.engine.mapper.QuizMapper;
@@ -13,7 +11,6 @@ import com.engine.repository.QuizRepository;
 import com.engine.service.UserService;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -27,7 +24,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -129,8 +125,6 @@ class UnitTestQuiz {
                 .answer(Arrays.asList(0, 1, 3))
                 .build();
 
-//        objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
-
         mockMvc.perform(post("/api/quizzes").content(objectMapper.writeValueAsString(quizDto))
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.message", is(Collections.singletonList("Title cannot be empty"))))
@@ -152,7 +146,6 @@ class UnitTestQuiz {
 
         Result result = Result.SUCCESS_RESULT;
 
-//        objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
         Mockito.when(quizRepositoryMock.findById(1L)).thenReturn(quizMapper.toQuiz(quizDto));
 
         mockMvc.perform(post("/api/quizzes/1/solve").content(objectMapper.writeValueAsString(answer))
@@ -176,9 +169,7 @@ class UnitTestQuiz {
 
         Result result = Result.FAILURE_RESULT;
 
-//        objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
         Mockito.when(quizRepositoryMock.findById(1L)).thenReturn(quizMapper.toQuiz(quizDto));
-
         mockMvc.perform(post("/api/quizzes/1/solve").content(objectMapper.writeValueAsString(answer))
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(result)))
@@ -227,7 +218,6 @@ class UnitTestQuiz {
         when(quizRepositoryMock.countAll()).thenReturn(2L);
         when(quizRepositoryMock.findAll(page)).thenReturn(new PageImpl<>(quizList, page, 2));
         when(userServiceMock.getCurrentUser()).thenReturn(user1).thenReturn(user2);
-//        objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
         mockMvc.perform(get("/api/quizzes?page=1"))
                 .andExpect(jsonPath("$.content", hasSize(2)))
                 .andExpect(jsonPath("$.content[0].id", is(1)))
@@ -498,5 +488,4 @@ class UnitTestQuiz {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-
 }

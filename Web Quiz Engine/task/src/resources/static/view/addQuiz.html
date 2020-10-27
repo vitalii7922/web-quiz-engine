@@ -76,7 +76,6 @@
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
 <script>
-    // import renderMessage from './signup.html';
     const message = document.getElementById("message");
     message.hidden = true;
     const url = 'http://localhost:8889/api/quizzes';
@@ -88,6 +87,7 @@
     let divOptions = document.getElementById("options");
     let checkboxesNumber = 2;
 
+    //add check box
     addCheckbox.addEventListener('click', (event) => {
         event.preventDefault();
         if (checkboxesNumber < 10) {
@@ -106,6 +106,7 @@
         }
     });
 
+    //delete check box
     deleteCheckBox.addEventListener('click', (event) => {
         event.preventDefault();
         if (checkboxesNumber > 2) {
@@ -115,6 +116,7 @@
             renderMessage('You cannot leave less than two options');
         }
     });
+
 
     submitQuiz.addEventListener('click', (event) => {
         event.preventDefault();

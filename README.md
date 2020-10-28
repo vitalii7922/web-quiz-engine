@@ -7,4 +7,6 @@ Web quiz engine provides services for users such as:
 * update a quiz
 * delete a quiz
 * solve a quiz
-* obtain list of solved(completed) quizzes(with pagination) 
+* obtain list of solved(completed) quizzes(with pagination)
+* user's authorization
+* user's registration

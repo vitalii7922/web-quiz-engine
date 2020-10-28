@@ -23,14 +23,16 @@ gradle clean test
 
 Requests to API:
 
-Method        | Endpoint     |
-------------- | -------------|
-GET           | /api/quiz/{id}|  
-GET  | /api/quizzes/page={number}  |
-POST  | /api/quiz  |
-DELETE  | /api/quiz/{id}  |
-PUT  | /api/quiz/{id}  |
-POST  | /api/quiz/{id}/solve  |
+Method        | Endpoint          |Description|
+------------- | -------------      |-----------|
+GET           | /api/quiz/{id}     |obtain a quiz  
+GET  | /api/quizzes?page={number}  |obtain list of quizzes by a page number
+POST  | /api/quiz                  |add a quiz
+DELETE  | /api/quiz/{id}           |delete a quiz
+PUT  | /api/quiz/{id}              |update a quiz
+POST  | /api/quiz/{id}/solve       |solve a quiz
+GET  | /api/quiz/quizzes/completed |obtain list of completed quizzes
+POST | /api/register               |register a user
 
 ### GET REQUESTS
 

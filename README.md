@@ -58,8 +58,29 @@ POST | /api/register               |register a user
 ### Response
 
     Status: 200 OK
+    
+### Request
 
-Each request must be send with basic authorization(email and password)
+    `POST /api/register`
+
+    http://localhost:8889/api/register
+    
+    {
+     "email": "ivanov@gmail.com",
+     "password": "12345"
+    }
+
+### Response
+
+    {
+    "timestamp": "2020-10-28T13:30:18.030+0000",
+    "status": 400,
+    "error": "Bad Request",
+    "message": "Account with email ivanov@gmail.com already exists",
+    "path": "/api/register"
+    }
+    
+**Each consequent request must be send with basic authorization(email and password)**
 
 
 

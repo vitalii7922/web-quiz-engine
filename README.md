@@ -20,3 +20,7 @@ gradle bootRun
 gradle clean test
 
 ## REST API 
+
+Examples of requests
+
+### GET REQUESTS

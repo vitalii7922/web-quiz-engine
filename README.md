@@ -43,6 +43,6 @@ POST  | /api/quiz/{id}/solve       |solve a quiz
 GET  | /api/quiz/quizzes/completed |get list of completed quizzes
 POST | /api/register               |register a user
 
-### GET REQUESTS
+### EXAMPLES OF REQUESTS
 
 /api/

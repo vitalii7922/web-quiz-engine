@@ -23,10 +23,14 @@ gradle clean test
 
 Requests to API:
 
-Method        | Endpoint
-------------- | -------------
-GET  | api/quiz/{id}
-Content Cell  | Content Cell
+Method        | Endpoint     |
+------------- | -------------|
+GET           | /api/quiz/{id}|  
+GET  | /api/quizzes/page={number}  |
+POST  | /api/quiz  |
+DELETE  | /api/quiz/{id}  |
+PUT  | /api/quiz/{id}  |
+POST  | /api/quiz/{id}/solve  |
 
 ### GET REQUESTS
 

@@ -253,4 +253,4 @@ __________
 # UI version
 To open the starter page http://localhost:8889 
 ## UI screenshots
-![picture alt](https://drive.google.com/drive/folders/11ivwCmUUdEpHhR0ZVv5K7j_Ix_xjR1vu "Title is optional")
+![image](C:\Users\nefed\IdeaProjects\web-quiz-engine\Web Quiz Engine\task\src\resources\static\pictures\signIn.jpg)

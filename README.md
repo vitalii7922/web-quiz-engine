@@ -11,12 +11,12 @@ Web quiz engine provides services for users such as:
 * user's authorization
 * user's registration
 
-# Run web quiz engine
+## Run web quiz engine
 
 gradle bootRun
 
-# Run the tests
+## Run the tests
 
 gradle clean test
 
-## REST API ##
+## REST API 

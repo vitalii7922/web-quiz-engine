@@ -11,6 +11,15 @@ Web quiz engine provides services for users such as:
 * user's authorization
 * user's registration
 
+Used technologies:
+* Java SDK version 11.0.7
+* Spring Boot v. 2.2.2
+* H2 database(integrated database to SPring Boot)
+* Spring security test v. 5.1.6
+* Lombok v. 1.8.12
+* JavaScript version 1.8.5
+* Bootstrap v. 4.5.2
+
 ## Run web quiz engine
 
 gradle bootRun

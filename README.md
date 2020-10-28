@@ -25,13 +25,13 @@ Requests to API:
 
 Method        | Endpoint          |Description|
 ------------- | -------------      |-----------|
-GET           | /api/quiz/{id}     |obtain a quiz  
-GET  | /api/quizzes?page={number}  |obtain list of quizzes by a page number
-POST  | /api/quiz                  |add a quiz
+GET           | /api/quiz/{id}     |get a quiz  
+GET  | /api/quizzes?page={number}  |get list of quizzes by a page number
+POST  | /api/quiz                  |post a quiz
 DELETE  | /api/quiz/{id}           |delete a quiz
 PUT  | /api/quiz/{id}              |update a quiz
 POST  | /api/quiz/{id}/solve       |solve a quiz
-GET  | /api/quiz/quizzes/completed |obtain list of completed quizzes
+GET  | /api/quiz/quizzes/completed |get list of completed quizzes
 POST | /api/register               |register a user
 
 ### GET REQUESTS

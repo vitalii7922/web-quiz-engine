@@ -21,6 +21,13 @@ gradle clean test
 
 ## REST API 
 
-Examples of requests
+Requests to API:
+
+Method        | Endpoint
+------------- | -------------
+GET  | api/quiz/{id}
+Content Cell  | Content Cell
 
 ### GET REQUESTS
+
+/api/

@@ -10,3 +10,13 @@ Web quiz engine provides services for users such as:
 * obtain list of solved(completed) quizzes(with pagination)
 * user's authorization
 * user's registration
+
+# Run web quiz engine
+
+gradle bootRun
+
+# Run the tests
+
+gradle clean test
+
+## REST API ##

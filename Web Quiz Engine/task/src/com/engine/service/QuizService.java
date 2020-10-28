@@ -1,25 +1,27 @@
 package com.engine.service;
 
 import com.engine.controller.QuizController;
+import com.engine.dto.Answer;
+import com.engine.dto.CompletedQuizDto;
+import com.engine.dto.QuizDto;
 import com.engine.mapper.QuizMapper;
 import com.engine.model.CompletedQuiz;
 import com.engine.model.Quiz;
 import com.engine.model.User;
 import com.engine.repository.CompletedQuizRepository;
 import com.engine.repository.QuizRepository;
-import com.engine.dto.Answer;
-import com.engine.dto.CompletedQuizDto;
-import com.engine.dto.QuizDto;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class QuizService {

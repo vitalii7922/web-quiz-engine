@@ -1,12 +1,12 @@
 package com.engine.controller;
 
+import com.engine.dto.Answer;
 import com.engine.dto.CompletedQuizDto;
 import com.engine.dto.QuizDto;
+import com.engine.dto.Result;
 import com.engine.error.ApiError;
-import com.engine.dto.Answer;
 import com.engine.mapper.QuizMapper;
 import com.engine.model.Quiz;
-import com.engine.dto.Result;
 import com.engine.service.QuizService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/quizzes")

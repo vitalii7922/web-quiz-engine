@@ -43,6 +43,13 @@ POST  | /api/quiz/{id}/solve       |solve a quiz
 GET  | /api/quiz/quizzes/completed |get list of completed quizzes
 POST | /api/register               |register a user
 
-### EXAMPLES OF REQUESTS
+## EXAMPLES OF REQUESTS
 
-/api/
+http://localhost:8889/api/register
+
+###Request
+
+Each request must be send with basic authorization(email and password)
+
+
+

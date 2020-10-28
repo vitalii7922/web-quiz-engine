@@ -44,10 +44,20 @@ GET  | /api/quiz/quizzes/completed |get list of completed quizzes
 POST | /api/register               |register a user
 
 ## EXAMPLES OF REQUESTS
+### Request
 
-http://localhost:8889/api/register
+    `POST /api/register`
 
-####Request####
+    http://localhost:8889/api/register
+    
+    {
+      "email": "ivanov@gmail.com",
+      "password": "12345"
+    }
+
+### Response
+
+    Status: 200 OK
 
 Each request must be send with basic authorization(email and password)
 

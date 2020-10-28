@@ -223,7 +223,6 @@ data-toggle="modal" data-target="#modal">Delete</button>`;
     };
 
     const addMessageToModal = (title, id) => {
-        console.log('work message to modal');
         $('#message').text('Are you sure to delete the quiz with title ' + '\"' + title + '\"');
         $('#deleteButton').attr('onclick', `deleteRequest(${id})`);
     };
@@ -243,9 +242,8 @@ data-toggle="modal" data-target="#modal">Delete</button>`;
 
     const updateQuiz = (id) => {
         sessionStorage.setItem('id', id);
-        window.location.href = 'http://localhost:8889/updateQuiz';
+        window.location.assign('http://localhost:8889/updateQuiz');
     }
-
 </script>
 </body>
 </html>

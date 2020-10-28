@@ -47,7 +47,7 @@ POST | /api/register               |register a user
 
 http://localhost:8889/api/register
 
-###Request
+####Request####
 
 Each request must be send with basic authorization(email and password)
 

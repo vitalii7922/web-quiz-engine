@@ -37,8 +37,8 @@ Method        | Endpoint          |Description|
 GET           | /api/quizzes/{id}     |get a quiz  
 GET  | /api/quizzes?page  |get list of quizzes by a page number
 POST  | /api/quizzes                  |post a quiz
-DELETE  | /api/quizzes/{id}           |delete a quiz
-PUT  | /api/quizzes/{id}              |update a quiz
+DELETE  | /api/quizzes/{id}           |delete a quiz(can be deleted by the user who created it)
+PUT  | /api/quizzes/{id}              |update a quiz(can be updated by the user who created it)
 POST  | /api/quizzes/{id}/solve       |solve a quiz
 GET  | /api/quizzes/completed?page |get list of completed quizzes
 POST | /api/register               |register a user
@@ -253,4 +253,12 @@ __________
 # UI version
 To open the starter page http://localhost:8889 
 ## UI screenshots
-![image](C:\Users\nefed\IdeaProjects\web-quiz-engine\Web Quiz Engine\task\src\resources\static\pictures\signIn.jpg)
+Sign In
+![signIn](https://user-images.githubusercontent.com/51421459/97480019-ea66e280-1963-11eb-846e-19ab3bf03733.jpg)
+Submit form
+![submit](https://user-images.githubusercontent.com/51421459/97481284-a248bf80-1965-11eb-8856-eba4b847171f.jpg)
+![submitted](https://user-images.githubusercontent.com/51421459/97481289-a379ec80-1965-11eb-8d24-5e8cf472a1ce.jpg)
+List of quizzes
+![list](https://user-images.githubusercontent.com/51421459/97481623-23a05200-1966-11eb-89f9-c96c33b2bdae.jpg)
+Deletion
+![deletion](https://user-images.githubusercontent.com/51421459/97481631-256a1580-1966-11eb-9e05-645ba1d6f944.jpg)

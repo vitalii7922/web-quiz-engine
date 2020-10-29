@@ -1,10 +1,11 @@
 package com.engine.mapper;
 
-import com.engine.model.Quiz;
 import com.engine.dto.CompletedQuizDto;
 import com.engine.dto.QuizDto;
 import com.engine.model.CompletedQuiz;
+import com.engine.model.Quiz;
 import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 
 @Component

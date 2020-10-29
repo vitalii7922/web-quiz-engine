@@ -1,0 +1,50 @@
+com/engine/model/User.java
+ com.engine.model.User
+ com.engine.model.User$UserBuilder
+com/engine/model/Quiz.java
+ com.engine.model.Quiz
+ com.engine.model.Quiz$QuizBuilder
+com/engine/mapper/QuizMapper.java
+ com.engine.mapper.QuizMapper
+com/engine/dto/QuizDto.java
+ com.engine.dto.QuizDto
+ com.engine.dto.QuizDto$QuizDtoBuilder
+com/engine/model/UserImpl.java
+ com.engine.model.UserImpl
+com/engine/service/QuizService.java
+ com.engine.service.QuizService
+com/engine/WebQuizEngine.java
+ com.engine.WebQuizEngine
+com/engine/model/CompletedQuiz.java
+ com.engine.model.CompletedQuiz
+ com.engine.model.CompletedQuiz$CompletedQuizBuilder
+com/engine/error/ApiError.java
+ com.engine.error.ApiError
+com/engine/dto/UserDto.java
+ com.engine.dto.UserDto
+ com.engine.dto.UserDto$UserDtoBuilder
+com/engine/dto/Result.java
+ com.engine.dto.Result
+com/engine/repository/CompletedQuizRepository.java
+ com.engine.repository.CompletedQuizRepository
+com/engine/dto/CompletedQuizDto.java
+ com.engine.dto.CompletedQuizDto
+ com.engine.dto.CompletedQuizDto$CompletedQuizDtoBuilder
+com/engine/mapper/UserMapper.java
+ com.engine.mapper.UserMapper
+com/engine/repository/UserRepository.java
+ com.engine.repository.UserRepository
+com/engine/controller/QuizController.java
+ com.engine.controller.QuizController
+com/engine/dto/Answer.java
+ com.engine.dto.Answer
+com/engine/controller/UserController.java
+ com.engine.controller.UserController
+com/engine/repository/QuizRepository.java
+ com.engine.repository.QuizRepository
+com/engine/config/SecurityConfiguration.java
+ com.engine.config.SecurityConfiguration
+com/engine/service/UserService.java
+ com.engine.service.UserService
+com/engine/controller/AdviceController.java
+ com.engine.controller.AdviceController

@@ -26,7 +26,6 @@ public class CompletedQuiz {
     @Column(name = "quiz_id")
     private long id;
 
-
     private LocalDateTime completedAt;
 
     @ManyToOne

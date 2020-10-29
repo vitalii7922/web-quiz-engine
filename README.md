@@ -12,7 +12,7 @@ Web quiz engine provides services for users such as:
 * user's registration
 
 Used technologies:
-* Java SDK version 11.0.7
+* Java version 12.0.2
 * Spring Boot v. 2.2.2
 * H2 database(integrated database to SPring Boot)
 * Spring security test v. 5.1.6

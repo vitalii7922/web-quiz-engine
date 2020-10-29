@@ -14,7 +14,7 @@ Web quiz engine provides services for users such as:
 Used technologies:
 * Java version 12.0.2
 * Spring Boot v. 2.2.2
-* H2 database(integrated database to SPring Boot)
+* H2 database(integrated database to Spring Boot)
 * Spring security test v. 5.1.6
 * Lombok v. 1.8.12
 * JavaScript version 1.8.5

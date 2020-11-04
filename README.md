@@ -250,7 +250,7 @@ __________
            "first": true,
            "empty": false
        }
-# UI version
+# User Interface
 To open the starter page http://localhost:8889 
 ## UI screenshots
 Sign In

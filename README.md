@@ -1,4 +1,4 @@
-# Web quiz engine REST API application[![Codeship Status for vitalii7922/web-quiz-engine](https://app.codeship.com/projects/19f530db-1e8d-4965-b855-f5e9364c66e9/status?branch=master)](https://app.codeship.com/projects/416248)
+# Web quiz engine REST API application
 
 This is a simple CRUD application.
 Web quiz engine provides services for users such as:
